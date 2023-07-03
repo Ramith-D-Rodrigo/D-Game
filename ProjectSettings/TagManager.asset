@@ -6,6 +6,7 @@ TagManager:
   tags:
   - leftLeg
   - leftArm
+  - wall
   layers:
   - Default
   - TransparentFX
