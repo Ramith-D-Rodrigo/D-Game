@@ -51,7 +51,7 @@ public class LegMovement : MonoBehaviour
 
         zRotation = Math.Abs(Input.GetAxisRaw("Vertical")) * Time.deltaTime * movementSpeed * direction; //get the movement
 
-        if(Input.GetKey(KeyCode.LeftShift)){ //speed up when shift pressed
+        if(Input.GetKey(KeyCode.LeftShift) & Input.GetAxis("Vertical") > 0){ //speed up when shift pressed
             zRotation *= 1.5f;
         }
         transform.Rotate(0, 0, zRotation);
