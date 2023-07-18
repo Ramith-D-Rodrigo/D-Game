@@ -7,6 +7,7 @@ TagManager:
   - leftLeg
   - leftArm
   - wall
+  - slidingObstacle
   layers:
   - Default
   - TransparentFX
