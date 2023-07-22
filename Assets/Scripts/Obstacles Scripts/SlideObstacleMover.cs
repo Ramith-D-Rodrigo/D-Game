@@ -11,6 +11,7 @@ public class SlideObstacleMover : MonoBehaviour
     private float zPos;
     private float moveDirection = 1;
     private bool isLeft = true;
+    private Rigidbody sliderRigidBody;
     void Start()
     {
         //if zPos is negative is obstacle at the left side, otherwise right side
@@ -23,13 +24,16 @@ public class SlideObstacleMover : MonoBehaviour
             moveDirection = -1;
             isLeft = false;
         }
+
+        sliderRigidBody = this.GetComponent<Rigidbody>();
+
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        transform.Translate(Vector3.forward * Time.deltaTime * moveSpeed * moveDirection);
-
+        Vector3 target = sliderRigidBody.position + Vector3.forward * Time.deltaTime * moveSpeed * moveDirection;
+        sliderRigidBody.MovePosition(target);
         if(isLeft){ //left obstacle 
             if(transform.position.z >= maxZPos){    //reached the range boundary
                 moveDirection = -1;
