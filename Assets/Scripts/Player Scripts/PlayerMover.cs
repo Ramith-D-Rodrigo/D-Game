@@ -14,10 +14,10 @@ public class PlayerMover : MonoBehaviour
     public int direction = -1; //player moving direction
     private readonly float gravity = 9.81f;
     private float verticalVelocity = 0;
-    private Rigidbody rigidbody;
+    private Rigidbody rb;
     void Start()
     {
-        rigidbody = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -52,17 +52,16 @@ public class PlayerMover : MonoBehaviour
             }
 
             move = transform.TransformDirection(move);
-            rigidbody.velocity = move * movementSpeed * direction;
+            rb.velocity = move * movementSpeed * direction;
         }
         else{
-            rigidbody.velocity = UnityEngine.Vector3.zero;  //stop the player
+            rb.velocity = UnityEngine.Vector3.zero;  //stop the player
         }
-
     }
 
     void RotatePlayer(){
         float playerRotation = Input.GetAxis("Horizontal") * Time.fixedDeltaTime * rotationSpeed;
         UnityEngine.Quaternion deltaRotation = UnityEngine.Quaternion.Euler(0f, playerRotation, 0f);
-        rigidbody.MoveRotation(rigidbody.rotation * deltaRotation);
+        rb.MoveRotation(rb.rotation * deltaRotation);
     }
 }
