@@ -43,7 +43,6 @@ public class ArmMovement : MonoBehaviour
             }
             zRotation = Input.GetAxisRaw("VerticalArrow") * Time.deltaTime * movementSpeed;
 
-            xRotation = Input.GetAxisRaw("HorizontalArrow") * Time.deltaTime * movementSpeed * xDirection;
             transform.Rotate(xRotation, 0, zRotation, Space.Self);
             currZValue = Convert.ToInt32(transform.rotation.eulerAngles.z);
         }

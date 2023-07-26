@@ -43,9 +43,11 @@
      <Compile Include="Assets\Scripts\Player Scripts\PlayerMover.cs" />
      <Compile Include="Assets\Scripts\Player Scripts\ArmMovement.cs" />
      <Compile Include="Assets\Scripts\Player Scripts\PlayerCollision.cs" />
+     <Compile Include="Assets\Scripts\Player Scripts\PlayerInventory.cs" />
      <Compile Include="Assets\Scripts\Player Scripts\ArmCollision.cs" />
      <Compile Include="Assets\Scripts\Obstacles Scripts\SlideObstacleMover.cs" />
      <Compile Include="Assets\Scripts\Player Scripts\LegMovement.cs" />
+     <Compile Include="Assets\Scripts\Player Scripts\PlayerPickable.cs" />
     <Reference Include="UnityEngine">
         <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.2f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>

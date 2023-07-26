@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerCollision : MonoBehaviour
 {
@@ -155,6 +156,11 @@ public class PlayerCollision : MonoBehaviour
         for(int i = 0; i < transform.childCount; i++){
             Transform child = transform.GetChild(i);
             MeshRenderer mr = child.GetComponent<MeshRenderer>();
+
+            if(child.gameObject.name == "Inventory"){ //ignore inventory
+                continue;
+            }
+
             if(child.gameObject.name == "Right Leg Rotation Point" || 
             child.gameObject.name == "Left Leg Rotation Point" || 
             child.gameObject.name == "Left Arm Rotation Point" || 
