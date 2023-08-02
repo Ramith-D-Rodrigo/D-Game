@@ -10,6 +10,7 @@ TagManager:
   - slidingObstacle
   - Path
   - Hammer
+  - DroppedItemsCollection
   layers:
   - Default
   - TransparentFX

@@ -1,7 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
+using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class PlayerInventory : MonoBehaviour
 {
@@ -9,12 +12,13 @@ public class PlayerInventory : MonoBehaviour
     private int inventoryIndex;
     private int inventoryObjRotation = -45;
     private GameObject currUsingObj;
-
+    private PlayerUseObject playerUseObject;
 
     private void Start(){
         inventory = new GameObject[3]; //only three in the inventory
         inventoryIndex = 0;
         currUsingObj = null;
+        playerUseObject = this.transform.parent.GetChild(5).GetComponent<PlayerUseObject>();
     }
     public GameObject[] GetInventory(){
         return inventory;
@@ -41,6 +45,12 @@ public class PlayerInventory : MonoBehaviour
         }
         else if(Input.GetKeyDown(KeyCode.Alpha3)){
             currUsingObj = inventory[2];
+        }
+
+        if(Input.GetKeyDown(KeyCode.E)){    //use the object
+            if(currUsingObj != null){
+                UseCurrentObject(currUsingObj.gameObject.tag);
+            }
         }
     }
 
@@ -84,5 +94,13 @@ public class PlayerInventory : MonoBehaviour
             gameObject.transform.localPosition = new UnityEngine.Vector3(0, 0, 0);
             gameObject.transform.localRotation = UnityEngine.Quaternion.Euler(180, 90, inventoryObjRotation * inventoryIndex);
         }
+    }
+
+    private void UseCurrentObject(string objectType){
+        playerUseObject.UseObject("Using" + objectType);
+    }
+
+    public PlayerUseObject GetPlayerUseObject(){
+        return playerUseObject;
     }
 }

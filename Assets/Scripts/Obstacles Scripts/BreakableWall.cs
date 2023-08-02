@@ -1,0 +1,57 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class BreakableWall : MonoBehaviour
+{
+    public int hitPoints = 4;
+    private bool isBroken = false;
+    public GameObject DroppedItemsParent;
+    //private PlayerInventory playerInventory;
+
+    private void Start(){
+        DroppedItemsParent = GameObject.FindWithTag("DroppedItemsCollection");
+        //playerInventory = GameObject.FindWithTag("Player").transform.GetChild(0).GetComponent<PlayerInventory>();
+    }
+    private void OnTriggerEnter(Collider other) { //other should be a gameobject inside the inventory
+
+        if(other.gameObject.tag == "Hammer"){
+            //parent = left arm -> left arm rotation point
+            if(other.transform.parent.parent.GetComponent<PlayerUseObject>().getIsUsingObject()){
+                HammerHit();
+            }
+        }
+    }
+
+    private void HammerHit()
+    {
+        if(hitPoints <= 0 && !isBroken){
+            BreakTheWall();
+        }
+        else{
+            hitPoints--;
+        }
+    }
+
+    private void BreakTheWall()
+    {
+        //remove this object's rigidbody
+        Destroy(this.GetComponent<Rigidbody>());
+        isBroken = true;
+        int startingWallBrick = 17; //top left starting brick to open the path
+        
+        int removedChildCount = 0;
+        int currChildCount = this.transform.childCount;
+
+        while(startingWallBrick < currChildCount){
+            for(int i = 0; i < 3; i++){ //column
+                Transform child = this.transform.GetChild(startingWallBrick - 1 + i - removedChildCount);
+                child.parent = DroppedItemsParent.transform;
+                removedChildCount++; //to ammend the parent switch
+                child.gameObject.AddComponent<Rigidbody>().SetDensity(0.002f);
+            }
+            startingWallBrick += 5; //next row
+        }
+    }
+}

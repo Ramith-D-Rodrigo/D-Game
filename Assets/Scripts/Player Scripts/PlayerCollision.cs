@@ -19,6 +19,7 @@ public class PlayerCollision : MonoBehaviour
     public float healthIncreaseFactor = 10f;
     private bool isOnPath; //check whether player is on the path
     private Vector3 currCenterOfMass;
+    private Animator animator;
 
     public static float Map(float value, float inMin, float inMax, float outMin, float outMax){
         return (value - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
@@ -32,6 +33,7 @@ public class PlayerCollision : MonoBehaviour
         playerHealth = 100f;
         isOnPath = true;
         currCenterOfMass = rb.centerOfMass;
+        animator = GetComponent<Animator>();
     }
 
     private void OnCollisionEnter(Collision other) {
@@ -119,6 +121,9 @@ public class PlayerCollision : MonoBehaviour
 
     private void KillPlayer(){
         Destroy(rb);
+        animator.SetBool("isRunning", false);
+        animator.SetBool("isWalking", false);
+
         //disable all the scripts of the player movement
         this.GetComponent<PlayerMover>().enabled = false;
     
@@ -133,14 +138,6 @@ public class PlayerCollision : MonoBehaviour
 
                 //get the cubes
                 childRB = child.GetChild(0).gameObject.AddComponent<Rigidbody>();
-                
-                if(child.gameObject.name == "Right Leg Rotation Point" || child.gameObject.name == "Left Leg Rotation Point"){ //legs
-                    child.GetComponent<LegMovement>().enabled = false;
-                }
-                else{ //arms
-                    child.GetComponent<ArmMovement>().enabled = false;
-                }
-
             }
             else{
                 //any other body part (head, body)

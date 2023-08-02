@@ -10,14 +10,17 @@ public class PlayerMover : MonoBehaviour
     // Start is called before the first frame update
     public float movementSpeed = 1000f;
     public float rotationSpeed = 250f;
+    public float runningSpeedFactor = 2f;
     public float jumpSpeed = 12f;
     public int direction = -1; //player moving direction
     private readonly float gravity = 9.81f;
     private float verticalVelocity = 0;
     private Rigidbody rb;
+    private Animator playerAnimator;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        playerAnimator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -45,16 +48,23 @@ public class PlayerMover : MonoBehaviour
 
     void MoveForwardBackward(){
         if(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S)){
+            playerAnimator.SetBool("isWalking", true);
             float userInput = Input.GetAxis("Vertical");
             UnityEngine.Vector3 move = new(userInput * Time.fixedDeltaTime, 0f, 0f);
             if(Input.GetKey(KeyCode.LeftShift) && userInput > 0){ //only run forward
-                move *= 2.5f;
+                playerAnimator.SetBool("isRunning", true);
+                move *= runningSpeedFactor;
+            }
+            else{
+                playerAnimator.SetBool("isRunning", false);
             }
 
             move = transform.TransformDirection(move);
             rb.velocity = move * movementSpeed * direction;
         }
         else{
+            playerAnimator.SetBool("isRunning", false);
+            playerAnimator.SetBool("isWalking", false);
             rb.velocity = UnityEngine.Vector3.zero;  //stop the player
         }
     }

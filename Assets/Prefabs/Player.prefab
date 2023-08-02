@@ -146,7 +146,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1785045471813086989}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 873ede0ed675ccc449ff4db786cb0773, type: 3}
   m_Name: 
@@ -486,7 +486,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8928416693841198590}
-  - component: {fileID: 5481680718532761764}
   m_Layer: 0
   m_Name: Left Leg Rotation Point
   m_TagString: leftLeg
@@ -510,23 +509,6 @@ Transform:
   m_Father: {fileID: 6840780505138836625}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5481680718532761764
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5276706881955834195}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 234d5c1a2d5e17b48a4304d6b2b9e128, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movementSpeed: 250
-  upperLimit: 315
-  lowerLimit: 45
-  zRotation: 0
-  currZValue: 0
 --- !u!1 &5620866669414385749
 GameObject:
   m_ObjectHideFlags: 0
@@ -537,6 +519,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7846658684863682048}
   - component: {fileID: 7405196302539903452}
+  - component: {fileID: 1389237839144639224}
+  - component: {fileID: 2199878137966278171}
   m_Layer: 0
   m_Name: Left Arm Rotation Point
   m_TagString: leftArm
@@ -567,7 +551,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5620866669414385749}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 873ede0ed675ccc449ff4db786cb0773, type: 3}
   m_Name: 
@@ -580,6 +564,39 @@ MonoBehaviour:
   upperLimit: 170
   midPoint: 90
   lowerLimit: 45
+--- !u!95 &1389237839144639224
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5620866669414385749}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 45bfb109d14c19749b74d6e42c5bf34f, type: 2}
+  m_CullingMode: 1
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2199878137966278171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5620866669414385749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b34ee66f3c3e14c4e8e26120ecb68e05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7275535891579713658
 GameObject:
   m_ObjectHideFlags: 0
@@ -695,7 +712,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6847893476822726526}
-  - component: {fileID: 7543504733444348538}
   m_Layer: 0
   m_Name: Right Leg Rotation Point
   m_TagString: Untagged
@@ -719,23 +735,6 @@ Transform:
   m_Father: {fileID: 6840780505138836625}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7543504733444348538
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7860292143314360654}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 234d5c1a2d5e17b48a4304d6b2b9e128, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movementSpeed: 250
-  upperLimit: 315
-  lowerLimit: 45
-  zRotation: 0
-  currZValue: 0
 --- !u!1 &8202884969757311733
 GameObject:
   m_ObjectHideFlags: 0
@@ -855,9 +854,10 @@ GameObject:
   - component: {fileID: 3340710624614646958}
   - component: {fileID: 2631950178246786782}
   - component: {fileID: 1181321633873104942}
+  - component: {fileID: 3263315309005570008}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -898,6 +898,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 1000
   rotationSpeed: 250
+  runningSpeedFactor: 1.75
   jumpSpeed: 12
   direction: -1
 --- !u!54 &3340710624614646958
@@ -954,6 +955,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6f41e0b9a14abe42b6fb1bd784099e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &3263315309005570008
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8826873631620718206}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f81ef59f0de7f9c49878e80090a01f36, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &9175043687527291034
 GameObject:
   m_ObjectHideFlags: 0
