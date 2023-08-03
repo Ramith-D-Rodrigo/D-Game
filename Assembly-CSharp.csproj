@@ -48,8 +48,10 @@
      <Compile Include="Assets\Scripts\Player Scripts\ArmCollision.cs" />
      <Compile Include="Assets\Scripts\Obstacles Scripts\SlideObstacleMover.cs" />
      <Compile Include="Assets\Scripts\Player Scripts\LegMovement.cs" />
+     <Compile Include="Assets\Scripts\Environment Scripts\LampFlicker.cs" />
      <Compile Include="Assets\Scripts\Player Scripts\PlayerUseObject.cs" />
      <Compile Include="Assets\Scripts\Player Scripts\PlayerPickable.cs" />
+     <Compile Include="Assets\Scripts\Obstacles Scripts\SlidingUpWallBox.cs" />
     <Reference Include="UnityEngine">
         <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.2f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>

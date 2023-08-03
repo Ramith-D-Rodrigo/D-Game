@@ -68,17 +68,11 @@ public class PlayerInventory : MonoBehaviour
 
     private void HoldCurrentObject(){
         if(currUsingObj != null){
-            //0.17 , 0 , 0 center 
-            //radius 0.06
             //rotation (180, 0, 180)
             // position (-0.5, -0.45, 0)
             if(currUsingObj.gameObject.tag == "Hammer"){
                 currUsingObj.transform.localRotation = UnityEngine.Quaternion.Euler(180, 0, 180);
-                SphereCollider sc = currUsingObj.GetComponent<SphereCollider>();
-                sc.center = new UnityEngine.Vector3(0.17f, 0, 0);
-                sc.radius = 0.06f;
             }
-
             //add it to the left hand
 
             //5th child is arm rotation point
@@ -90,6 +84,15 @@ public class PlayerInventory : MonoBehaviour
 
     private void PutObjBackInInventory(GameObject gameObject, int inventoryIndex){
         if(gameObject != null){
+            //set sphere collider
+            if(gameObject.tag == "Hammer"){
+                //0.17 , 0 , 0 center 
+                //radius 0.06
+                SphereCollider sc = gameObject.GetComponent<SphereCollider>();
+                sc.center = new UnityEngine.Vector3(0.17f, 0, 0);
+                sc.radius = 0.06f;
+            }
+
             gameObject.transform.parent = this.transform;
             gameObject.transform.localPosition = new UnityEngine.Vector3(0, 0, 0);
             gameObject.transform.localRotation = UnityEngine.Quaternion.Euler(180, 90, inventoryObjRotation * inventoryIndex);
