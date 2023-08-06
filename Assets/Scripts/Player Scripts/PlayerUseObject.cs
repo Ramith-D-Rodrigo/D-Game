@@ -16,9 +16,13 @@ public class PlayerUseObject : MonoBehaviour
 
     public void UseObject(string parameter){
         isUsingObject = true;
-        playerArmAnimator.SetTrigger(parameter);
+        Invoke("Start" + parameter, 0);
+    }
+
+    public void StartUsingHammer(){
+        playerArmAnimator.SetTrigger("UsingHammer");
         //animation runs for 1 second then stops
-        Invoke("Stop" + parameter, 1);
+        Invoke("StopUsingHammer", 1);
     }
 
     public void StopUsingHammer(){
@@ -26,9 +30,15 @@ public class PlayerUseObject : MonoBehaviour
         playerArmAnimator.SetTrigger("UsingHammer");
     }
 
-    public bool getIsUsingObject(){
-        return isUsingObject;
+    public void StartUsingWallBrick(){
+        playerArmAnimator.SetTrigger("UsingWallBrick"); //no invoke because he holds as he can
+    }
+    public void StopUsingWallBrick(){
+        isUsingObject = false;
+        playerArmAnimator.SetTrigger("UsingWallBrick");
     }
 
-
+    public bool GetIsUsingObject(){
+        return isUsingObject;
+    }
 }

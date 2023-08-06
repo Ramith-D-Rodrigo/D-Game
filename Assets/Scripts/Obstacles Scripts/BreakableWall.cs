@@ -9,8 +9,8 @@ public class BreakableWall : MonoBehaviour
     private bool isBroken = false;
     public GameObject DroppedItemsParent;
     public float brickDensity = 0.1f;
-    public float brickDrag = 5f;
-    public float brickAngularDrag = 6f;
+    public float brickDrag = 0.1f;
+    public float brickAngularDrag = 0.1f;
     //private PlayerInventory playerInventory;
 
     private void Start(){
@@ -24,7 +24,7 @@ public class BreakableWall : MonoBehaviour
             try
             {
                 PlayerUseObject pObj = other.transform.parent.parent.GetComponent<PlayerUseObject>();
-                if(pObj.getIsUsingObject()){
+                if(pObj.GetIsUsingObject()){
                     HammerHit();
                 }
             }

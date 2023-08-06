@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using UnityEngine;
 
 public class PlayerPickable : MonoBehaviour
@@ -7,20 +8,45 @@ public class PlayerPickable : MonoBehaviour
     // Start is called before the first frame update
     private GameObject pickableObj;
     private PlayerInventory playerInventoryComponent;
+
+    private string[] pickableObjectTags = {"Hammer", "WallBrick"};
+    private Hashtable pickableObjTagCollection;
     void Start()
     {
         pickableObj = null;
+        pickableObjTagCollection = new Hashtable();
         playerInventoryComponent = this.transform.GetChild(0).GetComponent<PlayerInventory>(); //first child is the inventory object
-    }
 
-    private void OnTriggerEnter(Collider other) {
-        if(other.gameObject.tag == "Hammer"){
-            pickableObj = other.gameObject;
+        //adding at start will make the search easier
+        foreach(string objTag in pickableObjectTags){
+            pickableObjTagCollection.Add(objTag, true);
         }
     }
 
+    private void OnTriggerEnter(Collider other) {
+        SetCollidedObj(other.gameObject);
+        
+    }
+
     private void OnTriggerExit(Collider other) {
-        if(other.gameObject.tag == "Hammer"){
+        UnsetCollidedObj(other.gameObject);
+    }
+
+    private void OnCollisionEnter(Collision other) {
+        SetCollidedObj(other.gameObject);
+    }
+
+    private void OnCollisionExit(Collision other) {
+        UnsetCollidedObj(other.gameObject);
+    }
+
+    private void SetCollidedObj(GameObject obj){
+        if(pickableObjTagCollection.Contains(obj.tag)){
+            pickableObj = obj;
+        }
+    }
+    private void UnsetCollidedObj(GameObject obj){
+        if(pickableObjTagCollection.Contains(obj.tag)){
             pickableObj = null;
         }
     }
@@ -28,13 +54,44 @@ public class PlayerPickable : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(pickableObj != null & Input.GetKeyDown(KeyCode.F) & playerInventoryComponent.CanAddMore()){
-            PickUpObject();
+        if(pickableObj != null & Input.GetKeyDown(KeyCode.F)){
+            Rigidbody rigidbody = pickableObj.GetComponent<Rigidbody>();
+            //if doesnt have a rigidbody, can put in inventory
+            if(rigidbody == null){
+                if(playerInventoryComponent.CanAddMore()){
+                    AddObjectToInventory();
+                }
+                else{
+                    PickUpObject();
+                }  
+            }
+            else{
+                if(rigidbody.mass >= this.GetComponent<Rigidbody>().mass / 2){ //if the weight is above the half of player's weight
+                    //then cannot put in inventory, just pickup
+                    PickUpObject();
+
+                }
+                else{
+                    if(playerInventoryComponent.CanAddMore()){
+                        AddObjectToInventory();
+                    }  
+                }
+
+            }
         }
     }
 
-    private void PickUpObject(){
+    private void AddObjectToInventory(){
         playerInventoryComponent.InsertToInventory(pickableObj);
+        pickableObj = null;
+    }
+
+    private void PickUpObject(){
+        if(!playerInventoryComponent.GetCurrHoldingObject()){//player is not using some object
+            //then pick up
+            playerInventoryComponent.SetCurrHoldingObject(pickableObj);
+            pickableObj = null;
+        }    
     }
 
 }

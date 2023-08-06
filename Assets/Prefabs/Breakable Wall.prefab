@@ -71,7 +71,7 @@ Transform:
   - {fileID: 4861503098593753147}
   - {fileID: 3634114123832553253}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &2588352449197736996
 Rigidbody:
@@ -114,9 +114,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitPoints: 30
   DroppedItemsParent: {fileID: 0}
-  brickMass: 4
-  brickDrag: 5
-  brickAngularDrag: 6
+  brickDensity: 0.1
+  brickDrag: 0.1
+  brickAngularDrag: 0.1
 --- !u!1001 &588579626906884466
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -11,6 +11,7 @@ TagManager:
   - Path
   - Hammer
   - DroppedItemsCollection
+  - WallBrick
   layers:
   - Default
   - TransparentFX
