@@ -21,6 +21,8 @@ public class PlayerCollision : MonoBehaviour
     private Vector3 currCenterOfMass;
     private Animator animator;
 
+    public GameObject[] playerBodyParts;
+
     public static float Map(float value, float inMin, float inMax, float outMin, float outMax){
         return (value - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
     }
@@ -127,43 +129,31 @@ public class PlayerCollision : MonoBehaviour
         //disable all the scripts of the player movement
         this.GetComponent<PlayerMover>().enabled = false;
     
-        for(int i = 0; i < transform.childCount; i++){
-            Transform child = transform.GetChild(i);
-            Rigidbody childRB = null;
-            //rotation points of arms and legs
-            if(child.gameObject.name == "Right Leg Rotation Point" || 
-            child.gameObject.name == "Left Leg Rotation Point" || 
-            child.gameObject.name == "Left Arm Rotation Point" || 
-            child.gameObject.name == "Right Arm Rotation Point"){
-
-                //get the cubes
-                childRB = child.GetChild(0).gameObject.AddComponent<Rigidbody>();
-            }
-            else{
-                //any other body part (head, body)
-                childRB = child.gameObject.AddComponent<Rigidbody>();
-            }
-
-            childRB.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+        for(int i = 0; i < playerBodyParts.Length; i++){
+            GameObject bodyPart = playerBodyParts[i];
+            Rigidbody rb = bodyPart.AddComponent<Rigidbody>();
+            rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
         }
+
+        //go through all the inventory items and enable the dropping object script
+        GameObject[] playerInventory = GetComponent<PlayerInventory>().Inventory;
+
+        foreach(GameObject inventoryItem in playerInventory){
+
+            if(inventoryItem == null){
+                continue;
+            }
+            
+            inventoryItem.GetComponent<DroppingObject>().enabled = true;
+        }
+
         isPlayerDead = true;
     }
 
     private void ChangePlayerColor(){
-        for(int i = 0; i < transform.childCount; i++){
-            Transform child = transform.GetChild(i);
-            MeshRenderer mr = child.GetComponent<MeshRenderer>();
+        for(int i = 0; i < playerBodyParts.Length; i++){
+            MeshRenderer mr = playerBodyParts[i].GetComponent<MeshRenderer>();
 
-            if(child.gameObject.name == "Inventory"){ //ignore inventory
-                continue;
-            }
-
-            if(child.gameObject.name == "Right Leg Rotation Point" || 
-            child.gameObject.name == "Left Leg Rotation Point" || 
-            child.gameObject.name == "Left Arm Rotation Point" || 
-            child.gameObject.name == "Right Arm Rotation Point"){
-                mr = child.GetChild(0).GetComponent<MeshRenderer>();
-            }
             Color tempCol = mr.materials[1].color;
             mr.materials[1].color = new Color(tempCol.r, tempCol.g, tempCol.b, Map(100 - playerHealth, 0, 100, 0, 255)/255);
         }

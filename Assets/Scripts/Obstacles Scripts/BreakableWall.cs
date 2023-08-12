@@ -7,15 +7,16 @@ public class BreakableWall : MonoBehaviour
 {
     public int hitPoints = 30;
     private bool isBroken = false;
-    public GameObject DroppedItemsParent;
+
     public float brickDensity = 0.1f;
     public float brickDrag = 0.1f;
     public float brickAngularDrag = 0.1f;
     //private PlayerInventory playerInventory;
 
+    public PlayerUseObject playerUseObject;
+
     private void Start(){
-        DroppedItemsParent = GameObject.FindWithTag("DroppedItemsCollection");
-        //playerInventory = GameObject.FindWithTag("Player").transform.GetChild(0).GetComponent<PlayerInventory>();
+        hitPoints = UnityEngine.Random.Range(10, 20);
     }
     private void OnTriggerEnter(Collider other) { //other should be a gameobject inside the inventory
 
@@ -23,8 +24,7 @@ public class BreakableWall : MonoBehaviour
             //parent = left arm -> left arm rotation point0
             try
             {
-                PlayerUseObject pObj = other.transform.parent.parent.GetComponent<PlayerUseObject>();
-                if(pObj.GetIsUsingObject()){
+                if(playerUseObject.GetIsUsingObject()){
                     HammerHit();
                 }
             }
@@ -58,13 +58,16 @@ public class BreakableWall : MonoBehaviour
         while(startingWallBrick < currChildCount){
             for(int i = 0; i < 3; i++){ //column
                 Transform child = this.transform.GetChild(startingWallBrick - 1 + i - removedChildCount);
-                child.parent = DroppedItemsParent.transform;
+                child.SetParent(null);
                 removedChildCount++; //to ammend the parent switch
                 Rigidbody childRB = child.gameObject.AddComponent<Rigidbody>();
                 childRB.SetDensity(brickDensity);
                 childRB.mass = childRB.mass;
                 childRB.drag = brickDrag;
                 childRB.angularDrag = brickAngularDrag;
+
+                //enable the sphere collider
+                child.GetComponent<SphereCollider>().enabled = true;
             }
             startingWallBrick += 5; //next row
         }

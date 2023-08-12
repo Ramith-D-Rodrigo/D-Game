@@ -6,12 +6,16 @@ public class DroppingObject : MonoBehaviour
 {
     // Start is called before the first frame update
     private Rigidbody rb;
-    void Start()
+    void OnEnable()
     {
         if(this.gameObject.tag == "Hammer"){
             //add a rigidbody, remove mesh collider's is trigger
             rb = this.gameObject.AddComponent<Rigidbody>();
             this.GetComponent<MeshCollider>().isTrigger = false;
+        }
+        else if(this.gameObject.tag == "WallBrick"){
+            rb = this.GetComponent<Rigidbody>();
+            rb.isKinematic = false;
         }
     }
 
@@ -22,17 +26,27 @@ public class DroppingObject : MonoBehaviour
         //check the rigidbody is sleeping or not
         if(rb.IsSleeping()){
             if(this.gameObject.tag == "Hammer"){
-                Destroy(this.GetComponent<MeshCollider>(), 0);
-                SphereCollider sc = this.gameObject.AddComponent<SphereCollider>();
-                sc.isTrigger = true;
-                sc.radius = 0.39f;
-                sc.center.Set(0.0535097f, 4.78414e-09f, 0.18f);
+
+                //re enable sphere collider
+                GetComponent<SphereCollider>().enabled = true;
+
+                //disable mesh collider
+                MeshCollider mc = GetComponent<MeshCollider>();
+                mc.isTrigger = true;
+                mc.enabled = false;
 
                 //then remove the rigidbody
                 Destroy(this.rb, 0);
-                //then remove the script itself
-                Destroy(this, 0);
             }
+            else if(this.gameObject.tag == "WallBrick"){
+
+                //re enable sphere collider
+                GetComponent<SphereCollider>().enabled = true;
+
+            }
+
+            //disable the script
+            this.enabled = false;
         }
     }
 }

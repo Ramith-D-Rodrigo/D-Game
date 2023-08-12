@@ -53,6 +53,7 @@
      <Compile Include="Assets\Scripts\Player Scripts\PlayerUseObject.cs" />
      <Compile Include="Assets\Scripts\Player Scripts\PlayerPickable.cs" />
      <Compile Include="Assets\Scripts\Obstacles Scripts\SlidingUpWallBox.cs" />
+     <Compile Include="Assets\Scripts\Player Scripts\PlayerHoldObject.cs" />
     <Reference Include="UnityEngine">
         <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.2f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>

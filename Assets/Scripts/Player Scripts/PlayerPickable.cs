@@ -8,14 +8,18 @@ public class PlayerPickable : MonoBehaviour
     // Start is called before the first frame update
     private GameObject pickableObj;
     private PlayerInventory playerInventoryComponent;
+    private PlayerHoldObject playerHoldObjectComponent;
 
     private string[] pickableObjectTags = {"Hammer", "WallBrick"};
     private Hashtable pickableObjTagCollection;
+
+    public GameObject PickableObj { get { return pickableObj; } set { pickableObj = value; }}
     void Start()
     {
         pickableObj = null;
         pickableObjTagCollection = new Hashtable();
-        playerInventoryComponent = this.transform.GetChild(0).GetComponent<PlayerInventory>(); //first child is the inventory object
+        playerInventoryComponent = GetComponent<PlayerInventory>();
+        playerHoldObjectComponent = GetComponent<PlayerHoldObject>();
 
         //adding at start will make the search easier
         foreach(string objTag in pickableObjectTags){
@@ -32,13 +36,13 @@ public class PlayerPickable : MonoBehaviour
         UnsetCollidedObj(other.gameObject);
     }
 
-    private void OnCollisionEnter(Collision other) {
+/*     private void OnCollisionEnter(Collision other) {
         SetCollidedObj(other.gameObject);
     }
 
     private void OnCollisionExit(Collision other) {
         UnsetCollidedObj(other.gameObject);
-    }
+    } */
 
     private void SetCollidedObj(GameObject obj){
         if(pickableObjTagCollection.Contains(obj.tag)){
@@ -55,28 +59,31 @@ public class PlayerPickable : MonoBehaviour
     void Update()
     {
         if(pickableObj != null & Input.GetKeyDown(KeyCode.F)){
-            Rigidbody rigidbody = pickableObj.GetComponent<Rigidbody>();
-            //if doesnt have a rigidbody, can put in inventory
-            if(rigidbody == null){
-                if(playerInventoryComponent.CanAddMore()){
-                    AddObjectToInventory();
-                }
-                else{
-                    PickUpObject();
-                }  
+            ProcessPickUp();
+        }
+    }
+
+    public void ProcessPickUp(){
+        Rigidbody rigidbody = pickableObj.GetComponent<Rigidbody>();
+        //if doesnt have a rigidbody, can put in inventory
+        if(rigidbody == null){
+            if(playerInventoryComponent.CanAddMore()){
+                AddObjectToInventory();
             }
             else{
-                if(rigidbody.mass >= this.GetComponent<Rigidbody>().mass / 2){ //if the weight is above the half of player's weight
-                    //then cannot put in inventory, just pickup
-                    PickUpObject();
+                PickUpObject();
+            }  
+        }
+        else{
+            if(rigidbody.mass >= this.GetComponent<Rigidbody>().mass / 2){ //if the weight is above the half of player's weight
+                //then cannot put in inventory, just pickup
+                PickUpObject();
 
-                }
-                else{
-                    if(playerInventoryComponent.CanAddMore()){
-                        AddObjectToInventory();
-                    }  
-                }
-
+            }
+            else{
+                if(playerInventoryComponent.CanAddMore()){
+                    AddObjectToInventory();
+                }  
             }
         }
     }
@@ -84,13 +91,15 @@ public class PlayerPickable : MonoBehaviour
     private void AddObjectToInventory(){
         playerInventoryComponent.InsertToInventory(pickableObj);
         pickableObj = null;
+        playerHoldObjectComponent.CurrHoldingObject = null;
     }
 
     private void PickUpObject(){
-        if(!playerInventoryComponent.GetCurrHoldingObject()){//player is not using some object
+        if(!playerHoldObjectComponent.CurrHoldingObject){//player is not using some object
             //then pick up
-            playerInventoryComponent.SetCurrHoldingObject(pickableObj);
+            playerHoldObjectComponent.CurrHoldingObject = pickableObj;
             pickableObj = null;
+            playerHoldObjectComponent.HoldCurrentObject();
         }    
     }
 

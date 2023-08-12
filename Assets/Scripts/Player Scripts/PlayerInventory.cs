@@ -10,18 +10,17 @@ using UnityEngine.SceneManagement;
 public class PlayerInventory : MonoBehaviour
 {
     private GameObject[] inventory;
-    private int inventoryIndex;
-    private int inventoryObjRotation = -45;
-    private int currHoldingObjIndex;
-    public PlayerUseObject playerUseObjectLeft; //for left arm
-    public PlayerUseObject playerUseObjectRight; //for right arm
+    private readonly int inventoryObjRotation = -45;
+    private PlayerHoldObject playerHoldObject;
+
+    public PlayerUseObject playerUseObject;
+    public GameObject inventoryGameObject;
+
+    public GameObject[] Inventory { get { return inventory; } }
 
     private void Start(){
         inventory = new GameObject[3]; //only three in the inventory
-        inventoryIndex = 0;
-        currHoldingObjIndex = -1;
-        playerUseObjectLeft = this.transform.parent.GetChild(5).GetComponent<PlayerUseObject>();
-        playerUseObjectRight = this.transform.parent.GetChild(6).GetComponent<PlayerUseObject>();
+        playerHoldObject = GetComponent<PlayerHoldObject>();
     }
     public GameObject[] GetInventory(){
         return inventory;
@@ -30,39 +29,31 @@ public class PlayerInventory : MonoBehaviour
     private void Update(){
 
         //not using any object
-        if(!playerUseObjectLeft.GetIsUsingObject() && !playerUseObjectRight.GetIsUsingObject()){
+        if(!playerUseObject.GetIsUsingObject()){
             if(Input.GetKeyDown(KeyCode.Alpha1)){   //first object in the inventory
-                if(currHoldingObjIndex != 0){
-                    currHoldingObjIndex = 0;
-                    HoldCurrentObject();
-                }
-                else{ //same object, so put back to inventory
-                    PutObjBackInInventory(inventory[currHoldingObjIndex], 1);
-                    currHoldingObjIndex = -1;
+                if(playerHoldObject.CurrHoldingObject == null){
+                    playerHoldObject.CurrHoldingObject = inventory[0];
+                    inventory[0] = null;    //not in the inventory anymore
+                    playerHoldObject.HoldCurrentObject();
                 }
             }
-            else if(Input.GetKeyDown(KeyCode.Alpha2)){  //second object in the inventory
+/*             else if(Input.GetKeyDown(KeyCode.Alpha2)){  //second object in the inventory
                 currHoldingObjIndex = 1;
             }
             else if(Input.GetKeyDown(KeyCode.Alpha3)){
                 currHoldingObjIndex = 2;
-            }
+            } */
 
-            if(Input.GetKeyDown(KeyCode.E)){    //use the object
-                if(currHoldingObjIndex != -1){
-                    UseCurrentObject(inventory[currHoldingObjIndex].tag);
+/*             if(Input.GetKeyDown(KeyCode.E)){    //use the object
+                if(currHoldingObj != null){
+                    UseCurrentObject(currHoldingObj.tag);
                 }
-            }
-        }
-
-        if(currHoldingObjIndex != -1 && Input.GetKeyDown(KeyCode.F)){
-            //drop
-            DropObject();
+            } */
         }
     }
 
     public void InsertToInventory(GameObject obj){
-        int index = GetAvailableSlotInInventory();
+        int index = GetAvailableSlotInInventory();        
         inventory[index] = obj;
         PutObjBackInInventory(obj, index + 1);
     }
@@ -84,88 +75,20 @@ public class PlayerInventory : MonoBehaviour
         return true;
     }
 
-    private void HoldCurrentObject(){
-        if(currHoldingObjIndex != -1){
-
-            GameObject leftArm = this.transform.parent.GetChild(5).GetChild(0).gameObject;
-            GameObject rightArm = this.transform.parent.GetChild(6).GetChild(0).gameObject;
-
-            switch(inventory[currHoldingObjIndex].gameObject.tag){
-                case "Hammer":
-                    //rotation (180, 0, 180)
-                    // position (-0.5, -0.45, 0)
-                    inventory[currHoldingObjIndex].transform.localRotation = UnityEngine.Quaternion.Euler(180, 0, 180);
-                    //add it to the left hand
-
-                    //5th child is arm rotation point
-                    inventory[currHoldingObjIndex].transform.SetParent(leftArm.transform);
-                    inventory[currHoldingObjIndex].transform.localPosition = new UnityEngine.Vector3(-0.5f, -0.45f, 0);
-                    break;
-
-                case "WallBrick":
-                    // leftArmRotationPoint = leftArm.transform.parent.GetComponent<Transform>();
-                    //Transform rightArmRotationPoint = rightArm.transform.parent.GetComponent<Transform>();
-                    //leftArmRotationPoint.localRotation = UnityEngine.Quaternion.Euler(leftArmRotationPoint.rotation.x, leftArmRotationPoint.rotation.y, -90f);
-                    //rightArmRotationPoint.localRotation = UnityEngine.Quaternion.Euler(rightArmRotationPoint.rotation.x, rightArmRotationPoint.rotation.y, -90f);
-                    inventory[currHoldingObjIndex].transform.SetParent(leftArm.transform);
-                    inventory[currHoldingObjIndex].transform.localPosition = new UnityEngine.Vector3(-0.5f, -0.45f, 0);
-                    UseCurrentObject(inventory[currHoldingObjIndex].tag);
-                    break;
-            }      
-        }
-    }
-
-
     private void PutObjBackInInventory(GameObject gameObject, int inventoryIndex){
         if(gameObject != null){
             //set sphere collider
             if(gameObject.tag == "Hammer"){
                 //0.17 , 0 , 0 center 
                 //remove the sphere collider and give the mesh collider
-                Destroy(gameObject.GetComponent<SphereCollider>());
-
-                MeshCollider meshCollider = gameObject.AddComponent<MeshCollider>();
-                meshCollider.convex = true;
-                meshCollider.isTrigger = true;
+                gameObject.GetComponent<SphereCollider>().enabled = false;
+                gameObject.GetComponent<MeshCollider>().enabled = true;
             }
 
-            gameObject.transform.parent = this.transform;
+            //place in the inventory
+            gameObject.transform.parent = inventoryGameObject.transform;
             gameObject.transform.localPosition = new UnityEngine.Vector3(0, 0, 0);
             gameObject.transform.localRotation = UnityEngine.Quaternion.Euler(180, 90, inventoryObjRotation * inventoryIndex);
         }
-    }
-
-    private void UseCurrentObject(string objectType){
-        playerUseObjectLeft.UseObject("Using" + objectType);
-        playerUseObjectRight.UseObject("Using" + objectType);
-    }
-
-    public PlayerUseObject GetPlayerUseObjectLeft(){
-        return playerUseObjectLeft;
-    }
-
-    public PlayerUseObject GetPlayerUseObjectRight(){
-        return playerUseObjectRight;
-    }
-
-//TODO:: current error is that holding that particular object will throw error if it is not in the inventory
-    public void SetCurrHoldingObject(GameObject obj){
-        inventory[currHoldingObjIndex] = obj;
-        HoldCurrentObject();
-    } 
-
-    public GameObject GetCurrHoldingObject(){
-        return inventory[currHoldingObjIndex];
-    }
-
-    private void DropObject(){
-        inventory[currHoldingObjIndex].transform.SetParent(null, true);
-
-        //attach dropping object script
-        inventory[currHoldingObjIndex].gameObject.AddComponent<DroppingObject>();
-
-        inventory[currHoldingObjIndex] = null;
-        currHoldingObjIndex = -1;
-
     }
 }

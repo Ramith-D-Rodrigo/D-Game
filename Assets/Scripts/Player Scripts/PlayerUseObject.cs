@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerUseObject : MonoBehaviour
 {
     // Start is called before the first frame update
-    private Animator playerArmAnimator;
+    public Animator playerArmAnimator;
     private bool isUsingObject;
     void Start()
     {
@@ -15,19 +15,28 @@ public class PlayerUseObject : MonoBehaviour
     }
 
     public void UseObject(string parameter){
+        if(isUsingObject){
+            return;
+        }
+
         isUsingObject = true;
-        Invoke("Start" + parameter, 0);
+        switch(parameter){
+            case "Hammer":
+                StartCoroutine(UseHammer());
+                break;
+            
+            case "WallBrick":
+                StartUsingWallBrick();
+                break;
+        }
     }
 
-    public void StartUsingHammer(){
+
+    IEnumerator UseHammer(){
         playerArmAnimator.SetTrigger("UsingHammer");
-        //animation runs for 1 second then stops
-        Invoke("StopUsingHammer", 1);
-    }
-
-    public void StopUsingHammer(){
+        yield return new WaitForSeconds(1f);
+        playerArmAnimator.SetTrigger("UsingHammer");
         isUsingObject = false;
-        playerArmAnimator.SetTrigger("UsingHammer");
     }
 
     public void StartUsingWallBrick(){
