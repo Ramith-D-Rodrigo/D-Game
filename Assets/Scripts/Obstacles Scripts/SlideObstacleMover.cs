@@ -6,8 +6,11 @@ using UnityEngine;
 public class SlideObstacleMover : MonoBehaviour
 {
     // Start is called before the first frame update
-    public float moveSpeed = 25f;
+    public int minSpeed = 45;
+    public int maxSpeed = 75;
     public float maxZPos = 14;
+
+    public float moveSpeed;
     private float zPos;
     private float moveDirection = 1;
     private bool isLeft = true;
@@ -26,32 +29,38 @@ public class SlideObstacleMover : MonoBehaviour
         }
 
         sliderRigidBody = this.GetComponent<Rigidbody>();
-
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+        if(sliderRigidBody.position.z == zPos){ //cycle start
+            moveSpeed = UnityEngine.Random.Range(minSpeed, maxSpeed);
+        }
+    
         Vector3 target = sliderRigidBody.position + Vector3.forward * Time.deltaTime * moveSpeed * moveDirection;
         sliderRigidBody.MovePosition(target);
+
+        Vector3 rbPos = sliderRigidBody.position;
+
         if(isLeft){ //left obstacle 
-            if(transform.position.z >= maxZPos){    //reached the range boundary
+            if(rbPos.z > maxZPos){    //reached the range boundary
                 moveDirection = -1;
-                transform.position.Set(transform.position.x, transform.position.y, maxZPos - 1);
+                sliderRigidBody.position = new Vector3(rbPos.x, rbPos.y, maxZPos);
             }
-            else if(transform.position.z <= zPos){
+            else if(rbPos.z < zPos){
                 moveDirection = 1;
-                transform.position.Set(transform.position.x, transform.position.y, zPos + 1);
+                sliderRigidBody.position = new Vector3(rbPos.x, rbPos.y, zPos);
             }
         }
-        else if(!isLeft){   //right obstacle
-            if(transform.position.z <= maxZPos){    //reached the range boundary
+        else{   //right obstacle
+            if(rbPos.z < maxZPos){    //reached the range boundary
                 moveDirection = 1;
-                transform.position.Set(transform.position.x, transform.position.y, maxZPos + 1);
+                transform.position = new Vector3(rbPos.x, rbPos.y, maxZPos);
             }
-            else if(transform.position.z >= zPos){
+            else if(rbPos.z > zPos){
                 moveDirection = -1;
-                transform.position.Set(transform.position.x, transform.position.y, zPos - 1);
+                sliderRigidBody.position = new Vector3(rbPos.x, rbPos.y, zPos);
             }
         }
     }
