@@ -49,6 +49,7 @@
      <Compile Include="Assets\Scripts\Obstacles Scripts\SlideObstacleMover.cs" />
      <Compile Include="Assets\Scripts\Player Scripts\LegMovement.cs" />
      <Compile Include="Assets\Scripts\Environment Scripts\LampFlicker.cs" />
+     <Compile Include="Assets\Scripts\Obstacles Scripts\SlidingUpWallObstacle.cs" />
      <Compile Include="Assets\Scripts\Environment Scripts\DroppingObject.cs" />
      <Compile Include="Assets\Scripts\Player Scripts\PlayerUseObject.cs" />
      <Compile Include="Assets\Scripts\Player Scripts\PlayerPickable.cs" />
