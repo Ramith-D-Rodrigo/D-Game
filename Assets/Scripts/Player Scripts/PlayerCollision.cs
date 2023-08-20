@@ -20,6 +20,7 @@ public class PlayerCollision : MonoBehaviour
     private bool isOnPath; //check whether player is on the path
     private Vector3 currCenterOfMass;
     private Animator animator;
+    private PlayerHoldObject holdObjectComponent;
 
     public GameObject[] playerBodyParts;
 
@@ -36,6 +37,7 @@ public class PlayerCollision : MonoBehaviour
         isOnPath = true;
         currCenterOfMass = rb.centerOfMass;
         animator = GetComponent<Animator>();
+        holdObjectComponent = GetComponent<PlayerHoldObject>();
     }
 
     private void OnCollisionEnter(Collision other) {
@@ -145,6 +147,12 @@ public class PlayerCollision : MonoBehaviour
             }
             
             inventoryItem.GetComponent<DroppingObject>().enabled = true;
+        }
+
+        //drop the current holding object
+        GameObject currHoldingObject = holdObjectComponent.CurrHoldingObject;
+        if(currHoldingObject != null){
+            currHoldingObject.GetComponent<DroppingObject>().enabled = true;
         }
 
         isPlayerDead = true;
