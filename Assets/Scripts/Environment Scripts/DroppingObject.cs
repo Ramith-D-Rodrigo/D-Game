@@ -8,6 +8,8 @@ public class DroppingObject : MonoBehaviour
     private Rigidbody rb;
     void OnEnable()
     {
+        this.transform.SetParent(null, true);
+        
         if(this.gameObject.tag == "Hammer"){
             //add a rigidbody, remove mesh collider's is trigger
             rb = this.gameObject.AddComponent<Rigidbody>();

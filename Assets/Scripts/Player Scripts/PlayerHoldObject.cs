@@ -26,7 +26,6 @@ public class PlayerHoldObject : MonoBehaviour
     // Update is called once per frame
     void Update(){
         if(Input.GetKeyDown(KeyCode.E)){    //use the object
-            Debug.Log(currHoldingObject);
             if(currHoldingObject != null){
                 UseCurrentObject(currHoldingObject.tag);
             }
@@ -82,8 +81,6 @@ public class PlayerHoldObject : MonoBehaviour
     }
 
     private void DropObject(){
-        currHoldingObject.transform.SetParent(null, true);
-
         //enable dropping object script
         currHoldingObject.gameObject.GetComponent<DroppingObject>().enabled = true;
 
@@ -93,6 +90,5 @@ public class PlayerHoldObject : MonoBehaviour
         }
 
         currHoldingObject = null;
-
     }
 }
