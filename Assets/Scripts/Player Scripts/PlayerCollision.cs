@@ -13,7 +13,10 @@ public class PlayerCollision : MonoBehaviour
     private bool isCollededWithWall;
     private Vector3 obstacleCollisionPointNormalized;
     private Vector3 wallCollisionPointNormalized;
+
     private bool isPlayerDead;
+    public bool IsPlayerDead { get { return isPlayerDead; } }
+
     public float playerHealth;
     public float healthReduceFactor = 5f;
     public float healthIncreaseFactor = 10f;
@@ -99,6 +102,10 @@ public class PlayerCollision : MonoBehaviour
             currCenterOfMass = rb.centerOfMass;
             ReducePlayerHealth();
         }
+
+        if(isPlayerDead && Input.GetKeyDown(KeyCode.Escape)){
+            StartCoroutine(ResetPlayer());
+        }
     }
 
     private void ReducePlayerHealth(){
@@ -124,9 +131,11 @@ public class PlayerCollision : MonoBehaviour
     }
 
     private void KillPlayer(){
-        Destroy(rb);
+        rb.isKinematic = true;
         animator.SetBool("isRunning", false);
         animator.SetBool("isWalking", false);
+
+        animator.enabled = false;
 
         //disable all the scripts of the player movement
         this.GetComponent<PlayerMover>().enabled = false;
@@ -165,5 +174,51 @@ public class PlayerCollision : MonoBehaviour
             Color tempCol = mr.materials[1].color;
             mr.materials[1].color = new Color(tempCol.r, tempCol.g, tempCol.b, Map(100 - playerHealth, 0, 100, 0, 255)/255);
         }
+    }
+
+
+    private IEnumerator ResetPlayer(){
+        //pause all the animators
+/*         Animator[] allAnimators = FindObjectsOfType<Animator>();
+        foreach(Animator animator in allAnimators){
+            animator.enabled = false;
+        } */
+
+        MovementRecorder movementRecorder = GetComponent<MovementRecorder>();
+
+        float timeCounter = movementRecorder.maxRecordingSecs;
+        movementRecorder.IsResetting = true;
+
+        //remove body part rigidbodies
+        for(int i = 0; i < playerBodyParts.Length; i++){
+            GameObject bodyPart = playerBodyParts[i];
+            Rigidbody rb = bodyPart.GetComponent<Rigidbody>();
+            Destroy(rb);
+        }
+
+        while(timeCounter > 0.0f && movementRecorder.IsResetting){
+            movementRecorder.RewindPlayerLastTransformation();
+            timeCounter -= Time.fixedDeltaTime;
+            yield return null;
+        }
+
+        //enable rigidbody of player
+        rb.isKinematic = false;
+
+        //set isplayerdead
+        isPlayerDead = false;
+
+        //enable player mover script
+        this.GetComponent<PlayerMover>().enabled = true;
+
+        //enable animator
+        animator.enabled = true;
+
+        Start();
+
+/*         //re-enable all animators
+        foreach(Animator animator in allAnimators){
+            animator.enabled = true;
+        } */
     }
 }
