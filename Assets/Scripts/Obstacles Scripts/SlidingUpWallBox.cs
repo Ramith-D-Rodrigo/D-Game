@@ -6,15 +6,15 @@ using UnityEngine;
 public class SlidingUpWallBox : MonoBehaviour
 {
     // Start is called before the first frame update
-    private Animator parentWallAnimator;
     public float neededMassToOpen = 6f;
     private float currMass;
-    private bool isClosed;
+    private bool massFullFilled;
+
+    public bool MassFullFilled { get { return massFullFilled; } }
     void Start()
     {
         currMass = 0f;
-        isClosed = true;
-        parentWallAnimator = this.transform.parent.GetChild(0).GetComponent<Animator>();
+        massFullFilled = false;
     }
 
     private void OnCollisionEnter(Collision other){
@@ -37,24 +37,11 @@ public class SlidingUpWallBox : MonoBehaviour
     }
 
     private void ProcessCurrMass(){
-        Debug.Log("processing");
-        if(currMass >= neededMassToOpen && isClosed){
-            SlideDownWall();
+        if(currMass >= neededMassToOpen){
+            massFullFilled = true;
         }
-        else if(currMass < neededMassToOpen && !isClosed){
-            SlideUpWall();
+        else if(currMass < neededMassToOpen){
+            massFullFilled = false;
         }
-    }
-
-    private void SlideUpWall()
-    {
-        parentWallAnimator.SetTrigger("SlideUp");
-        isClosed = true;
-    }
-
-    private void SlideDownWall()
-    {
-        parentWallAnimator.SetTrigger("SlideDown");
-        isClosed = false;
     }
 }
