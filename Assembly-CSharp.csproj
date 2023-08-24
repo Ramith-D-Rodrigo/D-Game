@@ -40,6 +40,7 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.2f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\Player Scripts\MovementRecorder.cs" />
      <Compile Include="Assets\Scripts\Player Scripts\PlayerMover.cs" />
      <Compile Include="Assets\Scripts\Player Scripts\ArmMovement.cs" />
      <Compile Include="Assets\Scripts\Player Scripts\PlayerCollision.cs" />
@@ -51,9 +52,9 @@
      <Compile Include="Assets\Scripts\Environment Scripts\LampFlicker.cs" />
      <Compile Include="Assets\Scripts\Obstacles Scripts\SlidingUpWallObstacle.cs" />
      <Compile Include="Assets\Scripts\Environment Scripts\DroppingObject.cs" />
-     <Compile Include="Assets\MovementRecorder.cs" />
      <Compile Include="Assets\Scripts\Player Scripts\PlayerUseObject.cs" />
      <Compile Include="Assets\Scripts\Player Scripts\PlayerPickable.cs" />
+     <Compile Include="Assets\Scripts\Obstacles Scripts\SlidingDownObstacleMover.cs" />
      <Compile Include="Assets\Scripts\Obstacles Scripts\SlidingUpWallBox.cs" />
      <Compile Include="Assets\Scripts\Player Scripts\PlayerHoldObject.cs" />
     <Reference Include="UnityEngine">

@@ -24,7 +24,7 @@ public class MovementRecorder : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
 /*         if(!playerCollision.IsPlayerDead){
             startTimeCounter += Time.deltaTime;

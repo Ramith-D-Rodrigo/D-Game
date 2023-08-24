@@ -6,8 +6,8 @@ using UnityEngine;
 public class SlideObstacleMover : MonoBehaviour
 {
     // Start is called before the first frame update
-    public int minSpeed = 45;
-    public int maxSpeed = 75;
+    public int minSpeed = 40;
+    public int maxSpeed = 65;
     public float maxZPos = 14;
 
     public float moveSpeed;
@@ -15,7 +15,7 @@ public class SlideObstacleMover : MonoBehaviour
     private float moveDirection = 1;
     private bool isLeft = true;
     private Rigidbody sliderRigidBody;
-    void Start()
+    void Awake()
     {
         //if zPos is negative is obstacle at the left side, otherwise right side
         zPos = transform.position.z;
@@ -56,7 +56,7 @@ public class SlideObstacleMover : MonoBehaviour
         else{   //right obstacle
             if(rbPos.z < maxZPos){    //reached the range boundary
                 moveDirection = 1;
-                transform.position = new Vector3(rbPos.x, rbPos.y, maxZPos);
+                sliderRigidBody.position = new Vector3(rbPos.x, rbPos.y, maxZPos);
             }
             else if(rbPos.z > zPos){
                 moveDirection = -1;

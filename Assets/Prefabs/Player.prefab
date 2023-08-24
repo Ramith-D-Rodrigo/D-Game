@@ -891,7 +891,7 @@ GameObject:
   - component: {fileID: 3263315309005570008}
   - component: {fileID: 4656630423359166360}
   - component: {fileID: 4072642219436633205}
-  - component: {fileID: 2878336523336840941}
+  - component: {fileID: 4898434896942680620}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1048,7 +1048,7 @@ MonoBehaviour:
   playerUseObject: {fileID: 5905435481270428304}
   leftArm: {fileID: 3477562118927287603}
   rightArm: {fileID: 97910492611158661}
---- !u!114 &2878336523336840941
+--- !u!114 &4898434896942680620
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1057,7 +1057,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8826873631620718206}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87f2abfb91c747f4ca90b0ea98b363ec, type: 3}
+  m_Script: {fileID: 11500000, guid: b90252b050fc63a4aa461a18194d951c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   playerCollision: {fileID: 2631950178246786782}
@@ -1066,16 +1066,16 @@ MonoBehaviour:
   - {fileID: 9175043687527291034}
   - {fileID: 7275535891579713658}
   - {fileID: 2875853719353404400}
+  - {fileID: 7860292143314360654}
+  - {fileID: 5276706881955834195}
+  - {fileID: 4585978990176846697}
   - {fileID: 8202884969757311733}
   - {fileID: 5013973513797307927}
-  - {fileID: 4585978990176846697}
-  - {fileID: 97910492611158661}
-  - {fileID: 3477562118927287603}
-  - {fileID: 5620866669414385749}
   - {fileID: 1785045471813086989}
-  - {fileID: 5276706881955834195}
-  - {fileID: 7860292143314360654}
-  maxRecordingSecs: 120
+  - {fileID: 5620866669414385749}
+  - {fileID: 3477562118927287603}
+  - {fileID: 97910492611158661}
+  maxRecordingSecs: 30
 --- !u!1 &9175043687527291034
 GameObject:
   m_ObjectHideFlags: 0

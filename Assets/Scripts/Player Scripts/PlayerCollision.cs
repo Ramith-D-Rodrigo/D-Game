@@ -24,6 +24,10 @@ public class PlayerCollision : MonoBehaviour
     private Vector3 currCenterOfMass;
     private Animator animator;
     private PlayerHoldObject holdObjectComponent;
+    private Animator[] allAnimators;
+    [SerializeField] private SlideObstacleMover[] slideObstacleMovers;
+    private SlidingDownObstacleMover[] slidingDownObstacleMovers;
+
 
     public GameObject[] playerBodyParts;
 
@@ -33,14 +37,27 @@ public class PlayerCollision : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+
+        isOnPath = true;
+
+        animator = GetComponent<Animator>();
+        holdObjectComponent = GetComponent<PlayerHoldObject>();
+
+        allAnimators = FindObjectsOfType<Animator>();
+        //get all slideObstacle movers
+
+        //TODO: add the sliding down obstacles via editor
+        slidingDownObstacleMovers = FindObjectsOfType<SlidingDownObstacleMover>();
+
+        ResetPlayerStats();
+    }
+
+    private void ResetPlayerStats(){
         isCollidedWithObstacle = false;
         isCollededWithWall = false;
         isPlayerDead = false;
         playerHealth = 100f;
-        isOnPath = true;
         currCenterOfMass = rb.centerOfMass;
-        animator = GetComponent<Animator>();
-        holdObjectComponent = GetComponent<PlayerHoldObject>();
     }
 
     private void OnCollisionEnter(Collision other) {
@@ -56,6 +73,11 @@ public class PlayerCollision : MonoBehaviour
         if(other.gameObject.tag == "wall"){
             isCollededWithWall = true;
             wallCollisionPointNormalized = surfaceDirection;
+        }
+
+        if(other.gameObject.tag == "slidingDownObstacle" && Math.Abs(surfaceDirection.y) == 1){ //only y direction surface
+            //can kill player directly
+            KillPlayer();
         }
     }
 
@@ -179,10 +201,23 @@ public class PlayerCollision : MonoBehaviour
 
     private IEnumerator ResetPlayer(){
         //pause all the animators
-/*         Animator[] allAnimators = FindObjectsOfType<Animator>();
         foreach(Animator animator in allAnimators){
             animator.enabled = false;
-        } */
+        }
+        foreach(SlideObstacleMover slideObstacleMover in slideObstacleMovers){
+            slideObstacleMover.enabled = false;
+        }
+        foreach(SlidingDownObstacleMover slidingDownObstacle in slidingDownObstacleMovers){
+            slidingDownObstacle.enabled = false;
+        }
+
+        //get all animators of the player
+        Animator[] playerAnimators = this.gameObject.GetComponentsInChildren<Animator>();
+
+        //disable them
+        foreach(Animator animator in playerAnimators){
+            animator.enabled = false;
+        }
 
         MovementRecorder movementRecorder = GetComponent<MovementRecorder>();
 
@@ -211,14 +246,26 @@ public class PlayerCollision : MonoBehaviour
         //enable player mover script
         this.GetComponent<PlayerMover>().enabled = true;
 
+        //enable the animators
+        foreach(Animator animator in playerAnimators){
+            animator.enabled = true;
+        }
+
         //enable animator
         animator.enabled = true;
 
-        Start();
+        ResetPlayerStats();
 
-/*         //re-enable all animators
+        foreach(SlidingDownObstacleMover slidingDownObstacle in slidingDownObstacleMovers){
+            slidingDownObstacle.enabled = true;
+        }
+
+        foreach(SlideObstacleMover slideObstacleMover in slideObstacleMovers){
+            slideObstacleMover.enabled = true;
+        }
+        //re-enable all animators
         foreach(Animator animator in allAnimators){
             animator.enabled = true;
-        } */
+        }
     }
 }
