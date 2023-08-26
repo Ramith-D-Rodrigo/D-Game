@@ -33,7 +33,7 @@ Transform:
   - {fileID: 200283579848467423}
   - {fileID: 3745066688909157525}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &2588352449197736996
 Rigidbody:
@@ -75,6 +75,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wallAnimator: {fileID: 8124226121888469253}
+  maxDoorBoxes: 3
   zRange: {x: -9, y: 9}
   xRange: 12
   doorBoxPrefab: {fileID: 5918489360229737013, guid: e679f92921291a242ab1ca309f560d48, type: 3}

@@ -10,7 +10,7 @@ public class SlidingUpWallObstacle : MonoBehaviour
     public Animator wallAnimator;
     private bool isClosed;
     private bool isAnimating;
-    private int maxDoorBoxes;
+    [SerializeField] private int maxDoorBoxes = 4;
 
     [Tooltip("horizontal range of doorboxes: x is min, y is max")]
     public Vector2 zRange;
@@ -22,7 +22,6 @@ public class SlidingUpWallObstacle : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        maxDoorBoxes = 5;
         CreateDoorBoxes();
 
         isClosed = true; //wall is closed
@@ -91,7 +90,7 @@ public class SlidingUpWallObstacle : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         bool canOpen = true;
         foreach(SlidingUpWallBox component in doorBoxesComponents){
@@ -101,10 +100,10 @@ public class SlidingUpWallObstacle : MonoBehaviour
             }
         }
 
-        if(canOpen && isClosed){
+        if(canOpen && isClosed && wallAnimator.GetCurrentAnimatorStateInfo(0).IsName("SlidingUp")){
             SlideDownWall();
         }
-        else if(!canOpen && !isClosed){
+        else if(!canOpen && !isClosed && wallAnimator.GetCurrentAnimatorStateInfo(0).IsName("SlidingDown")){
             SlideUpWall();
         }
     }
@@ -127,7 +126,7 @@ public class SlidingUpWallObstacle : MonoBehaviour
             animatorStateInfo = wallAnimator.GetCurrentAnimatorStateInfo(0);
             yield return new WaitForEndOfFrame();
         }
-        while(animatorStateInfo.normalizedTime % 1.0f < 0.9f);
+        while(animatorStateInfo.normalizedTime % 1.0f < 0.95f);
 
         if(upState){ //wall has gone up
             isClosed = true;

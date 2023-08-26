@@ -120,7 +120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minSpeed: 40
-  maxSpeed: 65
+  maxSpeed: 55
   maxZPos: 14
   moveSpeed: 0
 --- !u!54 &3609931110636968590

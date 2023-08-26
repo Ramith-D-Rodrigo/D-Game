@@ -17,7 +17,8 @@ public class PlayerCollision : MonoBehaviour
     private bool isPlayerDead;
     public bool IsPlayerDead { get { return isPlayerDead; } }
 
-    public float playerHealth;
+    private float playerHealth;
+    public float PlayerHealth { get { return playerHealth; } set { playerHealth = value; } }
     public float healthReduceFactor = 5f;
     public float healthIncreaseFactor = 10f;
     private bool isOnPath; //check whether player is on the path
@@ -26,7 +27,7 @@ public class PlayerCollision : MonoBehaviour
     private PlayerHoldObject holdObjectComponent;
     private Animator[] allAnimators;
     [SerializeField] private SlideObstacleMover[] slideObstacleMovers;
-    private SlidingDownObstacleMover[] slidingDownObstacleMovers;
+    [SerializeField] private SlidingDownObstacleMover[] slidingDownObstacleMovers;
 
 
     public GameObject[] playerBodyParts;
@@ -38,6 +39,7 @@ public class PlayerCollision : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
 
+        playerHealth = 100f;
         isOnPath = true;
 
         animator = GetComponent<Animator>();
@@ -46,9 +48,6 @@ public class PlayerCollision : MonoBehaviour
         allAnimators = FindObjectsOfType<Animator>();
         //get all slideObstacle movers
 
-        //TODO: add the sliding down obstacles via editor
-        slidingDownObstacleMovers = FindObjectsOfType<SlidingDownObstacleMover>();
-
         ResetPlayerStats();
     }
 
@@ -56,7 +55,6 @@ public class PlayerCollision : MonoBehaviour
         isCollidedWithObstacle = false;
         isCollededWithWall = false;
         isPlayerDead = false;
-        playerHealth = 100f;
         currCenterOfMass = rb.centerOfMass;
     }
 
@@ -75,7 +73,7 @@ public class PlayerCollision : MonoBehaviour
             wallCollisionPointNormalized = surfaceDirection;
         }
 
-        if(other.gameObject.tag == "slidingDownObstacle" && Math.Abs(surfaceDirection.y) == 1){ //only y direction surface
+        if(other.gameObject.tag == "slidingDownObstacle" && Math.Abs(surfaceDirection.y) == 1 && !isPlayerDead){ //only y direction surface
             //can kill player directly
             KillPlayer();
         }
@@ -171,13 +169,14 @@ public class PlayerCollision : MonoBehaviour
         //go through all the inventory items and enable the dropping object script
         GameObject[] playerInventory = GetComponent<PlayerInventory>().Inventory;
 
-        foreach(GameObject inventoryItem in playerInventory){
+        for(int i = 0; i < playerInventory.Length; i++){
 
-            if(inventoryItem == null){
+            if(playerInventory[i] == null){
                 continue;
             }
-            
-            inventoryItem.GetComponent<DroppingObject>().enabled = true;
+
+            playerInventory[i].GetComponent<DroppingObject>().enabled = true;
+            playerInventory[i] = null; //not in inventory anymore
         }
 
         //drop the current holding object
@@ -232,7 +231,8 @@ public class PlayerCollision : MonoBehaviour
         }
 
         while(timeCounter > 0.0f && movementRecorder.IsResetting){
-            movementRecorder.RewindPlayerLastTransformation();
+            movementRecorder.RewindPlayerLastTransformation(); //also changes health (player)
+            ChangePlayerColor(); //so change the color of player
             timeCounter -= Time.fixedDeltaTime;
             yield return null;
         }
@@ -250,6 +250,8 @@ public class PlayerCollision : MonoBehaviour
         foreach(Animator animator in playerAnimators){
             animator.enabled = true;
         }
+
+        movementRecorder.IsResetting = false;
 
         //enable animator
         animator.enabled = true;

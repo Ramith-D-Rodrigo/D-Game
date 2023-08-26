@@ -976,9 +976,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 544eca8d4788cf74cb018b71b0a5deec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerHealth: 0
   healthReduceFactor: 5
   healthIncreaseFactor: 10
+  slideObstacleMovers: []
   playerBodyParts:
   - {fileID: 7275535891579713658}
   - {fileID: 2875853719353404400}
@@ -1075,7 +1075,7 @@ MonoBehaviour:
   - {fileID: 5620866669414385749}
   - {fileID: 3477562118927287603}
   - {fileID: 97910492611158661}
-  maxRecordingSecs: 30
+  maxRecordingSecs: 5
 --- !u!1 &9175043687527291034
 GameObject:
   m_ObjectHideFlags: 0
