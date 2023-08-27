@@ -19,7 +19,7 @@ GameObject:
   m_TagString: slidingObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 1
   m_IsActive: 1
 --- !u!4 &5851834817977396794
 Transform:
@@ -34,7 +34,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5993689787407102152
 MeshFilter:
@@ -119,8 +119,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 216f40a7bad321d44a1599717403d47e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minSpeed: 40
-  maxSpeed: 55
   maxZPos: 14
   moveSpeed: 0
 --- !u!54 &3609931110636968590

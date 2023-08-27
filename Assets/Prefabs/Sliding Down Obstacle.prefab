@@ -19,7 +19,7 @@ GameObject:
   m_TagString: slidingDownObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 1
   m_IsActive: 1
 --- !u!4 &5851834817977396794
 Transform:
@@ -146,6 +146,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee186510aa5c7fa4597ebe38283c2eb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minSpeed: 30
-  maxSpeed: 50
   maxYPos: 16
+  moveSpeed: 0
