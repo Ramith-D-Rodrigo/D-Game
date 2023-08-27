@@ -9,7 +9,7 @@ public class BreakableWall : MonoBehaviour
     private bool isBroken = false;
 
     public float brickDensity = 0.1f;
-    public float brickDrag = 0.1f;
+    public float brickDrag = 0.01f;
     public float brickAngularDrag = 0.1f;
     //private PlayerInventory playerInventory;
 
