@@ -978,7 +978,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthReduceFactor: 5
   healthIncreaseFactor: 10
-  slideObstacleMovers: []
+  slideObstacleMovers:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  slidingDownObstacleMovers:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   playerBodyParts:
   - {fileID: 7275535891579713658}
   - {fileID: 2875853719353404400}
