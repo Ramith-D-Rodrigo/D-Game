@@ -32,9 +32,6 @@ public class PlayerCollision : MonoBehaviour
 
     public GameObject[] playerBodyParts;
 
-    public static float Map(float value, float inMin, float inMax, float outMin, float outMax){
-        return (value - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
-    }
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -193,7 +190,7 @@ public class PlayerCollision : MonoBehaviour
             MeshRenderer mr = playerBodyParts[i].GetComponent<MeshRenderer>();
 
             Color tempCol = mr.materials[1].color;
-            mr.materials[1].color = new Color(tempCol.r, tempCol.g, tempCol.b, Map(100 - playerHealth, 0, 100, 0, 255)/255);
+            mr.materials[1].color = new Color(tempCol.r, tempCol.g, tempCol.b, Mapper.Map(100 - playerHealth, 0, 100, 0, 255)/255);
         }
     }
 
