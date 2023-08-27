@@ -28,7 +28,7 @@ public class PlayerCollision : MonoBehaviour
     private Animator[] allAnimators;
     [SerializeField] private SlideObstacleMover[] slideObstacleMovers;
     [SerializeField] private SlidingDownObstacleMover[] slidingDownObstacleMovers;
-
+    private MovementRecorder movementRecorder;
 
     public GameObject[] playerBodyParts;
 
@@ -44,6 +44,8 @@ public class PlayerCollision : MonoBehaviour
 
         allAnimators = FindObjectsOfType<Animator>();
         //get all slideObstacle movers
+
+        movementRecorder = GetComponent<MovementRecorder>();
 
         ResetPlayerStats();
     }
@@ -120,7 +122,7 @@ public class PlayerCollision : MonoBehaviour
             ReducePlayerHealth();
         }
 
-        if(isPlayerDead && Input.GetKeyDown(KeyCode.Escape)){
+        if(isPlayerDead && Input.GetKeyDown(KeyCode.Escape) && !movementRecorder.IsResetting){
             StartCoroutine(ResetPlayer());
         }
     }
@@ -196,6 +198,7 @@ public class PlayerCollision : MonoBehaviour
 
 
     private IEnumerator ResetPlayer(){
+        movementRecorder.IsResetting = true;
         //pause all the animators
         foreach(Animator animator in allAnimators){
             animator.enabled = false;
@@ -215,10 +218,8 @@ public class PlayerCollision : MonoBehaviour
             animator.enabled = false;
         }
 
-        MovementRecorder movementRecorder = GetComponent<MovementRecorder>();
-
         float timeCounter = movementRecorder.maxRecordingSecs;
-        movementRecorder.IsResetting = true;
+
 
         //remove body part rigidbodies
         for(int i = 0; i < playerBodyParts.Length; i++){
