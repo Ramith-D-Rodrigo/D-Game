@@ -5,17 +5,18 @@ using UnityEngine;
 public class SlidingDownObstacleMover : MonoBehaviour
 {
     // Start is called before the first frame update
-    public int minSpeed = 30;
-    public int maxSpeed = 50;
+    //public int minSpeed = 30;
+    //public int maxSpeed = 50;
     public float maxYPos = 16f;
 
-    private int moveSpeed;
+    [SerializeField] private float moveSpeed;
+    public float MoveSpeed {get { return moveSpeed; } set { moveSpeed = value; } }
     private int moveDirection;
 
     private Rigidbody sliderRigidBody;
     private float startYPos;
 
-    void Start()
+    void Awake()
     {
         sliderRigidBody = this.GetComponent<Rigidbody>();
         startYPos = this.transform.position.y;
@@ -26,9 +27,9 @@ public class SlidingDownObstacleMover : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(sliderRigidBody.position.y == startYPos){ //cycle start
+/*         if(sliderRigidBody.position.y == startYPos){ //cycle start
             moveSpeed = Random.Range(minSpeed, maxSpeed);
-        }
+        } */
     
         Vector3 target = sliderRigidBody.position + Vector3.down * Time.deltaTime * moveSpeed * moveDirection;
         sliderRigidBody.MovePosition(target);

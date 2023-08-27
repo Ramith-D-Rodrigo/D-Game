@@ -6,11 +6,10 @@ using UnityEngine;
 public class SlideObstacleMover : MonoBehaviour
 {
     // Start is called before the first frame update
-    public int minSpeed = 40;
-    public int maxSpeed = 65;
     public float maxZPos = 14;
 
-    public float moveSpeed;
+    [SerializeField] private float moveSpeed;
+    public float MoveSpeed {get { return moveSpeed; } set { moveSpeed = value; } }
     private float zPos;
     private float moveDirection = 1;
     private bool isLeft = true;
@@ -34,9 +33,9 @@ public class SlideObstacleMover : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(sliderRigidBody.position.z == zPos){ //cycle start
+/*         if(sliderRigidBody.position.z == zPos){ //cycle start
             moveSpeed = UnityEngine.Random.Range(minSpeed, maxSpeed);
-        }
+        } */
     
         Vector3 target = sliderRigidBody.position + Vector3.forward * Time.deltaTime * moveSpeed * moveDirection;
         sliderRigidBody.MovePosition(target);
