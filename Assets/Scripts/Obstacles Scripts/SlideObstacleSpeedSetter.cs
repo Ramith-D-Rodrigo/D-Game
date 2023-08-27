@@ -25,16 +25,12 @@ public class SlideObstacleSpeedSetter : MonoBehaviour
             
             GetXPositions(childSlideObstacleMovers);
 
-            Debug.Log(xMax + " " + xMin);
-
             SetSpeedTotheComponent(childSlideObstacleMovers);
         }
         else if(this.gameObject.name == "Sliding Down Obstacles"){
             childSlidingDownObstacleMovers = this.GetComponentsInChildren<SlidingDownObstacleMover>();
 
             GetXPositions(childSlidingDownObstacleMovers);
-
-            Debug.Log(xMax + " " + xMin);
 
             SetSpeedTotheComponent(childSlidingDownObstacleMovers);
         }
@@ -79,10 +75,9 @@ public class SlideObstacleSpeedSetter : MonoBehaviour
 
     void SetMinMaxOfXPositions(float xPos){
         if(xPos < xMin){
-            Debug.Log(xPos + " is lesser than " + xMin);
             xMin = xPos;
         }
-        
+
         if(xPos > xMax){
             xMax = xPos;
         }
