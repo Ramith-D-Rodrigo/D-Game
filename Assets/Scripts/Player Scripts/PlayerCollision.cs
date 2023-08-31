@@ -29,10 +29,11 @@ public class PlayerCollision : MonoBehaviour
     [SerializeField] private SlideObstacleMover[] slideObstacleMovers;
     [SerializeField] private SlidingDownObstacleMover[] slidingDownObstacleMovers;
     private MovementRecorder movementRecorder;
+    [SerializeField] private HUD hud;
 
     public GameObject[] playerBodyParts;
 
-    void Start()
+    void Awake()
     {
         rb = GetComponent<Rigidbody>();
 
@@ -184,6 +185,8 @@ public class PlayerCollision : MonoBehaviour
             currHoldingObject.GetComponent<DroppingObject>().enabled = true;
         }
 
+        hud.gameObject.SetActive(false);
+
         isPlayerDead = true;
     }
 
@@ -238,9 +241,6 @@ public class PlayerCollision : MonoBehaviour
         //enable rigidbody of player
         rb.isKinematic = false;
 
-        //set isplayerdead
-        isPlayerDead = false;
-
         //enable player mover script
         this.GetComponent<PlayerMover>().enabled = true;
 
@@ -267,5 +267,10 @@ public class PlayerCollision : MonoBehaviour
         foreach(Animator animator in allAnimators){
             animator.enabled = true;
         }
+
+        hud.gameObject.SetActive(true);
+
+        //set isplayerdead
+        isPlayerDead = false;
     }
 }

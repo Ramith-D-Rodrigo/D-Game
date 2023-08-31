@@ -14,6 +14,8 @@ public class PlayerPickable : MonoBehaviour
     private Hashtable pickableObjTagCollection;
 
     public GameObject PickableObj { get { return pickableObj; } set { pickableObj = value; }}
+
+    [SerializeField] private HUD hud;
     void Start()
     {
         pickableObj = null;
@@ -45,13 +47,17 @@ public class PlayerPickable : MonoBehaviour
     } */
 
     private void SetCollidedObj(GameObject obj){
-        if(pickableObjTagCollection.Contains(obj.tag)){
+        if(pickableObjTagCollection.Contains(obj.tag) && !playerHoldObjectComponent.CurrHoldingObject){
             pickableObj = obj;
+
+            hud.DisplayPickUpMessage(obj.tag);
         }
     }
     private void UnsetCollidedObj(GameObject obj){
         if(pickableObjTagCollection.Contains(obj.tag)){
             pickableObj = null;
+
+            hud.HidePickUpMessage();
         }
     }
 
@@ -60,6 +66,10 @@ public class PlayerPickable : MonoBehaviour
     {
         if(pickableObj != null & Input.GetKeyDown(KeyCode.F)){
             ProcessPickUp();
+        }
+
+        if(pickableObj == null){
+            hud.HidePickUpMessage();
         }
     }
 
