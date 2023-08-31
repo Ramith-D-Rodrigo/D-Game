@@ -13,7 +13,7 @@ public class MovementRecorder : MonoBehaviour
     [SerializeField] private PlayerCollision playerCollision;
     [SerializeField] private GameObject[] playerBodyGameObjects;
 
-    public float maxRecordingSecs;
+    public float maxRecordingSecs = 6f;
     private bool isResetting;
     public bool IsResetting {get { return isResetting; }  set { isResetting = value; } }
 
@@ -26,10 +26,6 @@ public class MovementRecorder : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-/*         if(!playerCollision.IsPlayerDead){
-            startTimeCounter += Time.deltaTime;
-        } */
-
         if(!isResetting){
             AddBodyPartCurrentTransformation();
         }

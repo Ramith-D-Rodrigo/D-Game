@@ -22,6 +22,7 @@ public class PlayerCollision : MonoBehaviour
     public float healthReduceFactor = 5f;
     public float healthIncreaseFactor = 10f;
     private bool isOnPath; //check whether player is on the path
+    private float timeTillResetMessage = 2.0f;
     private Vector3 currCenterOfMass;
     private Animator animator;
     private PlayerHoldObject holdObjectComponent;
@@ -185,9 +186,15 @@ public class PlayerCollision : MonoBehaviour
             currHoldingObject.GetComponent<DroppingObject>().enabled = true;
         }
 
-        hud.gameObject.SetActive(false);
-
         isPlayerDead = true;
+        StartCoroutine(DisplayResetMessage(timeTillResetMessage)); //display reset message after certain time
+    }
+
+    private IEnumerator DisplayResetMessage(float waitTime){
+        yield return new WaitForSeconds(waitTime);
+        if(!movementRecorder.IsResetting){
+            hud.DisplayResetMessage();
+        }
     }
 
     private void ChangePlayerColor(){
@@ -201,6 +208,9 @@ public class PlayerCollision : MonoBehaviour
 
 
     private IEnumerator ResetPlayer(){
+        hud.HideMessage();
+        hud.gameObject.SetActive(false);
+
         movementRecorder.IsResetting = true;
         //pause all the animators
         foreach(Animator animator in allAnimators){
@@ -235,7 +245,7 @@ public class PlayerCollision : MonoBehaviour
             movementRecorder.RewindPlayerLastTransformation(); //also changes health (player)
             ChangePlayerColor(); //so change the color of player
             timeCounter -= Time.fixedDeltaTime;
-            yield return null;
+            yield return new WaitForFixedUpdate();
         }
 
         //enable rigidbody of player
@@ -249,7 +259,7 @@ public class PlayerCollision : MonoBehaviour
             animator.enabled = true;
         }
 
-        movementRecorder.IsResetting = false;
+        movementRecorder.IsResetting = false; //finished resetting
 
         //enable animator
         animator.enabled = true;

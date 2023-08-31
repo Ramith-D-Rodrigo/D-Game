@@ -1004,6 +1004,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  hud: {fileID: 0}
   playerBodyParts:
   - {fileID: 7275535891579713658}
   - {fileID: 2875853719353404400}
@@ -1023,6 +1024,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6f41e0b9a14abe42b6fb1bd784099e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hud: {fileID: 0}
 --- !u!95 &3263315309005570008
 Animator:
   serializedVersion: 5
@@ -1100,7 +1102,7 @@ MonoBehaviour:
   - {fileID: 5620866669414385749}
   - {fileID: 3477562118927287603}
   - {fileID: 97910492611158661}
-  maxRecordingSecs: 5
+  maxRecordingSecs: 6
 --- !u!1 &9175043687527291034
 GameObject:
   m_ObjectHideFlags: 0

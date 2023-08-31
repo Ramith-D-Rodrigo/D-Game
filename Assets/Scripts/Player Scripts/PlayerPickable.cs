@@ -57,7 +57,7 @@ public class PlayerPickable : MonoBehaviour
         if(pickableObjTagCollection.Contains(obj.tag)){
             pickableObj = null;
 
-            hud.HidePickUpMessage();
+            hud.HideMessage();
         }
     }
 
@@ -66,10 +66,6 @@ public class PlayerPickable : MonoBehaviour
     {
         if(pickableObj != null & Input.GetKeyDown(Controls.PickUpObj)){
             ProcessPickUp();
-        }
-
-        if(pickableObj == null){
-            hud.HidePickUpMessage();
         }
     }
 
@@ -101,6 +97,7 @@ public class PlayerPickable : MonoBehaviour
     private void AddObjectToInventory(){
         playerInventoryComponent.InsertToInventory(pickableObj);
         pickableObj = null;
+        hud.HideMessage();
         playerHoldObjectComponent.CurrHoldingObject = null;
     }
 
@@ -109,6 +106,7 @@ public class PlayerPickable : MonoBehaviour
             //then pick up
             playerHoldObjectComponent.CurrHoldingObject = pickableObj;
             pickableObj = null;
+            hud.HideMessage();
             playerHoldObjectComponent.HoldCurrentObject();
         }    
     }

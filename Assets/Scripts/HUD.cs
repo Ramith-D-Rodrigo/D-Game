@@ -97,11 +97,16 @@ public class HUD : MonoBehaviour
     }
 
     public void DisplayPickUpMessage(string objectName){
-        messageText.SetText("Press F to Pick up " + objectName);
+        messageText.SetText("Press " + Controls.PickUpObj.ToString() + " to Pick up " + objectName);
         messageText.transform.parent.gameObject.SetActive(true);
     }
 
-    public void HidePickUpMessage(){
+    public void DisplayResetMessage(){
+        messageText.SetText("Press " + Controls.ResetPlayer.ToString() + " to Reset");
+        messageText.transform.parent.gameObject.SetActive(true);
+    }
+
+    public void HideMessage(){
         messageText.transform.parent.gameObject.SetActive(false);
     }
 
