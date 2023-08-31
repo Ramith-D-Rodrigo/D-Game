@@ -28,14 +28,14 @@ public class HUD : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.H)){
+        if(Input.GetKeyDown(Controls.ToggleHint)){
             ToggleHintPanelVisibility();
         }
 
-        if(Input.GetKeyDown(KeyCode.RightArrow)){ // ->
+        if(Input.GetKeyDown(Controls.NextHint)){ // ->
             DisplayNextHintMessage();
         }
-        else if(Input.GetKeyDown(KeyCode.LeftArrow)){  // <- 
+        else if(Input.GetKeyDown(Controls.PrevHint)){  // <- 
             DisplayPreviousHintMessage();
         }
     }

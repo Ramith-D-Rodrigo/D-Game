@@ -25,19 +25,19 @@ public class PlayerHoldObject : MonoBehaviour
 
     // Update is called once per frame
     void Update(){
-        if(Input.GetKeyDown(KeyCode.E)){    //use the object
+        if(Input.GetKeyDown(Controls.UseObj)){    //use the object
             if(currHoldingObject != null){
                 UseCurrentObject(currHoldingObject.tag);
             }
         }
 
         
-        if(CurrHoldingObject != null && Input.GetKeyDown(KeyCode.G)){
+        if(CurrHoldingObject != null && Input.GetKeyDown(Controls.DropObj)){
             //drop
             DropObject();
         }
 
-        if(Input.GetKeyDown(KeyCode.F) && currHoldingObject != null){    //putting back to inventory check
+        if(Input.GetKeyDown(Controls.PickUpObj) && currHoldingObject != null){    //putting back to inventory check
             playerPickable.PickableObj = currHoldingObject;
             playerPickable.ProcessPickUp();
         }

@@ -64,7 +64,7 @@ public class PlayerPickable : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(pickableObj != null & Input.GetKeyDown(KeyCode.F)){
+        if(pickableObj != null & Input.GetKeyDown(Controls.PickUpObj)){
             ProcessPickUp();
         }
 

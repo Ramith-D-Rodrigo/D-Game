@@ -123,7 +123,7 @@ public class PlayerCollision : MonoBehaviour
             ReducePlayerHealth();
         }
 
-        if(isPlayerDead && Input.GetKeyDown(KeyCode.Escape) && !movementRecorder.IsResetting){
+        if(isPlayerDead && Input.GetKeyDown(Controls.ResetPlayer) && !movementRecorder.IsResetting){
             StartCoroutine(ResetPlayer());
         }
     }

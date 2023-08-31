@@ -47,11 +47,12 @@ public class PlayerMover : MonoBehaviour
         } */
 
     void MoveForwardBackward(){
-        if(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S)){
+        if(Input.GetKey(Controls.GoForward) || Input.GetKey(Controls.GoBackward)){
             playerAnimator.SetBool("isWalking", true);
             float userInput = Input.GetAxis("Vertical");
             UnityEngine.Vector3 move = new(userInput * Time.fixedDeltaTime, 0f, 0f);
-            if(Input.GetKey(KeyCode.LeftShift) && userInput > 0){ //only run forward
+            
+            if(Input.GetKey(Controls.Running) && userInput > 0){ //only run forward
                 playerAnimator.SetBool("isRunning", true);
                 move *= runningSpeedFactor;
             }
