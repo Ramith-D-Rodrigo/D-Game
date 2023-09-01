@@ -53,6 +53,7 @@
      <Compile Include="Assets\Scripts\Environment Scripts\LampFlicker.cs" />
      <Compile Include="Assets\Scripts\Main Menu Scripts\MainMenu.cs" />
      <Compile Include="Assets\Scripts\Obstacles Scripts\SlidingUpWallObstacle.cs" />
+     <Compile Include="Assets\Scripts\Player Scripts\PlayerLevel.cs" />
      <Compile Include="Assets\Scripts\Pause Menu Scripts\PauseMenu.cs" />
      <Compile Include="Assets\Scripts\Environment Scripts\DroppingObject.cs" />
      <Compile Include="Assets\Scripts\Player Scripts\PlayerUseObject.cs" />
