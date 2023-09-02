@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class BreakableWall : MonoBehaviour
@@ -15,8 +16,21 @@ public class BreakableWall : MonoBehaviour
 
     public PlayerUseObject playerUseObject;
 
+    [SerializeField] private TextMeshProUGUI hitPointsText;
+    [SerializeField] private float amountOfDisplayTimeInSeconds = 2.0f;
+
+    private bool isTextDisplaying;
+
     private void Start(){
         hitPoints = UnityEngine.Random.Range(10, 20);
+
+        hitPointsText.transform.parent.gameObject.SetActive(false);
+        hitPointsText.SetText(hitPoints.ToString());
+        isTextDisplaying = false;
+    }
+
+    private void Update(){
+        ShowHitPoints();
     }
     private void OnTriggerEnter(Collider other) { //other should be a gameobject inside the inventory
 
@@ -42,7 +56,25 @@ public class BreakableWall : MonoBehaviour
         }
         else{
             hitPoints--;
+
+            if(!isTextDisplaying){
+                StartCoroutine(DisplayHitPointsText(amountOfDisplayTimeInSeconds));
+            }
         }
+    }
+
+    private void ShowHitPoints(){
+        hitPointsText.SetText(hitPoints.ToString());
+    }
+
+    private IEnumerator DisplayHitPointsText(float amountOfDisplayTimeInSeconds){
+        isTextDisplaying = true;
+        hitPointsText.transform.parent.gameObject.SetActive(true);
+
+        yield return new WaitForSeconds(amountOfDisplayTimeInSeconds);
+
+        hitPointsText.transform.parent.gameObject.SetActive(false);
+        isTextDisplaying = false;
     }
 
     private void BreakTheWall()
