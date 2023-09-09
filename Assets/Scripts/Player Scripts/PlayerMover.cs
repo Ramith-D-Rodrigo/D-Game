@@ -66,7 +66,7 @@ public class PlayerMover : MonoBehaviour
         else{
             playerAnimator.SetBool("isRunning", false);
             playerAnimator.SetBool("isWalking", false);
-            rb.velocity = UnityEngine.Vector3.zero;  //stop the player
+            rb.velocity = new UnityEngine.Vector3(0.0f, rb.velocity.y, 0.0f);  //stop the player
         }
     }
 

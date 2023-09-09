@@ -41,6 +41,13 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Player Scripts\MovementRecorder.cs" />
+     <Compile Include="Assets\Scripts\Obstacles Scripts\SlideObstacleMover.cs" />
+     <Compile Include="Assets\Scripts\Player Scripts\LegMovement.cs" />
+     <Compile Include="Assets\Scripts\Main Menu Scripts\MainMenu.cs" />
+     <Compile Include="Assets\Scripts\Pause Menu Scripts\PauseMenu.cs" />
+     <Compile Include="Assets\Scripts\Environment Scripts\DroppingObject.cs" />
+     <Compile Include="Assets\Scripts\Player Scripts\PlayerPickable.cs" />
+     <Compile Include="Assets\Scripts\Obstacles Scripts\SlidingUpWallBox.cs" />
      <Compile Include="Assets\Scripts\Player Scripts\PlayerMover.cs" />
      <Compile Include="Assets\Scripts\Mapper.cs" />
      <Compile Include="Assets\Scripts\Player Scripts\ArmMovement.cs" />
@@ -48,22 +55,16 @@
      <Compile Include="Assets\Scripts\Player Scripts\PlayerInventory.cs" />
      <Compile Include="Assets\Scripts\Obstacles Scripts\BreakableWall.cs" />
      <Compile Include="Assets\Scripts\Player Scripts\ArmCollision.cs" />
-     <Compile Include="Assets\Scripts\Obstacles Scripts\SlideObstacleMover.cs" />
-     <Compile Include="Assets\Scripts\Player Scripts\LegMovement.cs" />
      <Compile Include="Assets\Scripts\Environment Scripts\LampFlicker.cs" />
-     <Compile Include="Assets\Scripts\Main Menu Scripts\MainMenu.cs" />
      <Compile Include="Assets\Scripts\Obstacles Scripts\SlidingUpWallObstacle.cs" />
      <Compile Include="Assets\Scripts\Player Scripts\PlayerLevel.cs" />
-     <Compile Include="Assets\Scripts\Pause Menu Scripts\PauseMenu.cs" />
-     <Compile Include="Assets\Scripts\Environment Scripts\DroppingObject.cs" />
      <Compile Include="Assets\Scripts\Player Scripts\PlayerUseObject.cs" />
-     <Compile Include="Assets\Scripts\Player Scripts\PlayerPickable.cs" />
      <Compile Include="Assets\Scripts\Obstacles Scripts\SlidingDownObstacleMover.cs" />
-     <Compile Include="Assets\Scripts\Obstacles Scripts\SlidingUpWallBox.cs" />
      <Compile Include="Assets\Scripts\Player Scripts\PlayerHoldObject.cs" />
      <Compile Include="Assets\Scripts\Controls.cs" />
      <Compile Include="Assets\Scripts\Obstacles Scripts\SlideObstacleSpeedSetter.cs" />
      <Compile Include="Assets\Scripts\HUD.cs" />
+     <None Include="Assets\External Assets\TerrainSampleAssets\ThirdPartyNotices.txt" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
@@ -84,6 +85,7 @@
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader" />
      <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile.shader" />
+     <None Include="Assets\External Assets\TerrainSampleAssets\ShaderGraphs\CustomFunctions\CustomLighting.hlsl" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Sprite.shader" />
     <Reference Include="UnityEngine">
         <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.2f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
@@ -706,14 +708,86 @@
     <Reference Include="System.Xml.Serialization">
         <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.2f1\Editor\Data\NetStandard\compat\2.1.0\shims\netfx\System.Xml.Serialization.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.EditorCoroutines.Editor">
-        <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\Unity.EditorCoroutines.Editor.dll</HintPath>
+    <Reference Include="Unity.VisualEffectGraph.Runtime">
+        <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\Unity.VisualEffectGraph.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.Core.Runtime">
+        <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\Unity.RenderPipelines.Core.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="com.unity.cinemachine.editor">
         <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\com.unity.cinemachine.editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Burst.Editor">
+        <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\Unity.Burst.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.ProBuilder.AddOns.Editor">
+        <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\Unity.ProBuilder.AddOns.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Rider.Editor">
+        <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\Unity.Rider.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.Core.Editor">
+        <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\Unity.RenderPipelines.Core.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.VisualScripting.Flow">
+        <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\Unity.VisualScripting.Flow.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Mathematics.Editor">
+        <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\Unity.Mathematics.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.VisualEffectGraph.Editor">
+        <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\Unity.VisualEffectGraph.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.TestTools.CodeCoverage.Editor.OpenCover.Mono.Reflection">
+        <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\Unity.TestTools.CodeCoverage.Editor.OpenCover.Mono.Reflection.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.HighDefinition.Config.Runtime">
+        <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\Unity.RenderPipelines.HighDefinition.Config.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Performance.Profile-Analyzer.Editor">
+        <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\Unity.Performance.Profile-Analyzer.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.TestTools.CodeCoverage.Editor">
+        <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\Unity.TestTools.CodeCoverage.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.Core.ShaderLibrary">
+        <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\Unity.RenderPipelines.Core.ShaderLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="PPv2URPConverters">
+        <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\PPv2URPConverters.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.TextMeshPro">
+        <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\Unity.TextMeshPro.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.ProBuilder.AssetIdRemapUtility">
+        <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\Unity.ProBuilder.AssetIdRemapUtility.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.VSCode.Editor">
+        <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\Unity.VSCode.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.Universal.Editor">
+        <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.HighDefinition.Editor">
+        <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\Unity.RenderPipelines.HighDefinition.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary">
+        <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.EditorCoroutines.Editor">
+        <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\Unity.EditorCoroutines.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.TerrainTools.Editor">
+        <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\Unity.TerrainTools.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.Universal.Runtime">
+        <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Runtime.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.PlasticSCM.Editor">
         <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Burst">
+        <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\Unity.Burst.dll</HintPath>
     </Reference>
     <Reference Include="Unity.ProBuilder">
         <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\Unity.ProBuilder.dll</HintPath>
@@ -723,6 +797,12 @@
     </Reference>
     <Reference Include="Unity.VisualScripting.Shared.Editor">
         <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\Unity.VisualScripting.Shared.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.TerrainTools">
+        <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\Unity.TerrainTools.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.ShaderGraph.Editor">
+        <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\Unity.ShaderGraph.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualStudio.Editor">
         <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll</HintPath>
@@ -739,23 +819,14 @@
     <Reference Include="Unity.VisualScripting.Core.Editor">
         <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\Unity.VisualScripting.Core.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.ProBuilder.AddOns.Editor">
-        <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\Unity.ProBuilder.AddOns.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Rider.Editor">
-        <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\Unity.Rider.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.VisualScripting.Flow">
-        <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\Unity.VisualScripting.Flow.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.VisualScripting.Flow.Editor">
         <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\Unity.VisualScripting.Flow.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.RenderPipeline.Universal.ShaderLibrary">
+        <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\Unity.RenderPipeline.Universal.ShaderLibrary.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Timeline">
         <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\Unity.Timeline.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.TestTools.CodeCoverage.Editor.OpenCover.Mono.Reflection">
-        <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\Unity.TestTools.CodeCoverage.Editor.OpenCover.Mono.Reflection.dll</HintPath>
     </Reference>
     <Reference Include="Unity.ProBuilder.Editor">
         <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\Unity.ProBuilder.Editor.dll</HintPath>
@@ -763,35 +834,32 @@
     <Reference Include="Unity.VisualScripting.SettingsProvider.Editor">
         <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\Unity.VisualScripting.SettingsProvider.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.Performance.Profile-Analyzer.Editor">
-        <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\Unity.Performance.Profile-Analyzer.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.TestTools.CodeCoverage.Editor">
-        <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\Unity.TestTools.CodeCoverage.Editor.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.TestTools.CodeCoverage.Editor.OpenCover.Model">
         <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\Unity.TestTools.CodeCoverage.Editor.OpenCover.Model.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualScripting.State.Editor">
         <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\Unity.VisualScripting.State.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.TextMeshPro">
-        <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\Unity.TextMeshPro.dll</HintPath>
+    <Reference Include="Unity.Mathematics">
+        <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\Unity.Mathematics.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
         <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.ProBuilder.AssetIdRemapUtility">
-        <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\Unity.ProBuilder.AssetIdRemapUtility.dll</HintPath>
+    <Reference Include="Unity.Searcher.Editor">
+        <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\Unity.Searcher.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.Universal.Shaders">
+        <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Shaders.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualScripting.State">
         <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\Unity.VisualScripting.State.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.VSCode.Editor">
-        <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\Unity.VSCode.Editor.dll</HintPath>
-    </Reference>
     <Reference Include="Cinemachine">
         <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\Cinemachine.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.HighDefinition.Runtime">
+        <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\Unity.RenderPipelines.HighDefinition.Runtime.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
