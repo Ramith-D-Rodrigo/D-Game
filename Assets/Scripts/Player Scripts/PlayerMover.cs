@@ -61,7 +61,9 @@ public class PlayerMover : MonoBehaviour
             }
 
             move = transform.TransformDirection(move);
-            rb.velocity = move * movementSpeed * direction;
+            move = move * movementSpeed * direction;
+            move.y = rb.velocity.y;
+            rb.velocity = move;
         }
         else{
             playerAnimator.SetBool("isRunning", false);

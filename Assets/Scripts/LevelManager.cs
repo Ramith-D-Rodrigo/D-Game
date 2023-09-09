@@ -7,15 +7,13 @@ using UnityEngine.SceneManagement;
 public class LevelManager : MonoBehaviour
 {
     // Start is called before the first frame update
-    [Header("General Attributes")]
     private int currLevelIndex;
+    public int CurrLevelIndex { get { return currLevelIndex; } }
 
+    [Header("General Attributes")]
     [SerializeField] private GameObject player;
     [SerializeField] private Light directionalLight;
 
-    [Header("Level 2 Attributes")]
-
-    [SerializeField] private BoxCollider lightSwitchingCollider;
 
     void Awake()
     {

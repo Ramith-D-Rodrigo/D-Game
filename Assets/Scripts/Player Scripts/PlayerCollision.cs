@@ -9,10 +9,17 @@ public class PlayerCollision : MonoBehaviour
 {
     // Start is called before the first frame update
     private Rigidbody rb;
+
+    //LEVEL 1 ATTRIBUTES
     private bool isCollidedWithObstacle;
     private bool isCollededWithWall;
     private Vector3 obstacleCollisionPointNormalized;
     private Vector3 wallCollisionPointNormalized;
+    private bool isOnPath; //check whether player is on the path
+
+
+    //LEVEL 2 ATTRIBTUES
+    private bool isOnTerrain;
 
     private bool isPlayerDead;
     public bool IsPlayerDead { get { return isPlayerDead; } }
@@ -21,7 +28,7 @@ public class PlayerCollision : MonoBehaviour
     public float PlayerHealth { get { return playerHealth; } set { playerHealth = value; } }
     public float healthReduceFactor = 5f;
     public float healthIncreaseFactor = 10f;
-    private bool isOnPath; //check whether player is on the path
+
     private float timeTillResetMessage = 2.0f;
     private Vector3 currCenterOfMass;
     private Animator animator;
@@ -32,6 +39,8 @@ public class PlayerCollision : MonoBehaviour
     private MovementRecorder movementRecorder;
     [SerializeField] private HUD hud;
 
+    [SerializeField] private LevelManager levelManager;
+
     public GameObject[] playerBodyParts;
 
     void Awake()
@@ -40,6 +49,10 @@ public class PlayerCollision : MonoBehaviour
 
         playerHealth = 100f;
         isOnPath = true;
+        isOnTerrain = true;
+
+        currCenterOfMass = rb.centerOfMass;
+        Debug.Log(currCenterOfMass);
 
         animator = GetComponent<Animator>();
         holdObjectComponent = GetComponent<PlayerHoldObject>();
@@ -56,74 +69,69 @@ public class PlayerCollision : MonoBehaviour
         isCollidedWithObstacle = false;
         isCollededWithWall = false;
         isPlayerDead = false;
-        currCenterOfMass = rb.centerOfMass;
+        rb.ResetCenterOfMass();
     }
 
     private void OnCollisionEnter(Collision other) {
-        ContactPoint contact = other.GetContact(0);
-        Vector3 surfaceDirection = contact.normal;
+        int currLevel = levelManager.CurrLevelIndex;
 
-        //slider collision
-        if(other.gameObject.tag == "slidingObstacle" && Math.Abs(surfaceDirection.z) == 1){ //only z direction surface
-            isCollidedWithObstacle = true;
-            obstacleCollisionPointNormalized = surfaceDirection;
+        switch(currLevel){
+            case 1:
+                ProcessLevelOneCollisionEnter(other);
+                break;
+            
+            case 2:
+                ProcessLevelTwoCollisionEnter(other);
+                break;
         }
 
-        if(other.gameObject.tag == "wall"){
-            isCollededWithWall = true;
-            wallCollisionPointNormalized = surfaceDirection;
-        }
-
-        if(other.gameObject.tag == "slidingDownObstacle" && Math.Abs(surfaceDirection.y) == 1 && !isPlayerDead){ //only y direction surface
-            //can kill player directly
-            KillPlayer();
-        }
     }
 
     private void OnCollisionExit(Collision other) {
-        if(other.gameObject.tag == "slidingObstacle"){
-            isCollidedWithObstacle = false;
-        }
 
-        if(other.gameObject.tag == "wall"){
-            isCollededWithWall = false;
-        }
+        int currLevel = levelManager.CurrLevelIndex;
 
-        if(other.gameObject.tag == "Path"){
-            isOnPath = false;
+        switch(currLevel){
+            case 1:
+                ProcessLevelOneCollisionExit(other);
+                break;
+            
+            case 2:
+                ProcessLevelTwoCollisionExit(other);
+                break;
         }
     }
 
     private void OnCollisionStay(Collision other) {
-        //path
-        if(other.gameObject.tag == "Path"){
-            isOnPath = true;
+
+        int currLevel = levelManager.CurrLevelIndex;
+
+        switch(currLevel){
+            case 1:
+                ProcessLevelOneCollisionStay(other);
+                break;
+            
+            case 2:
+                ProcessLevelTwoCollisionStay(other);
+                break;
         }
     }
 
     private void Update() {
-        //normalized vector check for opposing wall and obstacle surfaces
-        if(isCollededWithWall && isCollidedWithObstacle && !isPlayerDead && obstacleCollisionPointNormalized.z != wallCollisionPointNormalized.z){  
-            KillPlayer();
+
+        int currLevel = levelManager.CurrLevelIndex;
+
+        switch(currLevel){
+            case 1:
+                ProcessLevelOneUpdate();
+                break;
+            
+            case 2:
+                ProcessLevelTwoUpdate();
+                break;
         }
 
-        if(!isOnPath && !isPlayerDead){  //not on path and player is still alive
-            ReducePlayerHealth(); //reduce the health
-        }
-        else if(isOnPath && !isPlayerDead){ //on the path and player is still alive
-            IncreasePlayerHealth();
-        }
-
-        //update the current center of mass
-        if(!isPlayerDead && currCenterOfMass.y != rb.centerOfMass.y){ //center of mass has been changed (on y coordinate)
-            currCenterOfMass = rb.centerOfMass;
-            ReducePlayerHealth();
-        }
-        else if(!isPlayerDead && currCenterOfMass.z != rb.centerOfMass.z && !isOnPath){
-            currCenterOfMass = rb.centerOfMass;
-            ReducePlayerHealth();
-        }
-
+        //general scenario for all levels
         if(isPlayerDead && Input.GetKeyDown(Controls.ResetPlayer) && !movementRecorder.IsResetting){
             StartCoroutine(ResetPlayer());
         }
@@ -216,11 +224,9 @@ public class PlayerCollision : MonoBehaviour
         foreach(Animator animator in allAnimators){
             animator.enabled = false;
         }
-        foreach(SlideObstacleMover slideObstacleMover in slideObstacleMovers){
-            slideObstacleMover.enabled = false;
-        }
-        foreach(SlidingDownObstacleMover slidingDownObstacle in slidingDownObstacleMovers){
-            slidingDownObstacle.enabled = false;
+
+        if(levelManager.CurrLevelIndex == 1){
+            DisableSlidingObstacles();
         }
 
         //get all animators of the player
@@ -264,15 +270,12 @@ public class PlayerCollision : MonoBehaviour
         //enable animator
         animator.enabled = true;
 
+        if(levelManager.CurrLevelIndex == 1){
+            EnableSlidingObstacles();
+        }
+
         ResetPlayerStats();
 
-        foreach(SlidingDownObstacleMover slidingDownObstacle in slidingDownObstacleMovers){
-            slidingDownObstacle.enabled = true;
-        }
-
-        foreach(SlideObstacleMover slideObstacleMover in slideObstacleMovers){
-            slideObstacleMover.enabled = true;
-        }
         //re-enable all animators
         foreach(Animator animator in allAnimators){
             animator.enabled = true;
@@ -283,4 +286,135 @@ public class PlayerCollision : MonoBehaviour
         //set isplayerdead
         isPlayerDead = false;
     }
+
+
+    //----------------------------------------- LEVEL 1 FUNCTIONS ------------------------------------------------
+
+
+    private void ProcessLevelOneCollisionEnter(Collision other)
+    {
+        ContactPoint contact = other.GetContact(0);
+        Vector3 surfaceDirection = contact.normal;
+
+        //slider collision
+        if(other.gameObject.tag == "slidingObstacle" && Math.Abs(surfaceDirection.z) == 1){ //only z direction surface
+            isCollidedWithObstacle = true;
+            obstacleCollisionPointNormalized = surfaceDirection;
+        }
+
+        if(other.gameObject.tag == "wall"){
+            isCollededWithWall = true;
+            wallCollisionPointNormalized = surfaceDirection;
+        }
+
+        if(other.gameObject.tag == "slidingDownObstacle" && Math.Abs(surfaceDirection.y) == 1 && !isPlayerDead){ //only y direction surface
+            //can kill player directly
+            KillPlayer();
+        }
+    }
+
+    private void ProcessLevelOneCollisionExit(Collision other)
+    {
+        if(other.gameObject.tag == "slidingObstacle"){
+            isCollidedWithObstacle = false;
+        }
+
+        if(other.gameObject.tag == "wall"){
+            isCollededWithWall = false;
+        }
+
+        if(other.gameObject.tag == "Path"){
+            isOnPath = false;
+        }
+    }
+
+    private void ProcessLevelOneCollisionStay(Collision other)
+    {
+        //path
+        if(other.gameObject.tag == "Path"){
+            isOnPath = true;
+        }
+    }
+
+    private void ProcessLevelOneUpdate()
+    {
+        //normalized vector check for opposing wall and obstacle surfaces
+        if(isCollededWithWall && isCollidedWithObstacle && !isPlayerDead && obstacleCollisionPointNormalized.z != wallCollisionPointNormalized.z){  
+            KillPlayer();
+        }
+
+        if(!isOnPath && !isPlayerDead){  //not on path and player is still alive
+            ReducePlayerHealth(); //reduce the health
+        }
+        else if(isOnPath && !isPlayerDead){ //on the path and player is still alive
+            IncreasePlayerHealth();
+        }
+
+        //update the current center of mass
+        if(!isPlayerDead && currCenterOfMass.y != rb.centerOfMass.y){ //center of mass has been changed (on y coordinate)
+            currCenterOfMass = rb.centerOfMass;
+            ReducePlayerHealth();
+        }
+        else if(!isPlayerDead && currCenterOfMass.z != rb.centerOfMass.z && !isOnPath){
+            currCenterOfMass = rb.centerOfMass;
+            ReducePlayerHealth();
+        }
+    }
+
+    private void DisableSlidingObstacles(){
+        foreach(SlideObstacleMover slideObstacleMover in slideObstacleMovers){
+            slideObstacleMover.enabled = false;
+        }
+        foreach(SlidingDownObstacleMover slidingDownObstacle in slidingDownObstacleMovers){
+            slidingDownObstacle.enabled = false;
+        }
+    }
+
+    private void EnableSlidingObstacles(){
+        foreach(SlidingDownObstacleMover slidingDownObstacle in slidingDownObstacleMovers){
+            slidingDownObstacle.enabled = true;
+        }
+
+        foreach(SlideObstacleMover slideObstacleMover in slideObstacleMovers){
+            slideObstacleMover.enabled = true;
+        }
+    }
+
+    //----------------------------------------- LEVEL 2 FUNCTIONS ------------------------------------------------
+
+    private void ProcessLevelTwoCollisionEnter(Collision other)
+    {
+    }
+
+    private void ProcessLevelTwoCollisionExit(Collision other)
+    {
+        if(other.gameObject.tag == "Terrain"){
+            isOnTerrain = false;
+        }
+    }
+
+    private void ProcessLevelTwoCollisionStay(Collision other)
+    {
+        if(other.gameObject.tag == "Terrain"){
+            isOnTerrain = true;
+        }
+    }
+    private void ProcessLevelTwoUpdate()
+    {
+        Debug.Log(currCenterOfMass+ " " + rb.centerOfMass);
+        if(!isPlayerDead && !isOnTerrain){ ///not dead and not touching the terrain
+            Debug.Log("Not on terrain");
+            ReducePlayerHealth();
+        }
+
+        if(!isPlayerDead && isOnTerrain && currCenterOfMass.y != rb.centerOfMass.y){ //not dead and touching the terrain, but has gone to a higher place (not ground level)
+            Debug.Log("on terrain but diff mass y");
+            ReducePlayerHealth();
+        }
+        else if(!isPlayerDead && isOnTerrain && currCenterOfMass.y == rb.centerOfMass.y){
+            Debug.Log("on terrain and same mass y");
+            IncreasePlayerHealth();
+        }
+    }
+
 }
