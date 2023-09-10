@@ -19,6 +19,9 @@ public class DroppingObject : MonoBehaviour
             rb = this.GetComponent<Rigidbody>();
             rb.isKinematic = false;
         }
+        else if(this.gameObject.tag == "Compass"){
+            rb = this.gameObject.AddComponent<Rigidbody>();
+        }
     }
 
 
@@ -45,6 +48,15 @@ public class DroppingObject : MonoBehaviour
                 //re enable sphere collider
                 GetComponent<SphereCollider>().enabled = true;
 
+            }
+            else if(this.gameObject.tag == "Compass"){
+                //re enable sphere collider
+                GetComponent<SphereCollider>().enabled = true;
+
+                GetComponent<Compass>().SwitchOnLight();
+
+                //then remove the rigidbody
+                Destroy(this.rb, 0);
             }
 
             //disable the script

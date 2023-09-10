@@ -10,7 +10,7 @@ public class PlayerPickable : MonoBehaviour
     private PlayerInventory playerInventoryComponent;
     private PlayerHoldObject playerHoldObjectComponent;
 
-    private string[] pickableObjectTags = {"Hammer", "WallBrick"};
+    private string[] pickableObjectTags = {"Hammer", "WallBrick", "Compass"};
     private Hashtable pickableObjTagCollection;
 
     public GameObject PickableObj { get { return pickableObj; } set { pickableObj = value; }}

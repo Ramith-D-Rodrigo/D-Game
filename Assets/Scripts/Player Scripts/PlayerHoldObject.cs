@@ -27,7 +27,7 @@ public class PlayerHoldObject : MonoBehaviour
     void Update(){
         if(Input.GetKeyDown(Controls.UseObj)){    //use the object
             if(currHoldingObject != null){
-                UseCurrentObject(currHoldingObject.tag);
+                UseCurrentObject(currHoldingObject);
             }
         }
 
@@ -37,14 +37,14 @@ public class PlayerHoldObject : MonoBehaviour
             DropObject();
         }
 
-        if(Input.GetKeyDown(Controls.PickUpObj) && currHoldingObject != null){    //putting back to inventory check
+        if(Input.GetKeyDown(Controls.PickUpObj) && currHoldingObject != null && !playerUseObject.GetIsUsingObject()){    //putting back to inventory check
             playerPickable.PickableObj = currHoldingObject;
             playerPickable.ProcessPickUp();
         }
     }
 
-    private void UseCurrentObject(string objectType){
-        playerUseObject.UseObject(objectType);
+    private void UseCurrentObject(GameObject useObject){
+        playerUseObject.UseObject(useObject);
     }
 
 
@@ -62,9 +62,14 @@ public class PlayerHoldObject : MonoBehaviour
                     break;
 
                 case "WallBrick":
-                    UseCurrentObject(currHoldingObject.gameObject.tag);
+                    UseCurrentObject(currHoldingObject.gameObject);
                     HoldWallBrick();
                     break;
+
+                case "Compass":
+                    HoldCompass();
+                    break;
+
             }      
         }
     }
@@ -78,6 +83,12 @@ public class PlayerHoldObject : MonoBehaviour
         currHoldingObject.GetComponent<Rigidbody>().isKinematic = true;
 
         currHoldingObject.GetComponent<SphereCollider>().enabled = false;
+    }
+
+    private void HoldCompass(){
+        currHoldingObject.transform.localRotation = UnityEngine.Quaternion.Euler(0, 0, 90f);
+        currHoldingObject.transform.SetParent(leftArm.transform);
+        currHoldingObject.transform.localPosition = new UnityEngine.Vector3(-0.5f, -0.45f, 0.1f);
     }
 
     private void DropObject(){

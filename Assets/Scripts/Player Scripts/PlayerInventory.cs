@@ -77,18 +77,27 @@ public class PlayerInventory : MonoBehaviour
 
     private void PutObjBackInInventory(GameObject gameObject, int inventoryIndex){
         if(gameObject != null){
-            //set sphere collider
+            if(gameObject.tag == "wallBrick"){
+                return;
+            }
+            
+            //place in the inventory
+            gameObject.transform.parent = inventoryGameObject.transform;
+            gameObject.transform.localPosition = new UnityEngine.Vector3(0, 0, 0);
+
             if(gameObject.tag == "Hammer"){
                 //0.17 , 0 , 0 center 
+                gameObject.transform.localRotation = UnityEngine.Quaternion.Euler(180, 90, inventoryObjRotation * inventoryIndex);
                 //remove the sphere collider and give the mesh collider
                 gameObject.GetComponent<SphereCollider>().enabled = false;
                 gameObject.GetComponent<MeshCollider>().enabled = true;
             }
+            else if(gameObject.tag == "Compass"){
+                gameObject.transform.localRotation = UnityEngine.Quaternion.Euler(0, 0, -90);
+                gameObject.GetComponent<SphereCollider>().enabled = false;
+                gameObject.GetComponent<Compass>().SwitchOffLight();
+            }
 
-            //place in the inventory
-            gameObject.transform.parent = inventoryGameObject.transform;
-            gameObject.transform.localPosition = new UnityEngine.Vector3(0, 0, 0);
-            gameObject.transform.localRotation = UnityEngine.Quaternion.Euler(180, 90, inventoryObjRotation * inventoryIndex);
         }
     }
 }
