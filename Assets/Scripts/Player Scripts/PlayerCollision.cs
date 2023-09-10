@@ -20,6 +20,8 @@ public class PlayerCollision : MonoBehaviour
 
     //LEVEL 2 ATTRIBTUES
     private bool isOnTerrain;
+    private float playerGroundLevel;
+    public bool IsOnTerrain {get { return isOnTerrain;} }
 
     private bool isPlayerDead;
     public bool IsPlayerDead { get { return isPlayerDead; } }
@@ -48,11 +50,16 @@ public class PlayerCollision : MonoBehaviour
         rb = GetComponent<Rigidbody>();
 
         playerHealth = 100f;
-        isOnPath = true;
-        isOnTerrain = true;
 
-        currCenterOfMass = rb.centerOfMass;
-        Debug.Log(currCenterOfMass);
+        switch(levelManager.CurrLevelIndex){
+            case 1:
+                InitializeLevelOneSettings();
+                break;
+            
+            case 2:
+                InitializeLevelTwoSettings();
+                break;
+        }
 
         animator = GetComponent<Animator>();
         holdObjectComponent = GetComponent<PlayerHoldObject>();
@@ -63,13 +70,14 @@ public class PlayerCollision : MonoBehaviour
         movementRecorder = GetComponent<MovementRecorder>();
 
         ResetPlayerStats();
+
     }
 
     private void ResetPlayerStats(){
         isCollidedWithObstacle = false;
         isCollededWithWall = false;
         isPlayerDead = false;
-        rb.ResetCenterOfMass();
+        currCenterOfMass = rb.centerOfMass;
     }
 
     private void OnCollisionEnter(Collision other) {
@@ -289,7 +297,10 @@ public class PlayerCollision : MonoBehaviour
 
 
     //----------------------------------------- LEVEL 1 FUNCTIONS ------------------------------------------------
-
+    private void InitializeLevelOneSettings()
+    {
+        isOnPath = true;
+    }
 
     private void ProcessLevelOneCollisionEnter(Collision other)
     {
@@ -381,6 +392,11 @@ public class PlayerCollision : MonoBehaviour
     }
 
     //----------------------------------------- LEVEL 2 FUNCTIONS ------------------------------------------------
+    private void InitializeLevelTwoSettings()
+    {
+        isOnTerrain = true;
+        playerGroundLevel = Mathf.Round(this.transform.position.y);
+    }
 
     private void ProcessLevelTwoCollisionEnter(Collision other)
     {
@@ -401,18 +417,20 @@ public class PlayerCollision : MonoBehaviour
     }
     private void ProcessLevelTwoUpdate()
     {
-        Debug.Log(currCenterOfMass+ " " + rb.centerOfMass);
+        float currBodyYPos = Mathf.Round(this.transform.position.y);
+
         if(!isPlayerDead && !isOnTerrain){ ///not dead and not touching the terrain
-            Debug.Log("Not on terrain");
             ReducePlayerHealth();
         }
 
-        if(!isPlayerDead && isOnTerrain && currCenterOfMass.y != rb.centerOfMass.y){ //not dead and touching the terrain, but has gone to a higher place (not ground level)
-            Debug.Log("on terrain but diff mass y");
+        if(!isPlayerDead && isOnTerrain && currCenterOfMass.y != rb.centerOfMass.y){ //not dead and touching the terrain, but center of mass is changing on y axis
+            currCenterOfMass = rb.centerOfMass;
             ReducePlayerHealth();
         }
-        else if(!isPlayerDead && isOnTerrain && currCenterOfMass.y == rb.centerOfMass.y){
-            Debug.Log("on terrain and same mass y");
+        else if(!isPlayerDead && isOnTerrain && playerGroundLevel != currBodyYPos){ //not dead and touching the terrain, but not on the ground level
+            ReducePlayerHealth();
+        }
+        else if(!isPlayerDead && isOnTerrain && playerGroundLevel == currBodyYPos){
             IncreasePlayerHealth();
         }
     }
