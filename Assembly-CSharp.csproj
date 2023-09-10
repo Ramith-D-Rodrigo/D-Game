@@ -43,6 +43,7 @@
      <Compile Include="Assets\Scripts\Player Scripts\MovementRecorder.cs" />
      <Compile Include="Assets\Scripts\Obstacles Scripts\SlideObstacleMover.cs" />
      <Compile Include="Assets\Scripts\Player Scripts\LegMovement.cs" />
+     <Compile Include="Assets\Scripts\Compass.cs" />
      <Compile Include="Assets\Scripts\Main Menu Scripts\MainMenu.cs" />
      <Compile Include="Assets\Scripts\Pause Menu Scripts\PauseMenu.cs" />
      <Compile Include="Assets\Scripts\Environment Scripts\DroppingObject.cs" />
@@ -731,14 +732,14 @@
     <Reference Include="Unity.RenderPipelines.Core.Editor">
         <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\Unity.RenderPipelines.Core.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.VisualEffectGraph.Editor">
+        <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\Unity.VisualEffectGraph.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.VisualScripting.Flow">
         <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\Unity.VisualScripting.Flow.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Mathematics.Editor">
         <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\Unity.Mathematics.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.VisualEffectGraph.Editor">
-        <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\Unity.VisualEffectGraph.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TestTools.CodeCoverage.Editor.OpenCover.Mono.Reflection">
         <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\Unity.TestTools.CodeCoverage.Editor.OpenCover.Mono.Reflection.dll</HintPath>
@@ -749,11 +750,11 @@
     <Reference Include="Unity.Performance.Profile-Analyzer.Editor">
         <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\Unity.Performance.Profile-Analyzer.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.TestTools.CodeCoverage.Editor">
-        <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\Unity.TestTools.CodeCoverage.Editor.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.RenderPipelines.Core.ShaderLibrary">
         <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\Unity.RenderPipelines.Core.ShaderLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.TestTools.CodeCoverage.Editor">
+        <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\Unity.TestTools.CodeCoverage.Editor.dll</HintPath>
     </Reference>
     <Reference Include="PPv2URPConverters">
         <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\PPv2URPConverters.dll</HintPath>
@@ -815,11 +816,11 @@
     <Reference Include="Unity.VisualScripting.Core">
         <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\Unity.VisualScripting.Core.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.UI">
-        <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.VisualScripting.Core.Editor">
         <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\Unity.VisualScripting.Core.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+        <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualScripting.Flow.Editor">
         <HintPath>D:\University\Game Dev\D-Game\Library\ScriptAssemblies\Unity.VisualScripting.Flow.Editor.dll</HintPath>

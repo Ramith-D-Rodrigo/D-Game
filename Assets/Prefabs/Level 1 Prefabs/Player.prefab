@@ -938,6 +938,15 @@ MonoBehaviour:
   runningSpeedFactor: 1.75
   jumpSpeed: 12
   direction: -1
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 64
+  levelManager: {fileID: 0}
+  playerCollision: {fileID: 2631950178246786782}
+  bodyCollidersForHeight:
+  - {fileID: 6645933246027688522}
+  - {fileID: 7617537722219683010}
+  - {fileID: 3434825233124843340}
 --- !u!54 &3340710624614646958
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -947,7 +956,7 @@ Rigidbody:
   m_GameObject: {fileID: 8826873631620718206}
   serializedVersion: 4
   m_Mass: 10
-  m_Drag: 0
+  m_Drag: 0.1
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -1006,6 +1015,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   hud: {fileID: 0}
+  levelManager: {fileID: 0}
   playerBodyParts:
   - {fileID: 7275535891579713658}
   - {fileID: 2875853719353404400}
@@ -1116,6 +1126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d342c1a7c4afb514fa6dd084a78525bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nextLevelLoadWaitSeconds: 3
 --- !u!1 &9175043687527291034
 GameObject:
   m_ObjectHideFlags: 0
