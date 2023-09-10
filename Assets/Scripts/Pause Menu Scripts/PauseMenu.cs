@@ -114,6 +114,18 @@ public class PauseMenu : MonoBehaviour
                 case "Previous Hint":
                     controlInputs[i].SetText(Controls.PrevHint.ToString());
                     break;
+                
+                case "Inventory Item 1":
+                    controlInputs[i].SetText("1");
+                    break;
+
+                case "Inventory Item 2":
+                    controlInputs[i].SetText("2");
+                    break;
+
+                case "Inventory Item 3":
+                    controlInputs[i].SetText("3");
+                    break;
             }
         }
     }

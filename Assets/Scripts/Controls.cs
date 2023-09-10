@@ -14,6 +14,9 @@ public class Controls {
     private static KeyCode PREV_HINT = KeyCode.LeftArrow;
     private static KeyCode RESET_PLAYER = KeyCode.R;
     private static KeyCode TOGGLE_MENU = KeyCode.Escape;
+    private static KeyCode INVENTORY_ITEM_1 = KeyCode.Alpha1;
+    private static KeyCode INVENTORY_ITEM_2 = KeyCode.Alpha2;
+    private static KeyCode INVENTORY_ITEM_3 = KeyCode.Alpha3;
 
     public static KeyCode GoForward {get {return GO_FORWARD; } }
     public static KeyCode GoBackward {get {return GO_BACKWARD; } }
@@ -28,4 +31,7 @@ public class Controls {
     public static KeyCode PrevHint {get {return PREV_HINT; } }
     public static KeyCode ResetPlayer {get {return RESET_PLAYER; } }
     public static KeyCode ToggleMenu {get {return TOGGLE_MENU; } }
+    public static KeyCode InventoryItem1 {get {return INVENTORY_ITEM_1; } }
+    public static KeyCode InventoryItem2 {get {return INVENTORY_ITEM_2; } }
+    public static KeyCode InventoryItem3 {get {return INVENTORY_ITEM_3; } }
 }
