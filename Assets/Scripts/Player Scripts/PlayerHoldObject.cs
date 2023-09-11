@@ -91,18 +91,23 @@ public class PlayerHoldObject : MonoBehaviour
         currHoldingObject.transform.localPosition = new UnityEngine.Vector3(-0.5f, -0.45f, 0.1f);
     }
 
-    private void DropObject(){
-        if(currHoldingObject.tag == "Compass" && playerUseObject.GetIsUsingObject()){
-            return; //do not drop the compass while using
+    public void DropObject(){
+        //enable dropping object script
+        if(currHoldingObject == null){
+            return;
         }
 
-        //enable dropping object script
         currHoldingObject.gameObject.GetComponent<DroppingObject>().enabled = true;
 
         //animations
         if(currHoldingObject.tag == "WallBrick"){
             playerUseObject.StopUsingWallBrick();
         }
+        else if(currHoldingObject.tag == "Compass"){
+            playerUseObject.StopUsingCompass();
+        }
+
+        playerUseObject.StopUsingObject();
 
         currHoldingObject = null;
     }

@@ -35,6 +35,7 @@ public class PlayerCollision : MonoBehaviour
     private Vector3 currCenterOfMass;
     private Animator animator;
     private PlayerHoldObject holdObjectComponent;
+    private PlayerUseObject useObjectComponent;
     private Animator[] allAnimators;
     [SerializeField] private SlideObstacleMover[] slideObstacleMovers;
     [SerializeField] private SlidingDownObstacleMover[] slidingDownObstacleMovers;
@@ -63,6 +64,7 @@ public class PlayerCollision : MonoBehaviour
 
         animator = GetComponent<Animator>();
         holdObjectComponent = GetComponent<PlayerHoldObject>();
+        useObjectComponent = GetComponentInChildren<PlayerUseObject>(); //this is in player arms
 
         allAnimators = FindObjectsOfType<Animator>();
         //get all slideObstacle movers
@@ -197,10 +199,7 @@ public class PlayerCollision : MonoBehaviour
         }
 
         //drop the current holding object
-        GameObject currHoldingObject = holdObjectComponent.CurrHoldingObject;
-        if(currHoldingObject != null){
-            currHoldingObject.GetComponent<DroppingObject>().enabled = true;
-        }
+        holdObjectComponent.DropObject();
 
         isPlayerDead = true;
         StartCoroutine(DisplayResetMessage(timeTillResetMessage)); //display reset message after certain time

@@ -51,8 +51,7 @@ public class PlayerUseObject : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         playerArmAnimator.SetTrigger("UsingHammer");
-        usingObject = null;
-        isUsingObject = false;
+        StopUsingObject();
     }
 
     public void StartUsingWallBrick(GameObject wallBrick){
@@ -60,13 +59,17 @@ public class PlayerUseObject : MonoBehaviour
         playerArmAnimator.SetTrigger("UsingWallBrick"); //no invoke because he holds as he can
     }
     public void StopUsingWallBrick(){
-        isUsingObject = false;
-        usingObject = null;
+        StopUsingObject();
         playerArmAnimator.SetTrigger("UsingWallBrick");
     }
 
     public bool GetIsUsingObject(){
         return isUsingObject;
+    }
+
+    public void StopUsingObject(){
+        isUsingObject = false;
+        usingObject = null;
     }
 
 
@@ -111,11 +114,10 @@ public class PlayerUseObject : MonoBehaviour
         compass.GetComponent<Compass>().IsWorking = true;
     }
 
-    private void StopUsingCompass(){
+    public void StopUsingCompass(){
         usingObject.GetComponent<Compass>().IsWorking = false;
         
-        usingObject = null;
-        isUsingObject = false;
+        StopUsingObject();
         playerArmAnimator.SetTrigger("UsingCompass");
         SwitchCamera(0);
 
