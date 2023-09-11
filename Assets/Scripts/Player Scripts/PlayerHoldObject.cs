@@ -92,6 +92,10 @@ public class PlayerHoldObject : MonoBehaviour
     }
 
     private void DropObject(){
+        if(currHoldingObject.tag == "Compass" && playerUseObject.GetIsUsingObject()){
+            return; //do not drop the compass while using
+        }
+
         //enable dropping object script
         currHoldingObject.gameObject.GetComponent<DroppingObject>().enabled = true;
 
