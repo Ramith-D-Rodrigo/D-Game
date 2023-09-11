@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -12,19 +13,28 @@ public class LevelManager : MonoBehaviour
 
     [Header("General Attributes")]
     [SerializeField] private GameObject player;
-    [SerializeField] private Light directionalLight;
+
     [SerializeField] private float nextLevelLoadWaitSeconds = 3.0f;
+    [SerializeField] private float currLevelDisplayTextSeconds = 4.0f;
     private Dictionary<int, Vector3> levelReachCheck;
 
+    [Header("Level Destinations")]
     [SerializeField] private Vector3 levelOneDestination = new(-1030, 0, 0); //only care about x position
-
     [SerializeField] private Vector3 levelTwoDestination; //care about x and z positions
-
     [SerializeField] private Vector3 levelThreeDestination;
+
+    [Header("Level 2 Attributes")]
+    [SerializeField] private Light directionalLight;
+
+    [Header("Level UI Panels")]
+    [SerializeField] private TextMeshProUGUI levelNumberText;
+    [SerializeField] private GameObject levelClearPanel;
 
     void Awake()
     {
         currLevelIndex = SceneManager.GetActiveScene().buildIndex;
+        levelClearPanel.SetActive(false);
+        levelNumberText.transform.parent.gameObject.SetActive(false);
 
         switch(currLevelIndex){
             case 1:
@@ -41,6 +51,8 @@ public class LevelManager : MonoBehaviour
         }
 
         IntializeLevelReach();
+
+        StartCoroutine(DisplayLevel());
     }
     // Update is called once per frame
     void Update()
@@ -112,6 +124,7 @@ public class LevelManager : MonoBehaviour
 
 
     private IEnumerator LoadNextLevel(){
+        ActivateLevelClearMessage();
         yield return new WaitForSeconds(nextLevelLoadWaitSeconds);
         SceneManager.LoadScene(currLevelIndex + 1);
     }
@@ -123,5 +136,19 @@ public class LevelManager : MonoBehaviour
             { 2, levelTwoDestination },
             { 3, levelThreeDestination}
         };
+    }
+
+    private void ActivateLevelClearMessage(){
+        levelClearPanel.SetActive(true);
+    }
+
+    private IEnumerator DisplayLevel(){
+        levelNumberText.SetText(currLevelIndex.ToString());
+
+        levelNumberText.transform.parent.gameObject.SetActive(true);
+
+        yield return new WaitForSeconds(currLevelDisplayTextSeconds);
+
+        levelNumberText.transform.parent.gameObject.SetActive(false);
     }
 }
