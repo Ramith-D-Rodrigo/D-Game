@@ -61,6 +61,7 @@
      <Compile Include="Assets\Scripts\Environment Scripts\LampFlicker.cs" />
      <Compile Include="Assets\Scripts\LevelManager.cs" />
      <Compile Include="Assets\Scripts\Obstacles Scripts\SlidingUpWallObstacle.cs" />
+     <Compile Include="Assets\Scripts\ControlsMenu.cs" />
      <Compile Include="Assets\Scripts\Player Scripts\PlayerUseObject.cs" />
      <Compile Include="Assets\Scripts\Obstacles Scripts\SlidingDownObstacleMover.cs" />
      <Compile Include="Assets\Scripts\Player Scripts\PlayerHoldObject.cs" />
