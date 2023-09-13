@@ -75,7 +75,7 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 1, g: 0.9686275, b: 0.69803923, a: 1}
+  m_Color: {r: 0.36769313, g: 0.614948, b: 0.8584906, a: 1}
   m_Intensity: 1.5
   m_Range: 10
   m_SpotAngle: 30
@@ -161,7 +161,7 @@ Transform:
   - {fileID: 1781343214176260701}
   - {fileID: 4948023440764779252}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &739940522019647057
 MonoBehaviour:
@@ -222,7 +222,7 @@ GameObject:
   - component: {fileID: 1781343214176260701}
   - component: {fileID: 1547931073809321441}
   - component: {fileID: 7377312586976930812}
-  - component: {fileID: 8883796026330019301}
+  - component: {fileID: 6597633952340008155}
   m_Layer: 0
   m_Name: Cylinder
   m_TagString: Untagged
@@ -295,8 +295,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &8883796026330019301
-CapsuleCollider:
+--- !u!64 &6597633952340008155
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -312,12 +312,11 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+  m_Enabled: 0
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &7482777164792277697
 GameObject:
   m_ObjectHideFlags: 0

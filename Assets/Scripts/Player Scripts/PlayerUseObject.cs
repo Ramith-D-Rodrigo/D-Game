@@ -9,6 +9,7 @@ public class PlayerUseObject : MonoBehaviour
     public Animator playerArmAnimator;
     private bool isUsingObject;
     private GameObject usingObject;
+    public GameObject UsingObject {get {return usingObject;}}
 
     [Header("Cameras for Level 2")]
     [SerializeField] private GameObject mainCamera;

@@ -97,15 +97,15 @@ public class PlayerHoldObject : MonoBehaviour
             return;
         }
 
-        currHoldingObject.gameObject.GetComponent<DroppingObject>().enabled = true;
-
         //animations
-        if(currHoldingObject.tag == "WallBrick"){
+        if(playerUseObject.GetIsUsingObject() && playerUseObject.UsingObject.tag == "WallBrick"){
             playerUseObject.StopUsingWallBrick();
         }
-        else if(currHoldingObject.tag == "Compass"){
+        else if(playerUseObject.GetIsUsingObject() && playerUseObject.UsingObject.tag == "Compass"){
             playerUseObject.StopUsingCompass();
         }
+
+        currHoldingObject.gameObject.GetComponent<DroppingObject>().enabled = true;
 
         playerUseObject.StopUsingObject();
 
