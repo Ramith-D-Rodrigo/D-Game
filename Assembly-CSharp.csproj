@@ -48,9 +48,12 @@
      <Compile Include="Assets\Scripts\Main Menu Scripts\MainMenu.cs" />
      <Compile Include="Assets\Scripts\Pause Menu Scripts\PauseMenu.cs" />
      <Compile Include="Assets\Scripts\Environment Scripts\DroppingObject.cs" />
+     <Compile Include="Assets\Scripts\Enemy Scripts\FollowPlayer.cs" />
      <Compile Include="Assets\Scripts\Player Scripts\PlayerPickable.cs" />
      <Compile Include="Assets\Scripts\Obstacles Scripts\SlidingUpWallBox.cs" />
+     <Compile Include="Assets\Scripts\Enemy Scripts\EnemyMover.cs" />
      <Compile Include="Assets\Scripts\Player Scripts\PlayerMover.cs" />
+     <Compile Include="Assets\Scripts\Enemy Scripts\EnemyCollision.cs" />
      <Compile Include="Assets\Scripts\Mapper.cs" />
      <Compile Include="Assets\Scripts\Player Scripts\ArmMovement.cs" />
      <Compile Include="Assets\Scripts\Player Scripts\PlayerCollision.cs" />
@@ -61,8 +64,11 @@
      <Compile Include="Assets\Scripts\Environment Scripts\LampFlicker.cs" />
      <Compile Include="Assets\Scripts\LevelManager.cs" />
      <Compile Include="Assets\Scripts\Obstacles Scripts\SlidingUpWallObstacle.cs" />
+     <Compile Include="Assets\Scripts\Enemy Scripts\LookAtPlayer.cs" />
+     <Compile Include="Assets\Scripts\Enemy Scripts\EnemyTerrainCollision.cs" />
      <Compile Include="Assets\Scripts\ControlsMenu.cs" />
      <Compile Include="Assets\Scripts\Player Scripts\PlayerUseObject.cs" />
+     <Compile Include="Assets\Scripts\Enemy Scripts\PlayerTracker.cs" />
      <Compile Include="Assets\Scripts\Obstacles Scripts\SlidingDownObstacleMover.cs" />
      <Compile Include="Assets\Scripts\Player Scripts\PlayerHoldObject.cs" />
      <Compile Include="Assets\Scripts\Controls.cs" />
