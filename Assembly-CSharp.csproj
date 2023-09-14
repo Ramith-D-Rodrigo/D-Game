@@ -67,6 +67,7 @@
      <Compile Include="Assets\Scripts\Player Scripts\PlayerHoldObject.cs" />
      <Compile Include="Assets\Scripts\Controls.cs" />
      <Compile Include="Assets\Scripts\Obstacles Scripts\SlideObstacleSpeedSetter.cs" />
+     <Compile Include="Assets\Scripts\Obstacles Scripts\Level 2 Obstacles\UpWallMover.cs" />
      <Compile Include="Assets\Scripts\HUD.cs" />
      <None Include="Assets\External Assets\TerrainSampleAssets\ThirdPartyNotices.txt" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
