@@ -14,7 +14,7 @@ public class FollowPlayer : MonoBehaviour
     [SerializeField] private HitPlayer hitPlayer;
 
     private GameObject player;
-    public GameObject Player {get { return player;} }
+    public GameObject Player {get { return player;} set {player = value ;} }
 
     void Start()
     {
@@ -34,7 +34,6 @@ public class FollowPlayer : MonoBehaviour
             if(hitPlayer.HittingPlayer == followingObject){
                 //if enemy is within hit range, then stop following
                 player = null;
-                Debug.Log("Within hit range");
             }
             else{
                 //if enemy is not within hit range, then follow

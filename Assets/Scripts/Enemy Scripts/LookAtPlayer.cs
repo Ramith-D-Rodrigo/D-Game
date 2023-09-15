@@ -12,7 +12,7 @@ public class LookAtPlayer : MonoBehaviour
     [SerializeField] EnemyMover enemyMover;
     [SerializeField] private SphereCollider lookingAtPlayerCollider;
     private GameObject player;
-    public GameObject Player {get { return player;} }
+    public GameObject Player {get { return player;} set {player = value ;}}
 
 
     void Start()
@@ -60,7 +60,11 @@ public class LookAtPlayer : MonoBehaviour
 
             Ray ray = new Ray(transform.position, worldDirection.normalized);
 
-            RaycastHit[] hits = Physics.RaycastAll(ray.origin, ray.direction, lookingAtPlayerCollider.radius); //ignore own layer
+            //get the layer mask of the enemy to ignore
+            int layerMask = 1 << this.gameObject.layer; //(bitwise operator)
+            layerMask = ~layerMask;
+
+            RaycastHit[] hits = Physics.RaycastAll(ray.origin, ray.direction, lookingAtPlayerCollider.radius, layerMask); //ignore own layer
 
             if(hits.Length > 0){
 
