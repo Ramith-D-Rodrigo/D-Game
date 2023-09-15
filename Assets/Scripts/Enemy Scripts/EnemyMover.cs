@@ -8,7 +8,7 @@ public class EnemyMover : MonoBehaviour
     // Start is called before the first frame update
     public float movementSpeed = 750f;
     public float rotationSpeed = 250f;
-    public float runningSpeedFactor = 1.3f;
+    public float runningSpeedFactor = 1.5f;
     public float jumpSpeed = 12f;
     public int direction = -1; //enemy moving direction
     private Rigidbody rb;
