@@ -7,34 +7,43 @@ using UnityEngine.ProBuilder;
 public class LookAtPlayer : MonoBehaviour
 {
     // Start is called before the first frame update
-    private bool isLookingAtPlayer;
-    public bool IsLookingAtPlayer {get { return isLookingAtPlayer;} set{ isLookingAtPlayer = value;} }
+    //private bool isLookingAtPlayer;
+    //public bool IsLookingAtPlayer {get { return isLookingAtPlayer;} set{ isLookingAtPlayer = value;} }
     [SerializeField] EnemyMover enemyMover;
     [SerializeField] private SphereCollider lookingAtPlayerCollider;
     private Transform player;
+    public Transform Player {get { return player;} }
 
 
     void Start()
     {
-        isLookingAtPlayer = false;
+        //isLookingAtPlayer = false;
         player = null;
     }
 
     private void FixedUpdate(){
-        if(isLookingAtPlayer){
+        if(player){
             RotateTowardsPlayer();
         }
+        else{
+            StopRotatingTowardsPlayer();
+        }
+    }
+
+    private void StopRotatingTowardsPlayer()
+    {
+        enemyMover.PlayerTransform = null;
     }
 
     private void RotateTowardsPlayer()
     {
-        enemyMover.RotateEnemy(player);
+        enemyMover.PlayerTransform = player;
     }
 
     // Update is called once per frame
     private void OnTriggerStay(Collider other) {
-        if(other.gameObject.name == "Body" && other.gameObject.transform.parent.tag == "Player"){
-            ProcessCanActuallySee(other.gameObject);
+        if(other.gameObject.name == "Body" && other.transform.parent.tag == "Player"){
+            ProcessCanActuallySee(other.transform.parent.gameObject);
         }
     }
 
@@ -49,34 +58,36 @@ public class LookAtPlayer : MonoBehaviour
 
             Vector3 worldDirection = transform.TransformDirection(shootingDirection);
 
-            Debug.DrawRay(transform.position, worldDirection , Color.red);
-            RaycastHit[] hits = Physics.RaycastAll(transform.position, worldDirection, lookingAtPlayerCollider.radius);
+            Ray ray = new Ray(transform.position, worldDirection.normalized);
+
+            RaycastHit[] hits = Physics.RaycastAll(ray.origin, ray.direction, lookingAtPlayerCollider.radius);
 
             if(hits.Length > 0){
                 if(hits[0].transform.gameObject.layer == lookingObject.layer){  //first hit is the player
+                    Debug.DrawRay(transform.position, (hits[0].point - transform.position).normalized * hits[0].distance, Color.green);
                     foundPlayer = true;
                     break;
                 }
+                else{
+                    Debug.DrawRay(transform.position, (hits[0].point - transform.position).normalized * hits[0].distance, Color.red);
+                }
             }
-            //didnt find the playey, go to the next direction
+            //didnt find the player, go to the next direction
             startingXAngle += 0.1f;
 
         }while(startingXAngle <= 45);
 
 
         if(foundPlayer){
-            isLookingAtPlayer = true;
             player = lookingObject.transform;
         }        
         else{
-            isLookingAtPlayer = false;
             player = null;
         }
     }
 
     private void OnTriggerExit(Collider other) {
-        if(other.gameObject.name == "Body" && other.gameObject.transform.parent.tag == "Player"){
-            isLookingAtPlayer = false;
+        if(other.gameObject.name == "Body" && other.transform.parent.tag == "Player"){
             player = null;
         }
     }

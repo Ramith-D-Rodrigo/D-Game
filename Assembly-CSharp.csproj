@@ -54,6 +54,7 @@
      <Compile Include="Assets\Scripts\Enemy Scripts\EnemyMover.cs" />
      <Compile Include="Assets\Scripts\Player Scripts\PlayerMover.cs" />
      <Compile Include="Assets\Scripts\Enemy Scripts\EnemyCollision.cs" />
+     <Compile Include="Assets\Scripts\Enemy Scripts\HitPlayer.cs" />
      <Compile Include="Assets\Scripts\Mapper.cs" />
      <Compile Include="Assets\Scripts\Player Scripts\ArmMovement.cs" />
      <Compile Include="Assets\Scripts\Player Scripts\PlayerCollision.cs" />

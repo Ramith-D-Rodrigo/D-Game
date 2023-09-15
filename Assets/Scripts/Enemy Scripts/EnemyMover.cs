@@ -14,6 +14,7 @@ public class EnemyMover : MonoBehaviour
     private Rigidbody rb;
     private Animator enemyAnimator;
     private bool isMoving;
+    public bool IsMoving {get { return isMoving;} set{ isMoving = value;} }
 
     [Header("Grounded Check")]
     [SerializeField] private LayerMask whatIsGround;
@@ -26,6 +27,12 @@ public class EnemyMover : MonoBehaviour
 
     private SphereCollider terrainCollider;
 
+    private Transform playerTransform; //player transform to rotate towards
+    public Transform PlayerTransform {get { return playerTransform;} set{ playerTransform = value;} }
+
+    [SerializeField] private FollowPlayer followPlayer;
+    [SerializeField] private HitPlayer hitPlayer;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -33,6 +40,7 @@ public class EnemyMover : MonoBehaviour
 
         isMoving = false;
         isGrounded = true;
+        playerTransform = null;
 
         enemyHeight = 0.0f;
 
@@ -51,12 +59,16 @@ public class EnemyMover : MonoBehaviour
 
     void FixedUpdate()
     {
+        RotateEnemy();
 
+        MoveForwardBackward();
+
+        StopEnemyMovement();
     }
 
 
-    public void MoveForwardBackward(Transform movingTransform){       
-        if(movingTransform != null && isGrounded){
+    public void MoveForwardBackward(){       
+        if(isGrounded && followPlayer.Player && !hitPlayer.HittingPlayer){
             enemyAnimator.SetBool("isWalking", true);
             enemyAnimator.SetBool("isRunning", true);
             UnityEngine.Vector3 moveDirectionVec = new(0.0f, 0.0f, Time.fixedDeltaTime);
@@ -73,7 +85,7 @@ public class EnemyMover : MonoBehaviour
 
     public void StopEnemyMovement(){
         //enemy has just stopped targetting the player and was moving
-        if(isMoving){
+        if(isMoving && !followPlayer.Player){
             enemyAnimator.SetBool("isRunning", false);
             enemyAnimator.SetBool("isWalking", false);
             rb.velocity = new Vector3(0.0f, -1.0f, 0.0f);  //stop the player
@@ -83,11 +95,18 @@ public class EnemyMover : MonoBehaviour
     }
 
 
-    public void RotateEnemy(Transform rotatingTransform){
-        if(rotatingTransform != null){
-            Vector3 targetPosition = rotatingTransform.position;
+    public void RotateEnemy(){
+        if(playerTransform != null){
+/*             Vector3 targetPosition = rotatingTransform.position;
             targetPosition.y = rb.transform.position.y;
-            rb.transform.LookAt(targetPosition);
+            rb.transform.LookAt(targetPosition); */
+
+            //rotate the enemy towards the player
+            Vector3 targetDirection = playerTransform.position - transform.position;
+            targetDirection.y = 0.0f;
+            Quaternion targetRotation = Quaternion.LookRotation(targetDirection, Vector3.up);
+            Quaternion newRotation = Quaternion.Lerp(rb.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+            rb.MoveRotation(newRotation);
     
         }
     }
@@ -97,7 +116,6 @@ public class EnemyMover : MonoBehaviour
     {
 
         isGrounded = Physics.Raycast(transform.position, Vector3.down, enemyHeight * 0.5f + 0.2f, whatIsGround);
-
         if(isGrounded){
             rb.drag = drag;
         }
