@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4571529471891759464}
   - component: {fileID: 6595755396048047639}
   - component: {fileID: 1299344582870517251}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Right Arm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -117,7 +117,7 @@ GameObject:
   - component: {fileID: 2645185609913164745}
   - component: {fileID: 7902147242384314456}
   - component: {fileID: 4422571604505279319}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Follow Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -185,7 +185,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2860555277330250570}
   - component: {fileID: 2170390327676477935}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Right Arm Rotation Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -239,7 +239,7 @@ GameObject:
   - component: {fileID: 8342010601941316589}
   - component: {fileID: 1483061345289318221}
   - component: {fileID: 5744206291336763760}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FirstPerson
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -332,7 +332,7 @@ GameObject:
   - component: {fileID: 2069421236670821922}
   - component: {fileID: 29982145586069253}
   - component: {fileID: 7617537722219683010}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -437,7 +437,7 @@ GameObject:
   - component: {fileID: 7162737505955696165}
   - component: {fileID: 2168572298815815741}
   - component: {fileID: 7855153706520034324}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Hit Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -478,10 +478,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 10
+  m_Radius: 9
   m_Height: 50
   m_Direction: 1
-  m_Center: {x: 0, y: 3.82, z: 0}
+  m_Center: {x: 0, y: 0.97, z: 0}
 --- !u!114 &7855153706520034324
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -496,6 +496,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lookAtPlayer: {fileID: 7594003978920602421}
   followPlayer: {fileID: 4422571604505279319}
+  enemySword: {fileID: 7203730567413831033}
 --- !u!1 &3477562118927287603
 GameObject:
   m_ObjectHideFlags: 0
@@ -508,7 +509,7 @@ GameObject:
   - component: {fileID: 4942825196274485832}
   - component: {fileID: 2025851230923022369}
   - component: {fileID: 8984560812555511656}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Left Arm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -613,7 +614,7 @@ GameObject:
   - component: {fileID: 3029705564260474964}
   - component: {fileID: 1367868325929671498}
   - component: {fileID: 5905435481270428304}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Arms
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -665,7 +666,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4585978990176846697}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b34ee66f3c3e14c4e8e26120ecb68e05, type: 3}
   m_Name: 
@@ -686,7 +687,7 @@ GameObject:
   - component: {fileID: 6247912399720962154}
   - component: {fileID: 1988746885008618941}
   - component: {fileID: 3434825233124843340}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Left Leg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -789,7 +790,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8928416693841198590}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Left Leg Rotation Point
   m_TagString: leftLeg
   m_Icon: {fileID: 0}
@@ -822,7 +823,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7846658684863682048}
   - component: {fileID: 7405196302539903452}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Left Arm Rotation Point
   m_TagString: leftArm
   m_Icon: {fileID: 0}
@@ -841,6 +842,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 7683370108340060411}
   - {fileID: 8426374760781385980}
   m_Father: {fileID: 3029705564260474964}
   m_RootOrder: -1
@@ -877,7 +879,7 @@ GameObject:
   - component: {fileID: 2251439563878412622}
   - component: {fileID: 3514493846953971766}
   - component: {fileID: 6645933246027688522}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -973,6 +975,161 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &7683370107921390881
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7683370107921390886}
+  - component: {fileID: 7683370107921390890}
+  - component: {fileID: 7683370107921390885}
+  - component: {fileID: 7547293306269760912}
+  - component: {fileID: 7203730567413831033}
+  m_Layer: 8
+  m_Name: LongSwordMesh
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7683370107921390886
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7683370107921390881}
+  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7683370108340060411}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &7683370107921390890
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7683370107921390881}
+  m_Mesh: {fileID: -551951159149546143, guid: 9c9f65c1284b22247bafd1ebc8dbb632, type: 3}
+--- !u!23 &7683370107921390885
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7683370107921390881}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: d74c845b50fe2d143a78ac219b3efc08, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &7547293306269760912
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7683370107921390881}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.04, y: 0.980288, z: 0.020938}
+  m_Center: {x: 0, y: 0.282687, z: 0}
+--- !u!114 &7203730567413831033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7683370107921390881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b2548193061a4447b1c6efcb227bf02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyArmAnimator: {fileID: 1367868325929671498}
+  hitPlayer: {fileID: 7855153706520034324}
+  lookAtPlayer: {fileID: 7594003978920602421}
+  followPlayer: {fileID: 4422571604505279319}
+  swordDamage: 25
+--- !u!1 &7683370108340060405
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7683370108340060411}
+  m_Layer: 8
+  m_Name: LongSword
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7683370108340060411
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7683370108340060405}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: -0.6, y: -4.58, z: 0.1}
+  m_LocalScale: {x: 7, y: 7, z: 7}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 7683370107921390886}
+  m_Father: {fileID: 7846658684863682048}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!1 &7860292143314360654
 GameObject:
   m_ObjectHideFlags: 0
@@ -982,7 +1139,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6847893476822726526}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Right Leg Rotation Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1017,7 +1174,7 @@ GameObject:
   - component: {fileID: 2213566372363957345}
   - component: {fileID: 8338265818674350210}
   - component: {fileID: 3556750958588200271}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Right Leg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1122,7 +1279,7 @@ GameObject:
   - component: {fileID: 3701807785929295979}
   - component: {fileID: 5967766266108591399}
   - component: {fileID: 7594003978920602421}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Look At Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1192,7 +1349,7 @@ GameObject:
   - component: {fileID: 3263315309005570008}
   - component: {fileID: 3464124870325310995}
   - component: {fileID: 2739192944868462659}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -1283,9 +1440,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52756621a9ebbd64bae845aebb38a13f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 1000
+  movementSpeed: 750
   rotationSpeed: 250
-  runningSpeedFactor: 2
+  runningSpeedFactor: 1.5
   jumpSpeed: 12
   direction: -1
   whatIsGround:
@@ -1321,7 +1478,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7402965214834757050}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Inventory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1354,6 +1511,10 @@ PrefabInstance:
     - target: {fileID: 786999808741628673, guid: b1556d9044f0e184fb27b4ba1c4a0501, type: 3}
       propertyPath: m_Name
       value: Mask1
+      objectReference: {fileID: 0}
+    - target: {fileID: 786999808741628673, guid: b1556d9044f0e184fb27b4ba1c4a0501, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6050784521314597982, guid: b1556d9044f0e184fb27b4ba1c4a0501, type: 3}
       propertyPath: m_RootOrder
