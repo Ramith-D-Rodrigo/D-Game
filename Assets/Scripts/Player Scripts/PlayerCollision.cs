@@ -158,6 +158,17 @@ public class PlayerCollision : MonoBehaviour
         }
     }
 
+    public void ReducePlayerHealth(float damage){   //reduce player health by certain amount (overloaded function)
+        playerHealth -= damage;
+
+        //change player color to reflect the health
+        ChangePlayerColor();
+
+        if(playerHealth <= 0f){
+            KillPlayer();
+        }
+    }
+
     private void IncreasePlayerHealth(){
         if(playerHealth >= 100){ //no need to increase further
             playerHealth = 100f;
