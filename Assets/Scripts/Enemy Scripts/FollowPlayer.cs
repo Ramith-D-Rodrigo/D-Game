@@ -13,8 +13,8 @@ public class FollowPlayer : MonoBehaviour
     [SerializeField] private LookAtPlayer lookAtPlayer;
     [SerializeField] private HitPlayer hitPlayer;
 
-    private Transform player;
-    public Transform Player {get { return player;} }
+    private GameObject player;
+    public GameObject Player {get { return player;} }
 
     void Start()
     {
@@ -29,7 +29,7 @@ public class FollowPlayer : MonoBehaviour
 
     private void ProcessCanActuallyFollowPlayer(GameObject followingObject)
     {
-        if(lookAtPlayer.Player == followingObject.transform){ //if enemy is looking at player
+        if(lookAtPlayer.Player == followingObject){ //if enemy is looking at player
             //now we check whether the enemy is within hit range
             if(hitPlayer.HittingPlayer == followingObject){
                 //if enemy is within hit range, then stop following
@@ -38,7 +38,7 @@ public class FollowPlayer : MonoBehaviour
             }
             else{
                 //if enemy is not within hit range, then follow
-                player = followingObject.transform;
+                player = followingObject;
             }
         }
         else{

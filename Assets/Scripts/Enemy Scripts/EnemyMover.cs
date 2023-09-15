@@ -27,8 +27,8 @@ public class EnemyMover : MonoBehaviour
 
     private SphereCollider terrainCollider;
 
-    private Transform playerTransform; //player transform to rotate towards
-    public Transform PlayerTransform {get { return playerTransform;} set{ playerTransform = value;} }
+    private GameObject targettingPlayer; //player transform to rotate towards
+    public GameObject TargettingPlayer {get { return targettingPlayer;} set{ targettingPlayer = value;} }
 
     [SerializeField] private FollowPlayer followPlayer;
     [SerializeField] private HitPlayer hitPlayer;
@@ -40,7 +40,7 @@ public class EnemyMover : MonoBehaviour
 
         isMoving = false;
         isGrounded = true;
-        playerTransform = null;
+        targettingPlayer = null;
 
         enemyHeight = 0.0f;
 
@@ -96,13 +96,13 @@ public class EnemyMover : MonoBehaviour
 
 
     public void RotateEnemy(){
-        if(playerTransform != null){
+        if(targettingPlayer != null){
 /*             Vector3 targetPosition = rotatingTransform.position;
             targetPosition.y = rb.transform.position.y;
             rb.transform.LookAt(targetPosition); */
 
             //rotate the enemy towards the player
-            Vector3 targetDirection = playerTransform.position - transform.position;
+            Vector3 targetDirection = targettingPlayer.transform.position - transform.position;
             targetDirection.y = 0.0f;
             Quaternion targetRotation = Quaternion.LookRotation(targetDirection, Vector3.up);
             Quaternion newRotation = Quaternion.Lerp(rb.rotation, targetRotation, rotationSpeed * Time.deltaTime);

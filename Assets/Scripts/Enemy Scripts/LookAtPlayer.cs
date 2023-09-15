@@ -11,8 +11,8 @@ public class LookAtPlayer : MonoBehaviour
     //public bool IsLookingAtPlayer {get { return isLookingAtPlayer;} set{ isLookingAtPlayer = value;} }
     [SerializeField] EnemyMover enemyMover;
     [SerializeField] private SphereCollider lookingAtPlayerCollider;
-    private Transform player;
-    public Transform Player {get { return player;} }
+    private GameObject player;
+    public GameObject Player {get { return player;} }
 
 
     void Start()
@@ -32,12 +32,12 @@ public class LookAtPlayer : MonoBehaviour
 
     private void StopRotatingTowardsPlayer()
     {
-        enemyMover.PlayerTransform = null;
+        enemyMover.TargettingPlayer = null;
     }
 
     private void RotateTowardsPlayer()
     {
-        enemyMover.PlayerTransform = player;
+        enemyMover.TargettingPlayer = player;
     }
 
     // Update is called once per frame
@@ -48,10 +48,10 @@ public class LookAtPlayer : MonoBehaviour
     }
 
     private void ProcessCanActuallySee(GameObject lookingObject){
-        //shoot raycast from -45 to 45
+        //shoot raycast from -60 to 30 degrees
         bool foundPlayer = false;
 
-        float startingXAngle = -45;
+        float startingXAngle = -60;
         do{
             Vector3 shootingDirection = new Vector3(Mathf.Sin(startingXAngle * Mathf.Deg2Rad), 0.0f, Mathf.Cos(startingXAngle * Mathf.Deg2Rad));
             shootingDirection = shootingDirection * lookingAtPlayerCollider.radius;
@@ -60,26 +60,37 @@ public class LookAtPlayer : MonoBehaviour
 
             Ray ray = new Ray(transform.position, worldDirection.normalized);
 
-            RaycastHit[] hits = Physics.RaycastAll(ray.origin, ray.direction, lookingAtPlayerCollider.radius);
+            RaycastHit[] hits = Physics.RaycastAll(ray.origin, ray.direction, lookingAtPlayerCollider.radius); //ignore own layer
 
             if(hits.Length > 0){
+
+                //sort the hits by distance
+                Array.Sort(hits, delegate(RaycastHit hit1, RaycastHit hit2){    //thank god this worked, i wasted more than 2 hours on this ffs
+                    return hit1.distance.CompareTo(hit2.distance);
+                });
+
                 if(hits[0].transform.gameObject.layer == lookingObject.layer){  //first hit is the player
-                    Debug.DrawRay(transform.position, (hits[0].point - transform.position).normalized * hits[0].distance, Color.green);
+                    //Debug.DrawRay(transform.position, (hits[0].point - transform.position).normalized * hits[0].distance, Color.green);
+                    Debug.DrawRay(ray.origin, ray.direction * hits[0].distance, Color.green);
                     foundPlayer = true;
                     break;
                 }
                 else{
-                    Debug.DrawRay(transform.position, (hits[0].point - transform.position).normalized * hits[0].distance, Color.red);
+                    //Debug.DrawRay(transform.position, (hits[0].point - transform.position).normalized * hits[0].distance, Color.red);
+                    Debug.DrawRay(ray.origin, ray.direction * hits[0].distance, Color.red);
                 }
+            }
+            else{
+                Debug.DrawRay(ray.origin, ray.direction * lookingAtPlayerCollider.radius, Color.blue);
             }
             //didnt find the player, go to the next direction
             startingXAngle += 0.1f;
 
-        }while(startingXAngle <= 45);
+        }while(startingXAngle <= 30);
 
 
         if(foundPlayer){
-            player = lookingObject.transform;
+            player = lookingObject;
         }        
         else{
             player = null;
