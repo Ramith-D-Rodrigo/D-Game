@@ -37,10 +37,12 @@ public class PlayerInventory : MonoBehaviour
                     playerHoldObject.HoldCurrentObject();
                 }
             }
-/*             else if(Input.GetKeyDown(KeyCode.Alpha2)){  //second object in the inventory
-                currHoldingObjIndex = 1;
+            else if(Input.GetKeyDown(KeyCode.Alpha2)){  //second object in the inventory
+                playerHoldObject.CurrHoldingObject = inventory[1];
+                inventory[1] = null;    //not in the inventory anymore
+                playerHoldObject.HoldCurrentObject();
             }
-            else if(Input.GetKeyDown(KeyCode.Alpha3)){
+/*             else if(Input.GetKeyDown(KeyCode.Alpha3)){
                 currHoldingObjIndex = 2;
             } */
 
@@ -96,6 +98,18 @@ public class PlayerInventory : MonoBehaviour
                 gameObject.transform.localRotation = UnityEngine.Quaternion.Euler(0, 0, -90);
                 gameObject.GetComponent<SphereCollider>().enabled = false;
                 gameObject.GetComponent<Compass>().SwitchOffLight();
+            }
+            else if(gameObject.tag == "Sword"){
+                gameObject.transform.localPosition = new UnityEngine.Vector3(0.03f, 0.41f, 0);
+                gameObject.transform.localRotation = UnityEngine.Quaternion.Euler(0, 90, 180);
+                gameObject.GetComponent<SphereCollider>().enabled = false;
+
+                GameObject swordMesh = gameObject.transform.GetChild(0).gameObject; //1st child is the sword mesh
+                swordMesh.GetComponent<BoxCollider>().enabled = true; //longer one
+                swordMesh.transform.GetChild(0).GetComponent<BoxCollider>().enabled = true;   //short horizontal one
+
+                gameObject.GetComponent<PlayerSword>().SwitchOffLight();
+
             }
 
         }
