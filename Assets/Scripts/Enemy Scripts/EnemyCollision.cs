@@ -5,7 +5,25 @@ using UnityEngine;
 public class EnemyCollision : MonoBehaviour
 {
 
-    [SerializeField] private SphereCollider followingPlayerCollider;
+    [SerializeField] private int hitPoints = 3;
+    public int HitPoints { get { return hitPoints; } set { hitPoints = value; } }
+
+    private bool isDead = false;
+    public bool IsDead { get { return isDead; } set { isDead = value; } }
+
+    [SerializeField] private Rigidbody rb;
+    [SerializeField] private Animator enemyAnimator;
+    [SerializeField] private GameObject[] enemyBodyParts;
+
+    [SerializeField] private Animator enemyArmAnimator;
+
+    //all enemy scripts
+    [SerializeField] private EnemyMover enemyMover;
+    [SerializeField] private EnemySword enemySword;
+    [SerializeField] private FollowPlayer followPlayer;
+    [SerializeField] private LookAtPlayer lookAtPlayer;
+    [SerializeField] private HitPlayer hitPlayer;
+
 
     // Start is called before the first frame update
     void Start()
@@ -16,11 +34,47 @@ public class EnemyCollision : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(hitPoints <= 0 && !isDead){
+            isDead = true;
+            KillEnemy();
+        }
+
     }
 
+    private void KillEnemy()
+    {
+        rb.isKinematic = true;
+        enemyAnimator.SetBool("isRunning", false);
+        enemyAnimator.SetBool("isWalking", false);
 
-    private void OnTriggerEnter(Collider other) {
+        enemyAnimator.enabled = false;
+
+        //disable all the scripts of the player movement
+        enemyMover.enabled = false;
+    
+        for(int i = 0; i < enemyBodyParts.Length; i++){
+            GameObject bodyPart = enemyBodyParts[i];
+            Rigidbody rb = bodyPart.AddComponent<Rigidbody>();
+            rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+        }
+
+        //disable the enemy arm animator
+        enemyArmAnimator.enabled = false;
+
+        //disable the remaining enemy scripts
+
+        //add rigidbody to the enemy sword and disable the enemy sword script
+        enemySword.enabled = false;
+        enemySword.gameObject.AddComponent<Rigidbody>();
         
+
+        //disable the follow player script
+        followPlayer.enabled = false;
+
+        //disable the look at player script
+        lookAtPlayer.enabled = false;
+
+        //disable the hit player script
+        hitPlayer.enabled = false;
     }
 }
