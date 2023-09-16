@@ -23,6 +23,13 @@ public class DroppingObject : MonoBehaviour
             rb = this.gameObject.AddComponent<Rigidbody>();
             this.transform.GetChild(1).GetComponent<MeshCollider>().enabled = true;
         }
+        else if(this.gameObject.tag == "Sword"){
+            GameObject swordMesh = this.transform.GetChild(0).gameObject; //1st child is the sword mesh
+            rb = swordMesh.AddComponent<Rigidbody>();
+
+            swordMesh.GetComponent<BoxCollider>().isTrigger = false; //longer one 
+            swordMesh.transform.GetChild(0).GetComponent<BoxCollider>().isTrigger = false;   //short horizontal one
+        }
     }
 
 
@@ -56,6 +63,24 @@ public class DroppingObject : MonoBehaviour
                 GetComponent<SphereCollider>().enabled = true;
 
                 GetComponent<Compass>().SwitchOnLight();
+
+                //then remove the rigidbody
+                Destroy(this.rb, 0);
+            }
+            else if(this.gameObject.tag == "Sword"){
+                //re enable sphere collider
+                GameObject swordMesh = this.transform.GetChild(0).gameObject; //1st child is the sword mesh
+                BoxCollider longer = swordMesh.GetComponent<BoxCollider>(); //longer one
+                BoxCollider shorter = swordMesh.transform.GetChild(0).GetComponent<BoxCollider>();   //short horizontal one
+
+                longer.isTrigger = true;
+                shorter.isTrigger = true;
+
+                longer.enabled = false;
+                shorter.enabled = false;
+
+                GetComponent<SphereCollider>().enabled = true;
+                GetComponent<PlayerSword>().SwitchOnLight();
 
                 //then remove the rigidbody
                 Destroy(this.rb, 0);
