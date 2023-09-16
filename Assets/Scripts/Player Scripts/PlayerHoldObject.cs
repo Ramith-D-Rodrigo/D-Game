@@ -17,6 +17,9 @@ public class PlayerHoldObject : MonoBehaviour
 
     public GameObject CurrHoldingObject { get { return currHoldingObject; } set { currHoldingObject = value; } }
 
+    [Header("Sword Place Holder for Level 2")]
+    [SerializeField] private GameObject swordPlaceHolder;   //for the sword
+
     void Start(){
         currHoldingObject = null;
         playerInventory = GetComponent<PlayerInventory>();
@@ -70,6 +73,9 @@ public class PlayerHoldObject : MonoBehaviour
                     HoldCompass();
                     break;
 
+                case "Sword":
+                    HoldSword();
+                    break;
             }      
         }
     }
@@ -89,6 +95,12 @@ public class PlayerHoldObject : MonoBehaviour
         currHoldingObject.transform.localRotation = UnityEngine.Quaternion.Euler(0, 0, 90f);
         currHoldingObject.transform.SetParent(leftArm.transform);
         currHoldingObject.transform.localPosition = new UnityEngine.Vector3(-0.5f, -0.45f, 0.1f);
+    }
+
+    private void HoldSword(){
+        currHoldingObject.transform.SetParent(swordPlaceHolder.transform);
+        currHoldingObject.transform.localPosition = new UnityEngine.Vector3(0, 0, 0);
+        currHoldingObject.transform.localRotation = UnityEngine.Quaternion.Euler(0, 0, 90.0f);
     }
 
     public void DropObject(){
