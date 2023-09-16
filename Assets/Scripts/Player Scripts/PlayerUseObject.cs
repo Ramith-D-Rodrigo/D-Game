@@ -42,6 +42,15 @@ public class PlayerUseObject : MonoBehaviour
             case "Compass":
                 ProcessUsingCompass(toBeUsedObject); //because compass is used and not used with one key
                 break;
+
+            case "Sword":
+                if(isUsingObject){
+                    return;
+                }
+                isUsingObject = true;
+                StartCoroutine(UseSword(toBeUsedObject));
+                break;
+
         }
     }
 
@@ -121,6 +130,18 @@ public class PlayerUseObject : MonoBehaviour
         StopUsingObject();
         playerArmAnimator.SetTrigger("UsingCompass");
         SwitchCamera(0);
+
+    }
+
+    IEnumerator UseSword(GameObject sword){
+        usingObject = sword;
+        playerArmAnimator.SetTrigger("UsingSword");
+
+        yield return new WaitForSeconds(1f);
+
+        playerArmAnimator.SetTrigger("UsingSword");
+        yield return new WaitForSeconds(1f);    //wait until finishing the animation
+        StopUsingObject();
 
     }
 }
