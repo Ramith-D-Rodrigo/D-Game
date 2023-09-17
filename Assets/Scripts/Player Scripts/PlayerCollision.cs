@@ -26,7 +26,7 @@ public class PlayerCollision : MonoBehaviour
     private bool isPlayerDead;
     public bool IsPlayerDead { get { return isPlayerDead; } }
 
-    private float playerHealth;
+    [SerializeField] private float playerHealth;
     public float PlayerHealth { get { return playerHealth; } set { playerHealth = value; } }
     public float healthReduceFactor = 5f;
     public float healthIncreaseFactor = 10f;
@@ -449,17 +449,19 @@ public class PlayerCollision : MonoBehaviour
         if(!isPlayerDead && !isOnTerrain){ ///not dead and not touching the terrain
             ReducePlayerHealth();
         }
-
-        if(!isPlayerDead && isOnTerrain && currCenterOfMass.y != rb.centerOfMass.y){ //not dead and touching the terrain, but center of mass is changing on y axis
+        
+        if(!isPlayerDead && isOnTerrain && playerGroundLevel == currBodyYPos && currCenterOfMass.y == rb.centerOfMass.y){
+            IncreasePlayerHealth();
+        }
+        else if(!isPlayerDead && isOnTerrain && currCenterOfMass.y != rb.centerOfMass.y){ //not dead and touching the terrain, but center of mass is changing on y axis
+            Debug.Log("mass changed" + rb.centerOfMass);
             currCenterOfMass = rb.centerOfMass;
             ReducePlayerHealth();
         }
         else if(!isPlayerDead && isOnTerrain && playerGroundLevel != currBodyYPos){ //not dead and touching the terrain, but not on the ground level
             ReducePlayerHealth();
         }
-        else if(!isPlayerDead && isOnTerrain && playerGroundLevel == currBodyYPos){
-            IncreasePlayerHealth();
-        }
+
     }
 
 }
