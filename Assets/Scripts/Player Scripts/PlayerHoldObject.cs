@@ -100,7 +100,7 @@ public class PlayerHoldObject : MonoBehaviour
     private void HoldSword(){
         currHoldingObject.transform.SetParent(swordPlaceHolder.transform);
         currHoldingObject.transform.localPosition = new UnityEngine.Vector3(0, 0, 0);
-        currHoldingObject.transform.localRotation = UnityEngine.Quaternion.Euler(0, 0, 90.0f);
+        currHoldingObject.transform.localRotation = UnityEngine.Quaternion.Euler(0, 0, 0);
     }
 
     public void DropObject(){
