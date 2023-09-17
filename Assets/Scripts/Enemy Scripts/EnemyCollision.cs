@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyCollision : MonoBehaviour
 {
 
-    [SerializeField] private int hitPoints = 3;
+    [SerializeField] private int hitPoints = 6;
     public int HitPoints { get { return hitPoints; } set { hitPoints = value; } }
 
     private bool isDead = false;
@@ -23,6 +23,7 @@ public class EnemyCollision : MonoBehaviour
     [SerializeField] private FollowPlayer followPlayer;
     [SerializeField] private LookAtPlayer lookAtPlayer;
     [SerializeField] private HitPlayer hitPlayer;
+    [SerializeField] private PlayerUseObject playerUseObject;
 
 
     // Start is called before the first frame update
@@ -49,9 +50,10 @@ public class EnemyCollision : MonoBehaviour
 
         enemyAnimator.enabled = false;
 
-        //disable all the scripts of the player movement
+        //disable all the scripts of the enemy movement
         enemyMover.enabled = false;
-    
+        Destroy(enemyMover);
+
         for(int i = 0; i < enemyBodyParts.Length; i++){
             GameObject bodyPart = enemyBodyParts[i];
             Rigidbody rb = bodyPart.AddComponent<Rigidbody>();
@@ -60,21 +62,32 @@ public class EnemyCollision : MonoBehaviour
 
         //disable the enemy arm animator
         enemyArmAnimator.enabled = false;
+        Destroy(enemyArmAnimator);
 
         //disable the remaining enemy scripts
 
         //add rigidbody to the enemy sword and disable the enemy sword script
+        enemySword.transform.parent.gameObject.AddComponent<Rigidbody>();
+        BoxCollider longer = enemySword.GetComponent<BoxCollider>(); //longer one
+        BoxCollider shorter = enemySword.transform.GetChild(0).GetComponent<BoxCollider>();   //short horizontal one
+
+        longer.isTrigger = false;
+        shorter.isTrigger = false;
+
         enemySword.enabled = false;
-        enemySword.gameObject.AddComponent<Rigidbody>();
-        
+        Destroy(enemySword);
+
 
         //disable the follow player script
         followPlayer.enabled = false;
+        Destroy(followPlayer);
 
         //disable the look at player script
         lookAtPlayer.enabled = false;
+        Destroy(lookAtPlayer);
 
         //disable the hit player script
         hitPlayer.enabled = false;
+        Destroy(hitPlayer);
     }
 }
