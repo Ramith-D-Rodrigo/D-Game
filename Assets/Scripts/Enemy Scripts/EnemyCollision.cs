@@ -23,7 +23,6 @@ public class EnemyCollision : MonoBehaviour
     [SerializeField] private FollowPlayer followPlayer;
     [SerializeField] private LookAtPlayer lookAtPlayer;
     [SerializeField] private HitPlayer hitPlayer;
-    [SerializeField] private PlayerUseObject playerUseObject;
 
 
     // Start is called before the first frame update

@@ -184,7 +184,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2860555277330250570}
-  - component: {fileID: 2170390327676477935}
   m_Layer: 8
   m_Name: Right Arm Rotation Point
   m_TagString: Untagged
@@ -208,26 +207,6 @@ Transform:
   m_Father: {fileID: 3029705564260474964}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: -8.564, y: -19.197, z: -113.156}
---- !u!114 &2170390327676477935
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1785045471813086989}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 873ede0ed675ccc449ff4db786cb0773, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movementSpeed: 250
-  xRotation: 0
-  zRotation: 0
-  xDirection: 0
-  currZValue: 0
-  upperLimit: 170
-  midPoint: 90
-  lowerLimit: 45
 --- !u!1 &2178446408380348022
 GameObject:
   m_ObjectHideFlags: 0
@@ -666,7 +645,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3029705564260474964}
   - component: {fileID: 1367868325929671498}
-  - component: {fileID: 5905435481270428304}
   m_Layer: 8
   m_Name: Arms
   m_TagString: Untagged
@@ -712,22 +690,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &5905435481270428304
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4585978990176846697}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b34ee66f3c3e14c4e8e26120ecb68e05, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerArmAnimator: {fileID: 0}
-  mainCamera: {fileID: 0}
-  freeLookCamera: {fileID: 0}
-  firstPersonCamera: {fileID: 2178446408380348022}
 --- !u!1 &5013973513797307927
 GameObject:
   m_ObjectHideFlags: 0
@@ -875,7 +837,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7846658684863682048}
-  - component: {fileID: 7405196302539903452}
   m_Layer: 8
   m_Name: Left Arm Rotation Point
   m_TagString: leftArm
@@ -900,26 +861,6 @@ Transform:
   m_Father: {fileID: 3029705564260474964}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 5.944, y: 13.14, z: -113.922}
---- !u!114 &7405196302539903452
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5620866669414385749}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 873ede0ed675ccc449ff4db786cb0773, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movementSpeed: 250
-  xRotation: 0
-  zRotation: 0
-  xDirection: 0
-  currZValue: 0
-  upperLimit: 170
-  midPoint: 90
-  lowerLimit: 45
 --- !u!1 &7275535891579713658
 GameObject:
   m_ObjectHideFlags: 0

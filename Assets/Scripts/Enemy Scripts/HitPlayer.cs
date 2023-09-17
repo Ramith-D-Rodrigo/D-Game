@@ -26,8 +26,8 @@ public class HitPlayer : MonoBehaviour
         if(hittingPlayer && !followPlayer.Player){  //if enemy is within hit range and not following player
             //give random chance to hit player
             if(!enemySword.IsUsingSword){
-                int randomChance = UnityEngine.Random.Range(0, 100);
-                if(randomChance % 8 == 0){
+                int randomChance = UnityEngine.Random.Range(0, 1000);
+                if(randomChance % 46 == 0){
                     StartCoroutine(enemySword.UseSword());
                 }
             }

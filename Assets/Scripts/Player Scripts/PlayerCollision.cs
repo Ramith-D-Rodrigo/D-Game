@@ -243,6 +243,9 @@ public class PlayerCollision : MonoBehaviour
         movementRecorder.IsResetting = true;
         //pause all the animators
         foreach(Animator animator in allAnimators){
+            if(animator == null){ //already destroyed
+                continue;
+            }
             animator.enabled = false;
         }
 
@@ -314,6 +317,10 @@ public class PlayerCollision : MonoBehaviour
 
         //re-enable all animators
         foreach(Animator animator in allAnimators){
+            if(animator == null){   //already destroyed
+                continue;
+            }
+
             animator.enabled = true;
         }
 

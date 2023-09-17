@@ -140,8 +140,8 @@ public class PlayerUseObject : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         playerArmAnimator.SetTrigger("UsingSword");
-        yield return new WaitForSeconds(0.2f);    //wait until finishing the dropping the arms
         StopUsingObject();
+        yield return new WaitForSeconds(0.2f);    //wait until finishing the dropping the arms
 
     }
 }

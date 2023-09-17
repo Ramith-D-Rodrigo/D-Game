@@ -21,8 +21,6 @@ public class EnemyMover : MonoBehaviour
     private float drag;
     private float enemyHeight;
     private bool isGrounded;
-    [SerializeField] private PlayerCollision playerCollision;
-
     [SerializeField] private Collider[] bodyCollidersForHeight;
 
     private SphereCollider terrainCollider;

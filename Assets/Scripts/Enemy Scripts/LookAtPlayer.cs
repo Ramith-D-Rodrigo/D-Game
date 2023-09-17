@@ -51,6 +51,11 @@ public class LookAtPlayer : MonoBehaviour
         //shoot raycast from -60 to 30 degrees
         bool foundPlayer = false;
 
+        if(lookingObject.GetComponent<PlayerCollision>().IsPlayerDead){
+            player = null;
+            return;
+        }
+
         float startingXAngle = -60;
         do{
             Vector3 shootingDirection = new Vector3(Mathf.Sin(startingXAngle * Mathf.Deg2Rad), 0.0f, Mathf.Cos(startingXAngle * Mathf.Deg2Rad));
