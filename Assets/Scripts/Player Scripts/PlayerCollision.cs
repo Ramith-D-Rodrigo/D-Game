@@ -40,6 +40,8 @@ public class PlayerCollision : MonoBehaviour
     [SerializeField] private SlideObstacleMover[] slideObstacleMovers;
     [SerializeField] private SlidingDownObstacleMover[] slidingDownObstacleMovers;
     private MovementRecorder movementRecorder;
+    private bool playerPrevState;
+    public bool PlayerPrevState { get { return playerPrevState; } set { playerPrevState = value; } }
     [SerializeField] private HUD hud;
 
     [SerializeField] private LevelManager levelManager;
@@ -213,6 +215,7 @@ public class PlayerCollision : MonoBehaviour
         holdObjectComponent.DropObject();
 
         isPlayerDead = true;
+        playerPrevState = isPlayerDead;
         StartCoroutine(DisplayResetMessage(timeTillResetMessage)); //display reset message after certain time
     }
 
@@ -265,10 +268,26 @@ public class PlayerCollision : MonoBehaviour
             Destroy(rb);
         }
 
+        bool playerStateBeforeLastTransformationRewind = playerPrevState;
+        bool canUseTimer = false;
+
         while(timeCounter > 0.0f && movementRecorder.IsResetting){
             movementRecorder.RewindPlayerLastTransformation(); //also changes health (player)
             ChangePlayerColor(); //so change the color of player
-            timeCounter -= Time.fixedDeltaTime;
+            bool playerStateAfterLastTransformationRewind = playerPrevState;
+
+            //Debug.Log(playerStateBeforeLastTransformationRewind + " " + playerStateAfterLastTransformationRewind);
+
+            if(playerStateBeforeLastTransformationRewind != playerStateAfterLastTransformationRewind){  //changed state from death to alive
+                //now start the timer count
+                canUseTimer = true;
+                playerStateBeforeLastTransformationRewind = playerStateAfterLastTransformationRewind;
+            }
+
+            if(canUseTimer){
+                timeCounter -= Time.fixedDeltaTime;
+            }
+
             yield return new WaitForFixedUpdate();
         }
 
@@ -292,7 +311,6 @@ public class PlayerCollision : MonoBehaviour
             EnableSlidingObstacles();
         }
 
-        ResetPlayerStats();
 
         //re-enable all animators
         foreach(Animator animator in allAnimators){
@@ -301,8 +319,7 @@ public class PlayerCollision : MonoBehaviour
 
         hud.gameObject.SetActive(true);
 
-        //set isplayerdead
-        isPlayerDead = false;
+        ResetPlayerStats();
     }
 
 
