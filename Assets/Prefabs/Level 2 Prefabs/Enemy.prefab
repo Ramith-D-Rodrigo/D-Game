@@ -1482,7 +1482,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f5cbca8183a2774d8c39e4c3a46331f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  followingPlayerCollider: {fileID: 0}
+  hitPoints: 3
+  rb: {fileID: 3340710624614646958}
+  enemyAnimator: {fileID: 3263315309005570008}
+  enemyBodyParts: []
+  enemyArmAnimator: {fileID: 1367868325929671498}
+  enemyMover: {fileID: 3464124870325310995}
+  enemySword: {fileID: 7203730567413831033}
+  followPlayer: {fileID: 4422571604505279319}
+  lookAtPlayer: {fileID: 7594003978920602421}
+  hitPlayer: {fileID: 7855153706520034324}
+  playerUseObject: {fileID: 0}
 --- !u!1 &9175043687527291034
 GameObject:
   m_ObjectHideFlags: 0
