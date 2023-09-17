@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1299344582870517251}
   m_Layer: 8
   m_Name: Right Arm
-  m_TagString: Untagged
+  m_TagString: EnemyArm
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 1
@@ -334,7 +334,7 @@ GameObject:
   - component: {fileID: 7617537722219683010}
   m_Layer: 8
   m_Name: Body
-  m_TagString: Untagged
+  m_TagString: EnemyBody
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 1
@@ -511,7 +511,7 @@ GameObject:
   - component: {fileID: 8984560812555511656}
   m_Layer: 8
   m_Name: Left Arm
-  m_TagString: Untagged
+  m_TagString: EnemyArm
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 1
@@ -603,6 +603,59 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &3683173798676377462
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2594671839884739842}
+  - component: {fileID: 5885175110855529750}
+  m_Layer: 8
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2594671839884739842
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3683173798676377462}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7683370107921390886}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &5885175110855529750
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3683173798676377462}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.21, y: 0.05, z: 0.02}
+  m_Center: {x: 0, y: 0.03, z: 0}
 --- !u!1 &4585978990176846697
 GameObject:
   m_ObjectHideFlags: 0
@@ -689,7 +742,7 @@ GameObject:
   - component: {fileID: 3434825233124843340}
   m_Layer: 8
   m_Name: Left Leg
-  m_TagString: Untagged
+  m_TagString: EnemyLeg
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 1
@@ -881,7 +934,7 @@ GameObject:
   - component: {fileID: 6645933246027688522}
   m_Layer: 8
   m_Name: Head
-  m_TagString: Untagged
+  m_TagString: EnemyHead
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 1
@@ -1006,7 +1059,8 @@ Transform:
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2594671839884739842}
   m_Father: {fileID: 7683370108340060411}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1176,7 +1230,7 @@ GameObject:
   - component: {fileID: 3556750958588200271}
   m_Layer: 8
   m_Name: Right Leg
-  m_TagString: Untagged
+  m_TagString: EnemyLeg
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 1
@@ -1348,7 +1402,6 @@ GameObject:
   - component: {fileID: 3340710624614646958}
   - component: {fileID: 3263315309005570008}
   - component: {fileID: 3464124870325310995}
-  - component: {fileID: 2739192944868462659}
   - component: {fileID: 2447964686822663128}
   m_Layer: 8
   m_Name: Enemy
@@ -1456,20 +1509,6 @@ MonoBehaviour:
   - {fileID: 3556750958588200271}
   followPlayer: {fileID: 4422571604505279319}
   hitPlayer: {fileID: 7855153706520034324}
---- !u!114 &2739192944868462659
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8826873631620718206}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b33da9df89632b499e462f65e0f3749, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyMover: {fileID: 3464124870325310995}
-  player: {fileID: 0}
 --- !u!114 &2447964686822663128
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1485,7 +1524,13 @@ MonoBehaviour:
   hitPoints: 3
   rb: {fileID: 3340710624614646958}
   enemyAnimator: {fileID: 3263315309005570008}
-  enemyBodyParts: []
+  enemyBodyParts:
+  - {fileID: 7275535891579713658}
+  - {fileID: 2875853719353404400}
+  - {fileID: 8202884969757311733}
+  - {fileID: 5013973513797307927}
+  - {fileID: 97910492611158661}
+  - {fileID: 3477562118927287603}
   enemyArmAnimator: {fileID: 1367868325929671498}
   enemyMover: {fileID: 3464124870325310995}
   enemySword: {fileID: 7203730567413831033}
