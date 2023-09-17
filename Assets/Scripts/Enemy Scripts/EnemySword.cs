@@ -40,8 +40,8 @@ public class EnemySword : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider other) {
-        Debug.Log("hitting player with sword");
         if(other.gameObject.name == "Body" && other.transform.parent.tag == "Player" && isHittingNow){
+            Debug.Log("hitting player with sword");
 
             if(playerCollision){
                 if(!playerCollision.IsPlayerDead){
@@ -61,7 +61,7 @@ public class EnemySword : MonoBehaviour
         isHittingNow = false;   //not hitting anymore
 
         enemyArmAnimator.SetTrigger("toggleHit");//stop using the sword
-        yield return new WaitForSeconds(1.0f);  //wait until finishing the animation
+        yield return new WaitForSeconds(0.2f);  //wait until finishing the animation
         isUsingSword = false;
 
     }
