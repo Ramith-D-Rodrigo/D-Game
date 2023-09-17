@@ -9,7 +9,7 @@ public class EnemySword : MonoBehaviour
     [SerializeField] private HitPlayer hitPlayer;
     [SerializeField] private LookAtPlayer lookAtPlayer;
     [SerializeField] private FollowPlayer followPlayer;
-    [SerializeField] private float swordDamage = 25.0f; //4 hits to kill player (100/25 = 4)
+    [SerializeField] private float swordDamage = 20.0f; //5 hits to kill player (100/20 = 5)
     private bool isUsingSword;
     public bool IsUsingSword {get { return isUsingSword;} }
     private PlayerCollision playerCollision;
