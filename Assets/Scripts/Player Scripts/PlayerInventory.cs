@@ -108,7 +108,9 @@ public class PlayerInventory : MonoBehaviour
                 swordMesh.GetComponent<BoxCollider>().enabled = true; //longer one
                 swordMesh.transform.GetChild(0).GetComponent<BoxCollider>().enabled = true;   //short horizontal one
 
-                gameObject.GetComponent<PlayerSword>().SwitchOffLight();
+                PlayerSword playerSword = swordMesh.GetComponent<PlayerSword>();
+                playerSword.enabled = true;
+                playerSword.SwitchOffLight();
 
             }
 
