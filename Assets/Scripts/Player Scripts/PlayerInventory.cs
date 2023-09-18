@@ -38,9 +38,11 @@ public class PlayerInventory : MonoBehaviour
                 }
             }
             else if(Input.GetKeyDown(KeyCode.Alpha2)){  //second object in the inventory
-                playerHoldObject.CurrHoldingObject = inventory[1];
-                inventory[1] = null;    //not in the inventory anymore
-                playerHoldObject.HoldCurrentObject();
+                if(playerHoldObject.CurrHoldingObject == null){
+                    playerHoldObject.CurrHoldingObject = inventory[1];
+                    inventory[1] = null;    //not in the inventory anymore
+                    playerHoldObject.HoldCurrentObject();
+                }
             }
 /*             else if(Input.GetKeyDown(KeyCode.Alpha3)){
                 currHoldingObjIndex = 2;

@@ -36,6 +36,10 @@ public class LevelManager : MonoBehaviour
         levelClearPanel.SetActive(false);
         levelNumberText.transform.parent.gameObject.SetActive(false);
 
+        //hide mouse cursor
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
         switch(currLevelIndex){
             case 1:
                 ProcessLevelOneSettings();
@@ -150,5 +154,13 @@ public class LevelManager : MonoBehaviour
         yield return new WaitForSeconds(currLevelDisplayTextSeconds);
 
         levelNumberText.transform.parent.gameObject.SetActive(false);
+    }
+
+    public void RestartLevel(){
+        //if time scale is 0, set it to 1
+        if(Time.timeScale == 0.0f){
+            Time.timeScale = 1.0f;
+        }
+        SceneManager.LoadScene(currLevelIndex);
     }
 }

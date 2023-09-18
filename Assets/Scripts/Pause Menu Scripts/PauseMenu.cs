@@ -34,6 +34,16 @@ public class PauseMenu : MonoBehaviour
         togglePauseMenu = !togglePauseMenu;
         pauseMenuCanvas.SetActive(togglePauseMenu);
 
+        //toggle mouse visibility
+        if(togglePauseMenu){ //pause menu active
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+        else{ //pause menu deactivate
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+
         if(togglePauseMenu){    //pause menu active
             Time.timeScale = 0.0f;
         }
