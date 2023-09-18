@@ -53,6 +53,9 @@ public class PauseMenu : MonoBehaviour
     }
 
     public void ClickResumeButton(){
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
         togglePauseMenu = false;
         pauseMenuCanvas.SetActive(false);
         Time.timeScale = 1.0f;
