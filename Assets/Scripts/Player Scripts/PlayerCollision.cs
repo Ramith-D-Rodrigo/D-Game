@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -40,6 +41,7 @@ public class PlayerCollision : MonoBehaviour
     [SerializeField] private SlideObstacleMover[] slideObstacleMovers;
     [SerializeField] private SlidingDownObstacleMover[] slidingDownObstacleMovers;
     private MovementRecorder movementRecorder;
+    [SerializeField] private TextMeshProUGUI playerResetTimeText;
     private bool playerPrevState;
     public bool PlayerPrevState { get { return playerPrevState; } set { playerPrevState = value; } }
     [SerializeField] private HUD hud;
@@ -240,6 +242,7 @@ public class PlayerCollision : MonoBehaviour
         hud.HideMessage();
         hud.gameObject.SetActive(false);
 
+
         movementRecorder.IsResetting = true;
         //pause all the animators
         foreach(Animator animator in allAnimators){
@@ -263,6 +266,9 @@ public class PlayerCollision : MonoBehaviour
 
         float timeCounter = movementRecorder.maxRecordingSecs;
 
+        //reset time hud
+        playerResetTimeText.SetText(MathF.Round(timeCounter, 1).ToString() + " Seconds");
+        playerResetTimeText.transform.parent.parent.gameObject.SetActive(true);
 
         //remove body part rigidbodies
         for(int i = 0; i < playerBodyParts.Length; i++){
@@ -289,6 +295,7 @@ public class PlayerCollision : MonoBehaviour
 
             if(canUseTimer){
                 timeCounter -= Time.fixedDeltaTime;
+                playerResetTimeText.SetText(Math.Clamp(MathF.Round(timeCounter, 1), 0.0f, movementRecorder.maxRecordingSecs).ToString() + " Seconds");
             }
 
             yield return new WaitForFixedUpdate();
@@ -325,6 +332,9 @@ public class PlayerCollision : MonoBehaviour
         }
 
         hud.gameObject.SetActive(true);
+
+        //reset time hud
+        playerResetTimeText.transform.parent.parent.gameObject.SetActive(false);
 
         ResetPlayerStats();
     }
