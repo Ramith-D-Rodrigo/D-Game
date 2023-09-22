@@ -15,10 +15,14 @@ public class PlayerUseObject : MonoBehaviour
     [SerializeField] private GameObject mainCamera;
     [SerializeField] private GameObject freeLookCamera;
     [SerializeField] private GameObject firstPersonCamera;
+
+    private int prevUsedSwordAnimation;
     void Start()
     {
         isUsingObject = false;
         playerArmAnimator = this.GetComponent<Animator>();
+
+        prevUsedSwordAnimation = -1;
     }
 
     public void UseObject(GameObject toBeUsedObject){
@@ -47,8 +51,28 @@ public class PlayerUseObject : MonoBehaviour
                 if(isUsingObject){
                     return;
                 }
+                int animationChoice;
+
+                do{
+                    animationChoice = Random.Range(0, 3);
+                }
+                while(animationChoice == prevUsedSwordAnimation);
+
+                prevUsedSwordAnimation = animationChoice;
+
                 isUsingObject = true;
-                StartCoroutine(UseSword(toBeUsedObject));
+                switch(animationChoice){
+                    case 0:
+                        StartCoroutine(UseSword(toBeUsedObject));
+                        break;
+                    case 1:
+                        StartCoroutine(UseSword2(toBeUsedObject));
+                        break;
+                    case 2:
+                        StartCoroutine(UseSword3(toBeUsedObject));
+                        break;
+                }
+
                 break;
 
         }
@@ -137,11 +161,33 @@ public class PlayerUseObject : MonoBehaviour
         usingObject = sword;
         playerArmAnimator.SetTrigger("UsingSword");
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1f/60 * 15);
 
         playerArmAnimator.SetTrigger("UsingSword");
         StopUsingObject();
-        yield return new WaitForSeconds(0.2f);    //wait until finishing the dropping the arms
+
+    }
+
+
+    IEnumerator UseSword2(GameObject sword){
+        usingObject = sword;
+        playerArmAnimator.SetTrigger("UsingSword2");
+
+        yield return new WaitForSeconds(1f/60 * 15);
+
+        playerArmAnimator.SetTrigger("UsingSword2");
+        StopUsingObject();
+
+    }
+
+    IEnumerator UseSword3(GameObject sword){
+        usingObject = sword;
+        playerArmAnimator.SetTrigger("UsingSword3");
+
+        yield return new WaitForSeconds(1f/60 * 15);
+
+        playerArmAnimator.SetTrigger("UsingSword3");
+        StopUsingObject();
 
     }
 }
