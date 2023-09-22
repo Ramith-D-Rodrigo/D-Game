@@ -26,8 +26,13 @@ public class PlayerSword : MonoBehaviour
     private void OnTriggerEnter(Collider other) {
         Debug.Log("Collision with" + other.gameObject.tag);
         if(enemyBodyParts.Contains(other.gameObject.tag) && other.transform.parent.tag == "Enemy" && playerUseObject.GetIsUsingObject()){
-              other.transform.parent.GetComponent<EnemyCollision>().HitPoints--;
+            HitEnemy(other.transform.parent.gameObject);
         }
+    }
+
+    private void HitEnemy(GameObject enemy){
+        EnemyCollision enemyCollision = enemy.GetComponent<EnemyCollision>();
+        enemyCollision.HitEnemy();
     }
 
     public void SwitchOnLight(){

@@ -7,12 +7,12 @@ public class EnemySword : MonoBehaviour
     // Start is called before the first frame update
     [SerializeField] private Animator enemyArmAnimator;
     [SerializeField] private HitPlayer hitPlayer;
-    [SerializeField] private LookAtPlayer lookAtPlayer;
-    [SerializeField] private FollowPlayer followPlayer;
     [SerializeField] private float swordDamage = 20.0f; //5 hits to kill player (100/20 = 5)
     private bool isUsingSword;
     public bool IsUsingSword {get { return isUsingSword;} }
     private PlayerCollision playerCollision;
+
+    [SerializeField] private EnemyState enemyState;
 
     private bool isHittingNow; //actual starting point of hit
     void Start()
@@ -24,17 +24,18 @@ public class EnemySword : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(hitPlayer.HittingPlayer){    //if enemy is within hit range
+        if(enemyState.CurrentState == EnemyState.EnemyStates.HitPlayer){    //if enemy is in hitting state
             playerCollision = hitPlayer.HittingPlayer.GetComponent<PlayerCollision>();  //get player collision script
 
             if(playerCollision.IsPlayerDead){   //if player is dead
                 hitPlayer.HittingPlayer = null; //stop hitting player
-                followPlayer.Player = null;
-                lookAtPlayer.Player = null;
+
+                enemyState.CurrentState = EnemyState.EnemyStates.Idle;
+
                 playerCollision = null; //set player collision to null
             }
         } 
-        else{   //if enemy is not within hit range
+        else{   //if enemy is not in hitting state
             playerCollision = null;
         }
     }

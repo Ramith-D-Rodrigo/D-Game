@@ -28,8 +28,7 @@ public class EnemyMover : MonoBehaviour
     private GameObject targettingPlayer; //player transform to rotate towards
     public GameObject TargettingPlayer {get { return targettingPlayer;} set{ targettingPlayer = value;} }
 
-    [SerializeField] private FollowPlayer followPlayer;
-    [SerializeField] private HitPlayer hitPlayer;
+    [SerializeField] private EnemyState enemyState;
 
     void Start()
     {
@@ -66,7 +65,7 @@ public class EnemyMover : MonoBehaviour
 
 
     public void MoveForwardBackward(){       
-        if(isGrounded && followPlayer.Player && !hitPlayer.HittingPlayer){
+        if(isGrounded && enemyState.CurrentState == EnemyState.EnemyStates.FollowPlayer){
             enemyAnimator.SetBool("isWalking", true);
             enemyAnimator.SetBool("isRunning", true);
             UnityEngine.Vector3 moveDirectionVec = new(0.0f, 0.0f, Time.fixedDeltaTime);
@@ -83,7 +82,7 @@ public class EnemyMover : MonoBehaviour
 
     public void StopEnemyMovement(){
         //enemy has just stopped targetting the player and was moving
-        if(isMoving && !followPlayer.Player){
+        if(isMoving && enemyState.CurrentState != EnemyState.EnemyStates.FollowPlayer){
             enemyAnimator.SetBool("isRunning", false);
             enemyAnimator.SetBool("isWalking", false);
             rb.velocity = new Vector3(0.0f, -1.0f, 0.0f);  //stop the player
@@ -95,9 +94,6 @@ public class EnemyMover : MonoBehaviour
 
     public void RotateEnemy(){
         if(targettingPlayer != null){
-/*             Vector3 targetPosition = rotatingTransform.position;
-            targetPosition.y = rb.transform.position.y;
-            rb.transform.LookAt(targetPosition); */
 
             //rotate the enemy towards the player
             Vector3 targetDirection = targettingPlayer.transform.position - transform.position;

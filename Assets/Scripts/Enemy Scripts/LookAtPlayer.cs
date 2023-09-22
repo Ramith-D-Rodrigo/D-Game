@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.ProBuilder;
 
@@ -11,49 +12,32 @@ public class LookAtPlayer : MonoBehaviour
     //public bool IsLookingAtPlayer {get { return isLookingAtPlayer;} set{ isLookingAtPlayer = value;} }
     [SerializeField] EnemyMover enemyMover;
     [SerializeField] private SphereCollider lookingAtPlayerCollider;
-    private GameObject player;
-    public GameObject Player {get { return player;} set {player = value ;}}
 
-
-    void Start()
-    {
-        //isLookingAtPlayer = false;
-        player = null;
-    }
-
-    private void FixedUpdate(){
-        if(player){
-            RotateTowardsPlayer();
-        }
-        else{
-            StopRotatingTowardsPlayer();
-        }
-    }
-
-    private void StopRotatingTowardsPlayer()
-    {
-        enemyMover.TargettingPlayer = null;
-    }
-
-    private void RotateTowardsPlayer()
-    {
-        enemyMover.TargettingPlayer = player;
-    }
+    [SerializeField] private EnemyState enemyState;
 
     // Update is called once per frame
     private void OnTriggerStay(Collider other) {
         if(other.gameObject.name == "Body" && other.transform.parent.tag == "Player"){
-            ProcessCanActuallySee(other.transform.parent.gameObject);
+
+            if(ProcessCanActuallySee(other.transform.parent.gameObject)){   //can actually see the player
+                if(enemyState.CurrentState == EnemyState.EnemyStates.Idle){ //if enemy is idle
+                    enemyState.CurrentState = EnemyState.EnemyStates.LookAtPlayer;  //change to look at player state
+                }
+                enemyMover.TargettingPlayer = other.transform.parent.gameObject;    //set the targetting player to look at
+            }
+            else{   //cannot see the player
+                enemyState.CurrentState = EnemyState.EnemyStates.Idle;  //change to idle state
+                enemyMover.TargettingPlayer = null; //set the targetting player to null
+            }
         }
     }
 
-    private void ProcessCanActuallySee(GameObject lookingObject){
+    private bool ProcessCanActuallySee(GameObject lookingObject){
         //shoot raycast from -60 to 30 degrees
         bool foundPlayer = false;
 
         if(lookingObject.GetComponent<PlayerCollision>().IsPlayerDead){
-            player = null;
-            return;
+            return false;
         }
 
         float startingXAngle = -60;
@@ -98,17 +82,13 @@ public class LookAtPlayer : MonoBehaviour
         }while(startingXAngle <= 30);
 
 
-        if(foundPlayer){
-            player = lookingObject;
-        }        
-        else{
-            player = null;
-        }
+        return foundPlayer;
     }
 
     private void OnTriggerExit(Collider other) {
         if(other.gameObject.name == "Body" && other.transform.parent.tag == "Player"){
-            player = null;
+            //change to idle state
+            enemyState.CurrentState = EnemyState.EnemyStates.Idle;
         }
     }
 }
