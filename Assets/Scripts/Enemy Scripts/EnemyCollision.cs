@@ -5,7 +5,9 @@ using UnityEngine;
 public class EnemyCollision : MonoBehaviour
 {
 
-    [SerializeField] private int hitPoints = 6;
+    [SerializeField] private int hitPoints;
+    private int maxHitPoints = 6;
+    private int minHitPoints = 0;
     public int HitPoints { get { return hitPoints; } set { hitPoints = value; } }
 
     private bool isDead = false;
@@ -23,12 +25,13 @@ public class EnemyCollision : MonoBehaviour
     [SerializeField] private FollowPlayer followPlayer;
     [SerializeField] private LookAtPlayer lookAtPlayer;
     [SerializeField] private HitPlayer hitPlayer;
+    [SerializeField] private EnemyState enemyState;
 
 
     // Start is called before the first frame update
     void Start()
     {
-
+        hitPoints = maxHitPoints;
     }
 
     // Update is called once per frame
@@ -88,5 +91,24 @@ public class EnemyCollision : MonoBehaviour
         //disable the hit player script
         hitPlayer.enabled = false;
         Destroy(hitPlayer);
+
+        enemyState.CurrentState = EnemyState.EnemyStates.Dead;
+    }
+
+    private void ChangeEnemyColor(){
+        //change the color of the enemy upon hit
+
+        for(int i = 0; i < enemyBodyParts.Length; i++){
+            GameObject bodyPart = enemyBodyParts[i];
+            Renderer rend = bodyPart.GetComponent<Renderer>();
+            
+            Color currColor = rend.materials[1].color;
+            rend.materials[1].color = new Color(currColor.r, currColor.g, currColor.b, Mapper.Map(maxHitPoints - hitPoints, minHitPoints, maxHitPoints, 0, 255) / 255);
+        }
+    }
+
+    public void HitEnemy(){
+        hitPoints--;
+        ChangeEnemyColor();
     }
 }
