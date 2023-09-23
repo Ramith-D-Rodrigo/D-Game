@@ -8,7 +8,9 @@ public class Compass : MonoBehaviour
     [SerializeField] GameObject destination;
     [SerializeField] GameObject pointerPivot;
 
-    [SerializeField] Light pointLight;
+    [SerializeField] Light[] pointLights;
+
+    [SerializeField] Canvas locationPinCanvas;
 
     private bool isWorking; //to check whether the compass should work or not
     public bool IsWorking {get {return isWorking;} set {isWorking = value;} }
@@ -27,10 +29,22 @@ public class Compass : MonoBehaviour
 
 
     public void SwitchOnLight(){
-        pointLight.enabled = true;
+        foreach(Light light in pointLights){
+            light.enabled = true;
+        }
     }
 
     public void SwitchOffLight(){
-        pointLight.enabled = false;
+        foreach(Light light in pointLights){
+            light.enabled = false;
+        }
+    }
+
+    public void SwitchOnCanvas(){
+        locationPinCanvas.enabled = true;
+    }
+
+    public void SwitchOffCanvas(){
+        locationPinCanvas.enabled = false;
     }
 }

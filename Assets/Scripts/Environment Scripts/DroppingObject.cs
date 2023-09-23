@@ -68,7 +68,9 @@ public class DroppingObject : MonoBehaviour
                 this.transform.GetChild(1).GetComponent<MeshCollider>().enabled = false;
                 GetComponent<SphereCollider>().enabled = true;
 
-                GetComponent<Compass>().SwitchOnLight();
+                Compass compass = GetComponent<Compass>();
+                compass.SwitchOnLight();
+                compass.SwitchOnCanvas();
 
                 //then remove the rigidbody
                 Destroy(this.rb, 0);
