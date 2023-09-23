@@ -16,6 +16,7 @@ public class SlideObstacleSpeedSetter : MonoBehaviour
     {
         SlideObstacleMover[] childSlideObstacleMovers;
         SlidingDownObstacleMover[] childSlidingDownObstacleMovers; 
+        RotatingWall[] childRotatingWalls;
 
 
 
@@ -34,8 +35,13 @@ public class SlideObstacleSpeedSetter : MonoBehaviour
 
             SetSpeedTotheComponent(childSlidingDownObstacleMovers);
         }
-        else{
-            return;
+        else if(this.gameObject.name == "Rotating Obstacles"){
+            childRotatingWalls = this.GetComponentsInChildren<RotatingWall>();
+
+            GetXPositions(childRotatingWalls);
+
+            SetSpeedTotheComponent(childRotatingWalls);
+
         }
     }
 
@@ -59,6 +65,16 @@ public class SlideObstacleSpeedSetter : MonoBehaviour
         }
     }
 
+    void GetXPositions(RotatingWall[] rotatingComponentArr){
+        for(int i = 0; i < rotatingComponentArr.Length; i++){
+            float xPos = rotatingComponentArr[i].gameObject.transform.position.x;
+
+            SetMinMaxOfXPositions(xPos);
+
+            xPositions.Add(xPos);
+        }
+    }
+
     void SetSpeedTotheComponent(SlidingDownObstacleMover[] moverComponentArr){
         for(int i = 0; i < xPositions.Count; i++){
             float speed = Mapper.Map(xPositions[i], xMax, xMin, minSpeed, maxSpeed); //switch min and max because min x position is far away (towards the end)
@@ -70,6 +86,13 @@ public class SlideObstacleSpeedSetter : MonoBehaviour
         for(int i = 0; i < xPositions.Count; i++){
             float speed = Mapper.Map(xPositions[i], xMax, xMin, minSpeed, maxSpeed); //switch min and max because min x position is far away (towards the end)
             moverComponentArr[i].MoveSpeed = speed;
+        }
+    }
+
+    void SetSpeedTotheComponent(RotatingWall[] rotatingComponentArr){
+        for(int i = 0; i < xPositions.Count; i++){
+            float speed = Mapper.Map(xPositions[i], xMax, xMin, minSpeed, maxSpeed); //switch min and max because min x position is far away (towards the end)
+            rotatingComponentArr[i].RotationSpeed = speed;
         }
     }
 
