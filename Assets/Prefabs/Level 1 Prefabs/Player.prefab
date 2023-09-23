@@ -106,6 +106,37 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &578841165722980659
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 294589848347722874}
+  m_Layer: 7
+  m_Name: Orientation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &294589848347722874
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 578841165722980659}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 7.73, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6840780505138836625}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1785045471813086989
 GameObject:
   m_ObjectHideFlags: 0
@@ -1014,6 +1045,7 @@ Transform:
   - {fileID: 6847893476822726526}
   - {fileID: 8928416693841198590}
   - {fileID: 3029705564260474964}
+  - {fileID: 294589848347722874}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1029,20 +1061,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26657d80db50b814290aa83a84c6eacd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 1000
+  movementSpeed: 20
   rotationSpeed: 250
-  runningSpeedFactor: 1.75
+  runningSpeedFactor: 2
   jumpSpeed: 12
   direction: -1
   whatIsGround:
     serializedVersion: 2
     m_Bits: 64
+  drag: 4
   levelManager: {fileID: 0}
   playerCollision: {fileID: 2631950178246786782}
   bodyCollidersForHeight:
   - {fileID: 6645933246027688522}
   - {fileID: 7617537722219683010}
   - {fileID: 3434825233124843340}
+  orientation: {fileID: 294589848347722874}
 --- !u!54 &3340710624614646958
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1111,6 +1145,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  playerResetTimeText: {fileID: 0}
   hud: {fileID: 0}
   levelManager: {fileID: 0}
   playerBodyParts:
