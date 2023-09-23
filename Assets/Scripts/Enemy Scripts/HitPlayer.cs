@@ -28,7 +28,7 @@ public class HitPlayer : MonoBehaviour
             //give random chance to hit player
             if(!enemySword.IsUsingSword){
                 int randomChance = UnityEngine.Random.Range(0, 1000);
-                if(randomChance % 46 == 0){
+                if(randomChance % 26 == 0){
                     StartCoroutine(enemySword.UseSword());
                 }
             }
