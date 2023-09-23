@@ -6,7 +6,9 @@ public class PlayerScriptHandler : MonoBehaviour
 {
     public void StopAllPlayerScripts(){
         //disable player movement script
-        GetComponent<PlayerMover>().enabled = false;
+        PlayerMover pm = GetComponent<PlayerMover>();
+        pm.StopMovement();
+        pm.enabled = false;
         
         GetComponent<PlayerCollision>().enabled = false;
 
