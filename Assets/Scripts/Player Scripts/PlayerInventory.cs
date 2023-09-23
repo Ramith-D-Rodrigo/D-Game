@@ -99,7 +99,9 @@ public class PlayerInventory : MonoBehaviour
             else if(gameObject.tag == "Compass"){
                 gameObject.transform.localRotation = UnityEngine.Quaternion.Euler(0, 0, -90);
                 gameObject.GetComponent<SphereCollider>().enabled = false;
-                gameObject.GetComponent<Compass>().SwitchOffLight();
+                Compass compass = gameObject.GetComponent<Compass>();
+                compass.SwitchOffCanvas();
+                compass.SwitchOffLight();
             }
             else if(gameObject.tag == "Sword"){
                 gameObject.transform.localPosition = new UnityEngine.Vector3(0.03f, 0.41f, 0);
