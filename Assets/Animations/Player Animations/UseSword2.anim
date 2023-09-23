@@ -149,8 +149,17 @@ AnimationClip:
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
+        time: 0.06666667
+        value: {x: 0, y: 0, z: 93.49}
+        inSlope: {x: 0, y: 0, z: 139.59991}
+        outSlope: {x: 0, y: 0, z: 139.59991}
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
+        outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
+      - serializedVersion: 3
         time: 0.1
-        value: {x: 0, y: 0, z: 81.182}
+        value: {x: 0, y: 0, z: 120.8}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -842,8 +851,17 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
+        time: 0.06666667
+        value: 93.49
+        inSlope: 139.59991
+        outSlope: 139.59991
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
         time: 0.1
-        value: 81.182
+        value: 120.8
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -876,7 +894,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: Left Arm Rotation Point/Sword placeholder
+    path: Right Arm Rotation Point
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -888,7 +906,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: Left Arm Rotation Point/Sword placeholder
+    path: Right Arm Rotation Point
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -900,7 +918,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: Left Arm Rotation Point/Sword placeholder
+    path: Right Arm Rotation Point
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -948,7 +966,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: Right Arm Rotation Point
+    path: Left Arm Rotation Point/Sword placeholder
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -960,7 +978,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: Right Arm Rotation Point
+    path: Left Arm Rotation Point/Sword placeholder
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -972,7 +990,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: Right Arm Rotation Point
+    path: Left Arm Rotation Point/Sword placeholder
     classID: 4
     script: {fileID: 0}
     flags: 0
