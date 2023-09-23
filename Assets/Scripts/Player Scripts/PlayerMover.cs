@@ -14,10 +14,15 @@ public class PlayerMover : MonoBehaviour
     public int direction = -1; //player moving direction
     private Rigidbody rb;
     private Animator playerAnimator;
+    [SerializeField] private float drag;
 
     [Header("Grounded Check")]
     [SerializeField] private LayerMask whatIsGround;
-    [SerializeField] private float drag;
+
+    [Header("Slope Check")]
+    [SerializeField] private float maxSlopeAngle;
+    private RaycastHit slopeHit;
+    
     private float playerHeight;
     private bool isGrounded;
     [SerializeField] private LevelManager levelManager;
@@ -79,38 +84,62 @@ public class PlayerMover : MonoBehaviour
         verticalInput = Input.GetAxisRaw("Vertical");
     }
 
-    void MoveForwardBackward(){       
-        if(isGrounded){
-            playerAnimator.SetBool("isWalking", true);
+    void MoveForwardBackward(){        
+        moveDirection = orientation.right * verticalInput;
 
-            Vector3 moveDirection = orientation.right * verticalInput;
-            if(Input.GetKey(Controls.Running) && verticalInput > 0){ //only run forward
-                playerAnimator.SetBool("isRunning", true);
-                moveDirection *= runningSpeedFactor;
-            }
-            else{
-                playerAnimator.SetBool("isRunning", false);
-            }
+        playerAnimator.SetBool("isWalking", true);
 
-            rb.AddForce(moveDirection.normalized * direction * movementSpeed * 100f, ForceMode.Force);
+        if(Input.GetKey(Controls.Running) && verticalInput > 0){ //only run forward
+            playerAnimator.SetBool("isRunning", true);
+            moveDirection *= runningSpeedFactor;
         }
+        else{
+            playerAnimator.SetBool("isRunning", false);
+        }
+
+        if(OnSlope()){
+            rb.AddForce(GetSlopeMoveDirection() * direction * movementSpeed * 100f, ForceMode.Force);
+
+            //give bit of a force on the down direction to make the player stick to the slope
+            if(rb.velocity.y > 0){
+                rb.AddForce(Vector3.down * 400f, ForceMode.Force);
+            }
+        }   
+        else if(isGrounded){
+            rb.AddForce(moveDirection.normalized * direction * movementSpeed * 100f, ForceMode.Force);           
+        }
+
+        rb.useGravity = !OnSlope();
     }
 
     private void SpeedControl(){
-        Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-
-        if(Input.GetKey(Controls.Running)){
-            if(flatVel.magnitude > movementSpeed * runningSpeedFactor){
-                Vector3 maxVel = flatVel.normalized * movementSpeed * runningSpeedFactor;
-                rb.velocity = new Vector3(maxVel.x, rb.velocity.y, maxVel.z);
+        if(OnSlope()){
+            if(rb.velocity.magnitude > movementSpeed){
+                if(Input.GetKey(Controls.Running)){
+                    rb.velocity = rb.velocity.normalized * movementSpeed * runningSpeedFactor;
+                }
+                else{
+                    rb.velocity = rb.velocity.normalized * movementSpeed;
+                }
             }
         }
         else{
-            if(flatVel.magnitude > movementSpeed){
-                Vector3 maxVel = flatVel.normalized * movementSpeed;
-                rb.velocity = new Vector3(maxVel.x, rb.velocity.y, maxVel.z);
+            Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+
+            if(Input.GetKey(Controls.Running)){
+                if(flatVel.magnitude > movementSpeed * runningSpeedFactor){
+                    Vector3 maxVel = flatVel.normalized * movementSpeed * runningSpeedFactor;
+                    rb.velocity = new Vector3(maxVel.x, rb.velocity.y, maxVel.z);
+                }
+            }
+            else{
+                if(flatVel.magnitude > movementSpeed){
+                    Vector3 maxVel = flatVel.normalized * movementSpeed;
+                    rb.velocity = new Vector3(maxVel.x, rb.velocity.y, maxVel.z);
+                }
             }
         }
+
     }
 
     private void ProcessStopPlayerMovement(){
@@ -134,7 +163,8 @@ public class PlayerMover : MonoBehaviour
     private void ProcessLevelTwoMovement()
     {
 
-        isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
+        isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 1f, whatIsGround);
+        Debug.DrawRay(transform.position, Vector3.down * (playerHeight * 0.5f + 1f), Color.red);
 
         if(isGrounded){
             rb.drag = drag;
@@ -147,5 +177,18 @@ public class PlayerMover : MonoBehaviour
     private void ProcessLevelOneMovement()
     {
 
+    }
+
+    private bool OnSlope(){
+        if(Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight * 0.5f + 1f, whatIsGround)){
+            float angle = Vector3.Angle(Vector3.up, slopeHit.normal);   //get the angle between the normal of the slope and the up vector
+            return angle < maxSlopeAngle && angle != 0f; //if the angle is less than the max slope angle and the angle is not 0, then the player is on a slope
+        }
+
+        return false;
+    }
+
+    private Vector3 GetSlopeMoveDirection(){
+        return Vector3.ProjectOnPlane(moveDirection, slopeHit.normal).normalized;
     }
 }
