@@ -118,12 +118,23 @@ public class LevelManager : MonoBehaviour
 
         //but freeze rotation on all
         playerRB.constraints = RigidbodyConstraints.FreezeRotation;
+
+        //health reduce factor is 3 and increase factor is 15
+        PlayerCollision playerCollision = player.GetComponent<PlayerCollision>();
+        playerCollision.HealthReduceFactor = 3;
+        playerCollision.HealthIncreaseFactor = 15;
     }
 
 
     private void ProcessLevelOneSettings()
     {
         //player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionY;
+
+        //health reduce factor is 5 and increase factor is 10
+        PlayerCollision playerCollision = player.GetComponent<PlayerCollision>();
+
+        playerCollision.HealthReduceFactor = 5;
+        playerCollision.HealthIncreaseFactor = 10;
     }
 
 
