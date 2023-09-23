@@ -18,6 +18,7 @@ TagManager:
   - Compass
   - Enemy
   - Sword
+  - rotatingObstacle
   layers:
   - Default
   - TransparentFX
