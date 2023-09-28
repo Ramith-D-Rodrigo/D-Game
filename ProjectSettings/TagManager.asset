@@ -19,6 +19,7 @@ TagManager:
   - Enemy
   - Sword
   - rotatingObstacle
+  - Floor
   layers:
   - Default
   - TransparentFX
