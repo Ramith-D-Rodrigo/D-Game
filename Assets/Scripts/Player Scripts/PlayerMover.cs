@@ -35,11 +35,34 @@ public class PlayerMover : MonoBehaviour
     private float horizontalInput;
     private float verticalInput;
 
+    private AudioSource audioSource;
+
+    [SerializeField] private AudioClip[] concreteWalkSounds;
+    [SerializeField] private AudioClip[] concreteRunSounds;
+    [SerializeField] private AudioClip[] grassWalkSounds;
+    [SerializeField] private AudioClip[] grassRunSounds;
+
+    private enum GroundType{
+        Concrete,
+        Grass
+    }
+
+    private GroundType currGroundType = GroundType.Concrete;
+    private GroundType playingAudioGroundType = GroundType.Concrete;
+
+    private enum PlayerMoveState {
+        Idle,
+        Walking,
+        Running
+    }
+
+    private PlayerMoveState currPlayerMoveState = PlayerMoveState.Idle;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         playerAnimator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
 
         isGrounded = true;
 
@@ -92,9 +115,12 @@ public class PlayerMover : MonoBehaviour
         if(Input.GetKey(Controls.Running) && verticalInput > 0){ //only run forward
             playerAnimator.SetBool("isRunning", true);
             moveDirection *= runningSpeedFactor;
+
+            SetMovementSound(1);
         }
         else{
-            playerAnimator.SetBool("isRunning", false);
+            playerAnimator.SetBool("isRunning", false); 
+            SetMovementSound(0);
         }
 
         if(OnSlope()){
@@ -112,10 +138,64 @@ public class PlayerMover : MonoBehaviour
         rb.useGravity = !OnSlope();
     }
 
+    private void SetMovementSound(int movementType) //movementType: 0 = walking, 1 = running
+    {
+        if (!audioSource.isPlaying){
+            if (currGroundType == GroundType.Concrete){
+                if(movementType == 0){
+                    audioSource.clip = concreteWalkSounds[UnityEngine.Random.Range(0, concreteWalkSounds.Length)];
+                }
+                else if(movementType == 1){
+                    audioSource.clip = concreteRunSounds[UnityEngine.Random.Range(0, concreteRunSounds.Length)];
+                }
+            
+                playingAudioGroundType = GroundType.Concrete;
+            }
+            else if (currGroundType == GroundType.Grass){
+                if(movementType == 0){
+                    audioSource.clip = grassWalkSounds[UnityEngine.Random.Range(0, grassWalkSounds.Length)];
+                }
+                else if(movementType == 1){
+                    audioSource.clip = grassRunSounds[UnityEngine.Random.Range(0, grassRunSounds.Length)];
+                }
+            
+                playingAudioGroundType = GroundType.Grass;
+            }
+
+            audioSource.Play();
+        }
+        else{
+            if (playingAudioGroundType != currGroundType){
+                audioSource.Stop();
+
+                if (currGroundType == GroundType.Concrete){
+                    if(movementType == 0){
+                        audioSource.clip = concreteWalkSounds[UnityEngine.Random.Range(0, concreteWalkSounds.Length)];
+                    }
+                    else if(movementType == 1){
+                        audioSource.clip = concreteRunSounds[UnityEngine.Random.Range(0, concreteRunSounds.Length)];
+                    }
+                    playingAudioGroundType = GroundType.Concrete;
+                }
+                else if (currGroundType == GroundType.Grass){
+                    if(movementType == 0){
+                        audioSource.clip = grassWalkSounds[UnityEngine.Random.Range(0, grassWalkSounds.Length)];
+                    }
+                    else if(movementType == 1){
+                        audioSource.clip = grassRunSounds[UnityEngine.Random.Range(0, grassRunSounds.Length)];
+                    }
+                    playingAudioGroundType = GroundType.Grass;
+                }
+
+                audioSource.Play();
+            }
+        }
+    }
+
     private void SpeedControl(){
         if(OnSlope()){
             if(rb.velocity.magnitude > movementSpeed){
-                if(Input.GetKey(Controls.Running)){
+                if(Input.GetKey(Controls.Running) && verticalInput > 0){
                     rb.velocity = rb.velocity.normalized * movementSpeed * runningSpeedFactor;
                 }
                 else{
@@ -126,7 +206,7 @@ public class PlayerMover : MonoBehaviour
         else{
             Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
-            if(Input.GetKey(Controls.Running)){
+            if(Input.GetKey(Controls.Running) && verticalInput > 0){
                 if(flatVel.magnitude > movementSpeed * runningSpeedFactor){
                     Vector3 maxVel = flatVel.normalized * movementSpeed * runningSpeedFactor;
                     rb.velocity = new Vector3(maxVel.x, rb.velocity.y, maxVel.z);
@@ -151,6 +231,9 @@ public class PlayerMover : MonoBehaviour
     public void StopMovement(){
         playerAnimator.SetBool("isRunning", false);
         playerAnimator.SetBool("isWalking", false);
+
+        audioSource.Stop();
+
     }
 
     void RotatePlayer(){
@@ -159,11 +242,9 @@ public class PlayerMover : MonoBehaviour
         rb.MoveRotation(rb.rotation * deltaRotation);
     }
 
-    
-    private void ProcessLevelTwoMovement()
-    {
-
-        isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 1f, whatIsGround);
+    private void GroundCheck(){
+        RaycastHit hit;
+        isGrounded = Physics.Raycast(transform.position, Vector3.down, out hit, playerHeight * 0.5f + 1f, whatIsGround);
         Debug.DrawRay(transform.position, Vector3.down * (playerHeight * 0.5f + 1f), Color.red);
 
         if(isGrounded){
@@ -172,10 +253,28 @@ public class PlayerMover : MonoBehaviour
         else{
             rb.drag = 0.0f;
         }
+
+        //check which type of ground the player is on
+        if(isGrounded){
+            if(hit.collider.gameObject.name == "Ground" || hit.collider.gameObject.name == "Path"){ //level one ground (concrete)
+                currGroundType = GroundType.Concrete;
+            }
+            else if(hit.collider.gameObject.name == "Terrain"){
+                currGroundType = GroundType.Grass;
+            }
+        }
+    }
+
+    
+    private void ProcessLevelTwoMovement()
+    {
+        GroundCheck();
+
     }
 
     private void ProcessLevelOneMovement()
     {
+        GroundCheck();
 
     }
 
