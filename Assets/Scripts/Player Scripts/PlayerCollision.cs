@@ -54,9 +54,13 @@ public class PlayerCollision : MonoBehaviour
 
     public GameObject[] playerBodyParts;
 
+    [SerializeField] private AudioClip[] bodyCrushSounds;
+    private AudioSource audioSource;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        audioSource = GetComponent<AudioSource>();
 
         playerHealth = 100f;
 
@@ -368,7 +372,7 @@ public class PlayerCollision : MonoBehaviour
 
         if(other.gameObject.tag == "slidingDownObstacle" && Math.Abs(surfaceDirection.y) == 1 && !isPlayerDead){ //only y direction surface
             //can kill player directly
-            KillPlayer();
+            SliderCrushPlayer();
         }
     }
 
@@ -395,11 +399,19 @@ public class PlayerCollision : MonoBehaviour
         }
     }
 
+    private void SliderCrushPlayer(){
+        //play the sound
+        int randIndex = UnityEngine.Random.Range(0, bodyCrushSounds.Length);
+        audioSource.PlayOneShot(bodyCrushSounds[randIndex], 0.5f);
+        //kill the player
+        KillPlayer();
+    }
+
     private void ProcessLevelOneUpdate()
     {
         //normalized vector check for opposing wall and obstacle surfaces
         if(isCollededWithWall && isCollidedWithObstacle && !isPlayerDead && obstacleCollisionPointNormalized.z != wallCollisionPointNormalized.z){  
-            KillPlayer();
+            SliderCrushPlayer();
         }
 
         if(!isOnPath && !isPlayerDead){  //not on path and player is still alive
