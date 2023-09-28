@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 5644783232922588686}
   - component: {fileID: 5371039258095963012}
   - component: {fileID: -7159010840666142470}
+  - component: {fileID: 3213364168759042226}
+  - component: {fileID: 2304011158609882894}
   m_Layer: 0
   m_Name: WallBrick
   m_TagString: WallBrick
@@ -140,3 +142,128 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49eebfaada536cd4094ac29d14df7da8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!82 &3213364168759042226
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4968905792246300856}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &2304011158609882894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4968905792246300856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2663fd94c6a213d49b05ca56d5dcdff2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  floorHitSounds:
+  - {fileID: 8300000, guid: f53d50aa62d5e8141a51f028c12e0f5d, type: 3}
+  - {fileID: 8300000, guid: 077dd96ee614783429e874a3b2b975ba, type: 3}
+  - {fileID: 8300000, guid: 5592d25b659ed6c4787aa291862a22dd, type: 3}
+  - {fileID: 8300000, guid: 01699df0d1783c34d86d8a481455b4f6, type: 3}
+  - {fileID: 8300000, guid: 4ca1028c981504e41a445148a0f11f6c, type: 3}
+  - {fileID: 8300000, guid: 22c7b62a1ef85034ca54cdf99c9c6aae, type: 3}
+  otherBricksHitSounds:
+  - {fileID: 8300000, guid: 51890f0dbdb8dff4ca5fed4b07fc70bd, type: 3}
+  - {fileID: 8300000, guid: 816e214ed79a10746af8abf889311b78, type: 3}
+  - {fileID: 8300000, guid: 606c6742b5c2bd34098180d0b1bfbf5a, type: 3}
+  - {fileID: 8300000, guid: 0e1eeed7e8426584c970516cf064e00d, type: 3}
+  - {fileID: 8300000, guid: 76020700d5d70394c92853e38a2b0f5a, type: 3}
+  - {fileID: 8300000, guid: 539fee8ab44b8e3488bdf2b929d4e398, type: 3}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BreakableWall : MonoBehaviour
 {
@@ -19,6 +20,11 @@ public class BreakableWall : MonoBehaviour
     [SerializeField] private TextMeshProUGUI hitPointsText;
     [SerializeField] private float amountOfDisplayTimeInSeconds = 2.0f;
 
+    private AudioSource audioSource;
+    [SerializeField] private AudioClip[] hammerHitSounds;
+    [SerializeField] private AudioClip[] wallBreakSounds;
+
+
     private bool isTextDisplaying;
 
     private void Start(){
@@ -27,6 +33,8 @@ public class BreakableWall : MonoBehaviour
         hitPointsText.transform.parent.gameObject.SetActive(false);
         hitPointsText.SetText(hitPoints.ToString());
         isTextDisplaying = false;
+
+        audioSource = this.GetComponent<AudioSource>();
     }
 
     private void Update(){
@@ -51,6 +59,8 @@ public class BreakableWall : MonoBehaviour
 
     private void HammerHit()
     {
+        audioSource.PlayOneShot(hammerHitSounds[UnityEngine.Random.Range(0, hammerHitSounds.Length)], 0.5f);
+
         if(hitPoints <= 0 && !isBroken){
             BreakTheWall();
         }
@@ -79,6 +89,7 @@ public class BreakableWall : MonoBehaviour
 
     private void BreakTheWall()
     {
+        audioSource.PlayOneShot(wallBreakSounds[UnityEngine.Random.Range(0, wallBreakSounds.Length)], 0.5f);
         //remove this object's rigidbody
         Destroy(this.GetComponent<Rigidbody>());
         isBroken = true;
@@ -92,13 +103,13 @@ public class BreakableWall : MonoBehaviour
                 Transform child = this.transform.GetChild(startingWallBrick - 1 + i - removedChildCount);
                 child.SetParent(null);
                 removedChildCount++; //to ammend the parent switch
+
                 Rigidbody childRB = child.gameObject.AddComponent<Rigidbody>();
                 childRB.SetDensity(brickDensity);
                 childRB.mass = childRB.mass;
                 childRB.drag = brickDrag;
                 childRB.angularDrag = brickAngularDrag;
 
-                //enable the sphere collider
                 child.GetComponent<SphereCollider>().enabled = true;
             }
             startingWallBrick += 5; //next row

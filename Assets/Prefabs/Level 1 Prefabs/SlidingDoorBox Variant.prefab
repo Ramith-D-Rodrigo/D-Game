@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8277361595932356690}
   - component: {fileID: 5677345741582791739}
   - component: {fileID: 5520839773613578871}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SlidingDoorBox Variant
   m_TagString: Untagged
   m_Icon: {fileID: 0}
