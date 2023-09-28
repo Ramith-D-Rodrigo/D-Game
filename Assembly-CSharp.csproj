@@ -72,6 +72,7 @@
      <Compile Include="Assets\Scripts\Obstacles Scripts\SlidingUpWallObstacle.cs" />
      <Compile Include="Assets\Scripts\Enemy Scripts\LookAtPlayer.cs" />
      <Compile Include="Assets\Scripts\Enemy Scripts\EnemyTerrainCollision.cs" />
+     <Compile Include="Assets\Scripts\Sword.cs" />
      <Compile Include="Assets\Scripts\ControlsMenu.cs" />
      <Compile Include="Assets\Scripts\Player Scripts\PlayerUseObject.cs" />
      <Compile Include="Assets\Scripts\Enemy Scripts\PlayerTracker.cs" />

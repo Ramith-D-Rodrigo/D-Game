@@ -15,10 +15,14 @@ public class EnemySword : MonoBehaviour
     [SerializeField] private EnemyState enemyState;
 
     private bool isHittingNow; //actual starting point of hit
+
+    private Sword sword;
     void Start()
     {
         isUsingSword = false;
         isHittingNow = false;
+
+        sword = GetComponent<Sword>();
     }
 
     // Update is called once per frame
@@ -46,6 +50,7 @@ public class EnemySword : MonoBehaviour
 
             if(playerCollision){
                 if(!playerCollision.IsPlayerDead){
+                    sword.PlaySwordHitSound();
                     playerCollision.ReducePlayerHealth(swordDamage);
                 }
             }

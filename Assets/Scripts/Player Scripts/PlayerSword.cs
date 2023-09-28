@@ -12,9 +12,11 @@ public class PlayerSword : MonoBehaviour
     [SerializeField] private PlayerUseObject playerUseObject;
 
     private string[] enemyBodyParts = {"EnemyHead", "EnemyBody", "EnemyArm", "EnemyLeg"};
+
+    private Sword sword;
     void Start()
     {
-        
+        sword = GetComponent<Sword>();
     }
 
     // Update is called once per frame
@@ -33,6 +35,7 @@ public class PlayerSword : MonoBehaviour
     private void HitEnemy(GameObject enemy){
         EnemyCollision enemyCollision = enemy.GetComponent<EnemyCollision>();
         enemyCollision.HitEnemy();
+        sword.PlaySwordHitSound();
     }
 
     public void SwitchOnLight(){
