@@ -576,6 +576,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lookAtPlayer: {fileID: 7594003978920602421}
   followPlayer: {fileID: 4422571604505279319}
+  enemyCollision: {fileID: 2447964686822663128}
   enemySword: {fileID: 7203730567413831033}
   enemyState: {fileID: 2803355991993236878}
 --- !u!1 &3477562118927287603
@@ -1724,7 +1725,7 @@ Transform:
   - {fileID: 7162737505955696165}
   - {fileID: 6320392424489829645}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &3340710624614646958
 Rigidbody:
@@ -1812,6 +1813,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitPoints: 3
+  difficulty: 25
   rb: {fileID: 3340710624614646958}
   enemyAnimator: {fileID: 3263315309005570008}
   enemyBodyParts:
