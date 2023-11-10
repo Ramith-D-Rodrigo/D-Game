@@ -7,7 +7,7 @@ public class EnemyCollision : MonoBehaviour
 {
 
     [SerializeField] private int hitPoints;
-    [Description("Lower the difficulty value means the enemy is hitting player more often")]
+    [Tooltip("Lower the difficulty value means the enemy is hitting player more often")]
     [SerializeField] private int difficulty;
     private int maxHitPoints = 6;
     private int minHitPoints = 0;
