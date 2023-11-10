@@ -21,7 +21,7 @@ public class DroppingObject : MonoBehaviour
         }
         else if(this.gameObject.tag == "Compass"){
             rb = this.gameObject.AddComponent<Rigidbody>();
-            this.transform.GetChild(1).GetComponent<MeshCollider>().enabled = true;
+            this.transform.GetChild(0).GetComponent<MeshCollider>().enabled = true;
         }
         else if(this.gameObject.tag == "Sword"){
             rb = this.gameObject.AddComponent<Rigidbody>();
@@ -64,8 +64,8 @@ public class DroppingObject : MonoBehaviour
 
             }
             else if(this.gameObject.tag == "Compass"){
-                //re enable sphere collider
-                this.transform.GetChild(1).GetComponent<MeshCollider>().enabled = false;
+                //re enable mesh collider
+                this.transform.GetChild(0).GetComponent<MeshCollider>().enabled = false;
                 GetComponent<SphereCollider>().enabled = true;
 
                 Compass compass = GetComponent<Compass>();

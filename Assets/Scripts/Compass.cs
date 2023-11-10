@@ -5,8 +5,9 @@ using UnityEngine;
 public class Compass : MonoBehaviour
 {
     // Start is called before the first frame update
-    [SerializeField] GameObject destination;
-    [SerializeField] GameObject pointerPivot;
+    [SerializeField] Transform destination;
+    [SerializeField] Transform pointerPivot;
+    [SerializeField] Transform compassBody;
 
     [SerializeField] Light[] pointLights;
 
@@ -23,7 +24,14 @@ public class Compass : MonoBehaviour
     void Update()
     {
         if(isWorking){
-            pointerPivot.transform.LookAt(destination.transform);
+            //rotate the pointer pivot to the destination
+            Vector3 direction = destination.position - compassBody.position;
+
+            //project the direction vector onto the compass body's local xz plane
+            direction = Vector3.ProjectOnPlane(direction, compassBody.up);
+
+            Quaternion rotation = Quaternion.LookRotation(direction);
+            pointerPivot.rotation = rotation;
         }
     }
 
