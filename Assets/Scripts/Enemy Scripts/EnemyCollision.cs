@@ -1,14 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 
 public class EnemyCollision : MonoBehaviour
 {
 
     [SerializeField] private int hitPoints;
+    [Description("Lower the difficulty value means the enemy is hitting player more often")]
+    [SerializeField] private int difficulty;
     private int maxHitPoints = 6;
     private int minHitPoints = 0;
     public int HitPoints { get { return hitPoints; } set { hitPoints = value; } }
+    public int Difficulty { get { return difficulty; } set { difficulty = value; } }
 
     private bool isDead = false;
     public bool IsDead { get { return isDead; } set { isDead = value; } }

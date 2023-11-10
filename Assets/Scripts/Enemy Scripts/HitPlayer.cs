@@ -9,6 +9,8 @@ public class HitPlayer : MonoBehaviour
     [SerializeField] private LookAtPlayer lookAtPlayer;
 
     [SerializeField] private FollowPlayer followPlayer;
+
+    [SerializeField] private EnemyCollision enemyCollision;
     private GameObject hittingPlayer;
     public GameObject HittingPlayer {get { return hittingPlayer;} set {hittingPlayer = value;} }
 
@@ -28,7 +30,7 @@ public class HitPlayer : MonoBehaviour
             //give random chance to hit player
             if(!enemySword.IsUsingSword){
                 int randomChance = UnityEngine.Random.Range(0, 1000);
-                if(randomChance % 26 == 0){
+                if(randomChance % enemyCollision.Difficulty == 0){
                     StartCoroutine(enemySword.UseSword());
                 }
             }
