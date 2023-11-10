@@ -25,6 +25,7 @@ public class DroppingObject : MonoBehaviour
         }
         else if(this.gameObject.tag == "Sword"){
             rb = this.gameObject.AddComponent<Rigidbody>();
+            rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
             
             GameObject swordMesh = this.transform.GetChild(0).gameObject; //1st child is the sword mesh
             PlayerSword playerSword = swordMesh.GetComponent<PlayerSword>();
