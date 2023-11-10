@@ -108,6 +108,10 @@ public class PlayerMover : MonoBehaviour
     }
 
     void MoveForwardBackward(){        
+        if(verticalInput == 0){
+            return;
+        }
+
         moveDirection = orientation.right * verticalInput;
 
         playerAnimator.SetBool("isWalking", true);
@@ -135,7 +139,13 @@ public class PlayerMover : MonoBehaviour
             rb.AddForce(moveDirection.normalized * direction * movementSpeed * 100f, ForceMode.Force);           
         }
 
-        rb.useGravity = !OnSlope();
+        //if the player is on a slope and not moving then disable gravity
+        if(OnSlope() && verticalInput == 0){
+            rb.useGravity = false;
+        }
+        else{
+            rb.useGravity = true;
+        }
     }
 
     private void SetMovementSound(int movementType) //movementType: 0 = walking, 1 = running
