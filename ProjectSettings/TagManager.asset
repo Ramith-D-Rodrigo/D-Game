@@ -20,6 +20,11 @@ TagManager:
   - Sword
   - rotatingObstacle
   - Floor
+  - EnemyArm
+  - EnemyBody
+  - EnemyLeg
+  - EnemyHead
+  - SpikyLog
   layers:
   - Default
   - TransparentFX
