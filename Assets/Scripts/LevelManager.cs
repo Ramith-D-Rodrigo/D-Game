@@ -26,6 +26,9 @@ public class LevelManager : MonoBehaviour
     [Header("Level 2 Attributes")]
     [SerializeField] private Light directionalLight;
 
+    [SerializeField] private GameObject[] enemyMaskPrefabs;
+    public GameObject[] EnemyMaskPrefabs { get { return enemyMaskPrefabs; } }
+
     [Header("Level UI Panels")]
     [SerializeField] private TextMeshProUGUI levelNumberText;
     [SerializeField] private GameObject levelClearPanel;
