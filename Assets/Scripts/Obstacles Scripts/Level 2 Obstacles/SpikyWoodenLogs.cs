@@ -18,16 +18,6 @@ public class SpikyWoodenLogs : MonoBehaviour
 
     [SerializeField] private Transform maskInsertBox;
 
-    private void Awake(){
-        //randomly select a mask prefab
-        int randomIndex = Random.Range(0, maskPrefabs.Length);
-
-        //instantiate the mask prefab at the mask insert box position using the mask insert position
-        GameObject mask = Instantiate(maskPrefabs[randomIndex], maskInsertBox.position, maskInsertBox.rotation, maskInsertBox);
-    }
-
-
-
     void Start()
     {
         //MoveTheWoodenLogs();
@@ -50,6 +40,10 @@ public class SpikyWoodenLogs : MonoBehaviour
         }
         
         MoveTheWoodenLogs(); */
+    }
+
+    public void InsertMask(GameObject maskPrefab){
+        GameObject mask = Instantiate(maskPrefab, maskInsertBox.position, maskInsertBox.rotation, maskInsertBox);
     }
 
     private void MoveTheWoodenLogs(){
