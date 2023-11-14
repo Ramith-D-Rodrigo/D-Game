@@ -30,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8330154627519675783
 MonoBehaviour:
@@ -45,8 +45,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  directionalLight: {fileID: 0}
   nextLevelLoadWaitSeconds: 3
+  currLevelDisplayTextSeconds: 4
   levelOneDestination: {x: -1030, y: 0, z: 0}
   levelTwoDestination: {x: 142.6, y: 0, z: 73.1}
   levelThreeDestination: {x: 0, y: 0, z: 0}
+  directionalLight: {fileID: 0}
+  enemyMaskPrefabs:
+  - {fileID: 786999808741628673, guid: b1556d9044f0e184fb27b4ba1c4a0501, type: 3}
+  - {fileID: 3356145391814454318, guid: f06cafa262f257747888c63911da2650, type: 3}
+  - {fileID: 5535185621357022806, guid: 3a5a8a1634d988646a50675e7199d401, type: 3}
+  levelNumberText: {fileID: 0}
+  levelClearPanel: {fileID: 0}
