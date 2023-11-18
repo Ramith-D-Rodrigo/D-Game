@@ -18,6 +18,16 @@ public class SpikyWoodenLogs : MonoBehaviour
 
     [SerializeField] private Transform maskInsertBox;
 
+    private int maskIndex;
+    public int MaskIndex{
+        get{
+            return maskIndex;
+        }
+        set{
+            maskIndex = value;
+        }
+    }
+
     void Start()
     {
         //MoveTheWoodenLogs();
@@ -42,8 +52,9 @@ public class SpikyWoodenLogs : MonoBehaviour
         MoveTheWoodenLogs(); */
     }
 
-    public void InsertMask(GameObject maskPrefab){
+    public void InsertMask(GameObject maskPrefab, int maskIndex){
         GameObject mask = Instantiate(maskPrefab, maskInsertBox.position, maskInsertBox.rotation, maskInsertBox);
+        this.maskIndex = maskIndex;
     }
 
     private void MoveTheWoodenLogs(){
