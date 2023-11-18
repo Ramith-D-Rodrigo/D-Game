@@ -5,7 +5,15 @@ using UnityEngine;
 public class EnemyMask : MonoBehaviour
 {
     // Start is called before the first frame update
-    [SerializeField] private Transform maskPlaceHolder;
+    private int maskIndex;  //to identify the mask prefab
+    public int MaskIndex{
+        get{
+            return maskIndex;
+        }
+        set{
+            maskIndex = value;
+        }
+    }
     void Start()
     {
         
@@ -15,9 +23,5 @@ public class EnemyMask : MonoBehaviour
     void Update()
     {
         
-    }
-
-    public void InsertMask(GameObject maskPrefab){
-        GameObject mask = Instantiate(maskPrefab, maskPlaceHolder.position, maskPlaceHolder.rotation, maskPlaceHolder);
     }
 }
