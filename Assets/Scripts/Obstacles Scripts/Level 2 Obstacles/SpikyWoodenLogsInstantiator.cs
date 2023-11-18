@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class SpikyWoodenLogsInstantiator : MonoBehaviour
 {
+    [SerializeField] private Material toBeInsertedMaskMaterial;
     private GameObject[] maskPrefabs;
     private void Awake(){
         //get the level manager
@@ -27,7 +28,7 @@ public class SpikyWoodenLogsInstantiator : MonoBehaviour
 
         for(int i = 0; i < children.Length; i++){
             SpikyWoodenLogs spikyWoodenLogs = children[i].gameObject.GetComponent<SpikyWoodenLogs>();
-            spikyWoodenLogs.InsertMask(maskPrefabs[maskIndex], maskIndex);
+            spikyWoodenLogs.InsertMask(maskPrefabs[maskIndex], maskIndex, toBeInsertedMaskMaterial);
             maskIndex = (maskIndex + 1) % maskPrefabs.Length;
         }
     }
