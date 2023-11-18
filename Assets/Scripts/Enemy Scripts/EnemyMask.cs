@@ -14,14 +14,30 @@ public class EnemyMask : MonoBehaviour
             maskIndex = value;
         }
     }
+
+    private GameObject maskInsertingBox;
+    public GameObject MaskInsertingBox{
+        get{
+            return maskInsertingBox;
+        }
+        set{
+            maskInsertingBox = value;
+        }
+    }
     void Start()
     {
-        
+        maskInsertingBox = null;
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void InsertMaskToBox(){
+        MaskInsertionHandler maskInsertionHandler = maskInsertingBox.GetComponent<MaskInsertionHandler>();
+
+        maskInsertionHandler.InsertMask(this.gameObject, maskIndex);
     }
 }
