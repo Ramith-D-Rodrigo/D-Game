@@ -185,18 +185,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxMoveDistance: 0
-  moveDirection: 0
-  moveSpeed: 0
+  moveSpeed: 50
   movableObjects:
   - {fileID: 7322213933363509353}
   - {fileID: 3252722973446433515}
   - {fileID: 928184951667656134}
-  maskPrefabs:
-  - {fileID: 786999808741628673, guid: b1556d9044f0e184fb27b4ba1c4a0501, type: 3}
-  - {fileID: 8978783902267551250, guid: 2200d09b94de1d54c80b01d7fe5d1ebe, type: 3}
-  - {fileID: 7744552841482706956, guid: 7869f5399ee260446a282e0459eb0841, type: 3}
-  - {fileID: 5410068427134815051, guid: bbc0b982407522144a99444d889e5dfb, type: 3}
-  - {fileID: 7900473560898172493, guid: e4d54faf2d2965147a047ed6c069fa11, type: 3}
   maskInsertBox: {fileID: 832557815663844908}
 --- !u!1 &7222054157626961589
 GameObject:
