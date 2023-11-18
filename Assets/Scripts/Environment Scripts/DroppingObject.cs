@@ -6,6 +6,12 @@ public class DroppingObject : MonoBehaviour
 {
     // Start is called before the first frame update
     private Rigidbody rb;
+
+    private void Awake(){
+        if(this.tag == "EnemyMask"){
+            this.enabled = false;
+        }
+    }
     void OnEnable()
     {
         this.transform.SetParent(null, true);
@@ -36,6 +42,12 @@ public class DroppingObject : MonoBehaviour
 
             longer.isTrigger = false;
             shorter.isTrigger = false;
+        }
+        else if(this.gameObject.tag == "EnemyMask"){
+            rb = this.gameObject.AddComponent<Rigidbody>();
+            rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+
+            this.gameObject.GetComponent<SphereCollider>().enabled = false;
         }
     }
 
@@ -89,6 +101,13 @@ public class DroppingObject : MonoBehaviour
 
                 GetComponent<SphereCollider>().enabled = true;
                 swordMesh.GetComponent<PlayerSword>().SwitchOnLight();
+
+                //then remove the rigidbody
+                Destroy(this.rb, 0);
+            }
+            else if(this.gameObject.tag == "EnemyMask"){
+                //re enable sphere collider
+                GetComponent<SphereCollider>().enabled = true;
 
                 //then remove the rigidbody
                 Destroy(this.rb, 0);
