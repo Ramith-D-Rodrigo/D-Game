@@ -6,17 +6,37 @@ public class SpikyWoodenLogs : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField] private float maxMoveDistance;
-
-    [Tooltip("+1 or -1")]
-    [SerializeField] private int moveDirection;
+    private int moveDirection = -1; //move back
 
     [SerializeField] private float moveSpeed;
 
     [SerializeField] private Rigidbody[] movableObjects;
 
-    [SerializeField] private GameObject[] maskPrefabs;
-
     [SerializeField] private Transform maskInsertBox;
+
+    private bool canMove;
+    public bool CanMove{
+        get{
+            return canMove;
+        }
+        set{
+            canMove = value;
+        }
+    }
+
+    private Material finalMaskMaterial;
+    public Material FinalMaskMaterial{
+        get{
+            return finalMaskMaterial;
+        }
+    }
+
+    private GameObject instantiatedMask;
+    public GameObject InstantiatedMask{
+        get{
+            return instantiatedMask;
+        }
+    }
 
     private int maskIndex;
     public int MaskIndex{
@@ -31,12 +51,15 @@ public class SpikyWoodenLogs : MonoBehaviour
     void Start()
     {
         //MoveTheWoodenLogs();
+        canMove = false;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-/*         //reverse the direction if the movable object has reached the max distance
+        if(!canMove){
+            return;
+        }
 
         //get the current position of the movable object in the x axis 
         float currXPos = movableObjects[0].position.x;
@@ -45,15 +68,23 @@ public class SpikyWoodenLogs : MonoBehaviour
         float distance = this.transform.position.x - currXPos;
 
 
-        if(distance >= maxMoveDistance || distance < 0.0f){ //if the movable object has reached the max distance
-            moveDirection *= -1;    //reverse the direction
+        if(distance < 0.0f){ //if the movable object has reached the end
+            moveSpeed = 0.0f;   //stop moving
+            canMove = false;
         }
         
-        MoveTheWoodenLogs(); */
+        MoveTheWoodenLogs();
     }
 
-    public void InsertMask(GameObject maskPrefab, int maskIndex){
-        GameObject mask = Instantiate(maskPrefab, maskInsertBox.position, maskInsertBox.rotation, maskInsertBox);
+    public void InsertMask(GameObject maskPrefab, int maskIndex, Material defaultMaterial){
+        instantiatedMask = Instantiate(maskPrefab, maskInsertBox.position, maskInsertBox.rotation, maskInsertBox);
+        finalMaskMaterial = instantiatedMask.GetComponent<Renderer>().material;
+        //remove the material 
+        instantiatedMask.GetComponent<Renderer>().material = null;
+
+        //add the default material
+        instantiatedMask.GetComponent<Renderer>().material = defaultMaterial;
+        //set the mask index
         this.maskIndex = maskIndex;
     }
 
