@@ -30,6 +30,8 @@ public class EnemyCollision : MonoBehaviour
     [SerializeField] private LookAtPlayer lookAtPlayer;
     [SerializeField] private HitPlayer hitPlayer;
     [SerializeField] private EnemyState enemyState;
+    [SerializeField] private GameObject enemyMaskPlaceholder;
+    public GameObject EnemyMaskPlaceholder { get { return enemyMaskPlaceholder; } }
 
 
     // Start is called before the first frame update
@@ -95,6 +97,9 @@ public class EnemyCollision : MonoBehaviour
         //disable the hit player script
         hitPlayer.enabled = false;
         Destroy(hitPlayer);
+
+        //enable the sphere collider on maskPlaceholder
+        enemyMaskPlaceholder.GetComponent<SphereCollider>().enabled = true;
 
         enemyState.CurrentState = EnemyState.EnemyStates.Dead;
     }
