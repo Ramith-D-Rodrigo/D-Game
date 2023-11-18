@@ -973,9 +973,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 336164215038919865}
+  - component: {fileID: 292644713656359446}
   m_Layer: 8
-  m_Name: Mask Placeholder
-  m_TagString: Untagged
+  m_Name: MaskPlaceholder
+  m_TagString: EnemyMask
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -995,6 +996,27 @@ Transform:
   m_Father: {fileID: 6968845001596053142}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &292644713656359446
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6456080115420557417}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Radius: 7
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6612799783266923841
 GameObject:
   m_ObjectHideFlags: 0
@@ -1862,6 +1884,7 @@ MonoBehaviour:
   lookAtPlayer: {fileID: 7594003978920602421}
   hitPlayer: {fileID: 7855153706520034324}
   enemyState: {fileID: 2803355991993236878}
+  enemyMaskPlaceholder: {fileID: 6456080115420557417}
 --- !u!114 &2803355991993236878
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1887,11 +1910,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a1c2258bb51e5d4aaca842d1fec8889, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maskPrefabs:
-  - {fileID: 786999808741628673, guid: b1556d9044f0e184fb27b4ba1c4a0501, type: 3}
-  - {fileID: 3356145391814454318, guid: f06cafa262f257747888c63911da2650, type: 3}
-  - {fileID: 5535185621357022806, guid: 3a5a8a1634d988646a50675e7199d401, type: 3}
-  maskPlaceHolder: {fileID: 336164215038919865}
 --- !u!1 &9175043687527291034
 GameObject:
   m_ObjectHideFlags: 0
