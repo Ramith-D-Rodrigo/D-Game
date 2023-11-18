@@ -27,7 +27,7 @@ public class SpikyWoodenLogsInstantiator : MonoBehaviour
 
         for(int i = 0; i < children.Length; i++){
             SpikyWoodenLogs spikyWoodenLogs = children[i].gameObject.GetComponent<SpikyWoodenLogs>();
-            spikyWoodenLogs.InsertMask(maskPrefabs[maskIndex]);
+            spikyWoodenLogs.InsertMask(maskPrefabs[maskIndex], maskIndex);
             maskIndex = (maskIndex + 1) % maskPrefabs.Length;
         }
     }
