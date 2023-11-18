@@ -269,6 +269,7 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 128
+  spikyWoodenLogs: {fileID: 2059502370193217680}
 --- !u!1001 &1413334874602465507
 PrefabInstance:
   m_ObjectHideFlags: 0
