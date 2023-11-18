@@ -74,6 +74,15 @@ public class PlayerUseObject : MonoBehaviour
                 }
 
                 break;
+            
+            case "EnemyMask":
+                EnemyMask enemyMask = toBeUsedObject.GetComponent<EnemyMask>();
+                if(!enemyMask.MaskInsertingBox){
+                    return;
+                }
+
+                enemyMask.InsertMaskToBox();
+                break;
 
         }
     }
