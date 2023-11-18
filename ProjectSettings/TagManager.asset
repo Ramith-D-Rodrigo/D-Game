@@ -25,6 +25,7 @@ TagManager:
   - EnemyLeg
   - EnemyHead
   - SpikyLog
+  - EnemyMask
   layers:
   - Default
   - TransparentFX
