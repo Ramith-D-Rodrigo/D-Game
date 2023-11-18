@@ -45,9 +45,17 @@ public class EnemyInstantiator : MonoBehaviour
                 randChildIndex = Random.Range(0, this.transform.childCount);
 
                 GameObject enemyChild = this.transform.GetChild(randChildIndex).gameObject;
-                EnemyMask enemyMask = enemyChild.GetComponent<EnemyMask>();
 
-                enemyMask.InsertMask(maskPrefabs[i]);
+                //find the mask placeholder in the enemy
+                Transform maskPlaceHolder = enemyChild.GetComponent<EnemyCollision>().EnemyMaskPlaceholder.transform;
+
+                GameObject mask = Instantiate(maskPrefabs[i], maskPlaceHolder.position, maskPlaceHolder.rotation, maskPlaceHolder);
+
+                EnemyMask enemyMask = maskPlaceHolder.gameObject.AddComponent<EnemyMask>(); //add the enemy mask script to the mask placeholder (to identify the mask prefab)
+                DroppingObject droppingObj = maskPlaceHolder.gameObject.AddComponent<DroppingObject>(); //add the dropping object script to the mask placeholder (to drop the mask when player drops it)
+                droppingObj.enabled = false;   //disable the dropping object script
+
+                enemyMask.MaskIndex = i;    //to identify the mask prefab
 
                 maskCount[i] = (int)maskCount[i] + 1;
 
