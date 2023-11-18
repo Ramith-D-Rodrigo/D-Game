@@ -101,6 +101,11 @@ public class HUD : MonoBehaviour
         messageText.transform.parent.gameObject.SetActive(true);
     }
 
+    public void DisplayGeneralMessage(string message){
+        messageText.SetText(message);
+        messageText.transform.parent.gameObject.SetActive(true);
+    }
+
     public void DisplayResetMessage(){
         messageText.SetText("Press " + Controls.ResetPlayer.ToString() + " to Reset");
         messageText.transform.parent.gameObject.SetActive(true);
