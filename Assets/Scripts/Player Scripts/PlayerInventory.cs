@@ -44,9 +44,13 @@ public class PlayerInventory : MonoBehaviour
                     playerHoldObject.HoldCurrentObject();
                 }
             }
-/*             else if(Input.GetKeyDown(KeyCode.Alpha3)){
-                currHoldingObjIndex = 2;
-            } */
+            else if(Input.GetKeyDown(KeyCode.Alpha3)){  //third object in the inventory
+                if(playerHoldObject.CurrHoldingObject == null){
+                    playerHoldObject.CurrHoldingObject = inventory[2];
+                    inventory[2] = null;    //not in the inventory anymore
+                    playerHoldObject.HoldCurrentObject();
+                }
+            }
 
 /*             if(Input.GetKeyDown(KeyCode.E)){    //use the object
                 if(currHoldingObj != null){
@@ -70,6 +74,15 @@ public class PlayerInventory : MonoBehaviour
             }
         }
         return i;
+    }
+
+    public bool HasObjectOfTag(string tag){
+        foreach(GameObject obj in inventory){
+            if(obj != null && obj.tag == tag){
+                return true;
+            }
+        }
+        return false;
     }
 
     public bool CanAddMore(){
@@ -116,6 +129,11 @@ public class PlayerInventory : MonoBehaviour
                 playerSword.enabled = true;
                 playerSword.SwitchOffLight();
 
+            }
+            else if(gameObject.tag == "EnemyMask"){
+                gameObject.transform.localPosition = new UnityEngine.Vector3(0, 0, 0);
+                gameObject.transform.localRotation = UnityEngine.Quaternion.Euler(0, 90, 0);
+                gameObject.GetComponent<SphereCollider>().enabled = false;
             }
 
         }
