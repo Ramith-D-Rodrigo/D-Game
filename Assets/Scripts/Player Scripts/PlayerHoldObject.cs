@@ -76,6 +76,10 @@ public class PlayerHoldObject : MonoBehaviour
                 case "Sword":
                     HoldSword();
                     break;
+
+                case "EnemyMask":
+                    HoldEnemyMask();
+                    break;
             }      
         }
     }
@@ -101,6 +105,12 @@ public class PlayerHoldObject : MonoBehaviour
         currHoldingObject.transform.SetParent(swordPlaceHolder.transform);
         currHoldingObject.transform.localPosition = new UnityEngine.Vector3(0, 0, 0);
         currHoldingObject.transform.localRotation = UnityEngine.Quaternion.Euler(0, 0, 0);
+    }
+
+    private void HoldEnemyMask(){
+        currHoldingObject.transform.localRotation = UnityEngine.Quaternion.Euler(0, 0, 0);
+        currHoldingObject.transform.SetParent(leftArm.transform);
+        currHoldingObject.transform.localPosition = new UnityEngine.Vector3(-0.5f, -0.6f, 0.1f);
     }
 
     public void DropObject(){
