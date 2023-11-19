@@ -54,7 +54,9 @@
      <Compile Include="Assets\Scripts\Enemy Scripts\FollowPlayer.cs" />
      <Compile Include="Assets\Scripts\Obstacles Scripts\Level 2 Obstacles\SpikyWoodenLogsInstantiator.cs" />
      <Compile Include="Assets\Scripts\Player Scripts\PlayerPickable.cs" />
+     <Compile Include="Assets\Scripts\Environment Scripts\Level 2 Scripts\LightingPreset.cs" />
      <Compile Include="Assets\Scripts\Obstacles Scripts\SlidingUpWallBox.cs" />
+     <Compile Include="Assets\Scripts\Environment Scripts\Level 2 Scripts\LightingManager.cs" />
      <Compile Include="Assets\Scripts\Enemy Scripts\EnemyMover.cs" />
      <Compile Include="Assets\Scripts\Obstacles Scripts\RotatingWall.cs" />
      <Compile Include="Assets\Scripts\Obstacles Scripts\Level 2 Obstacles\SpikyWoodenLogs.cs" />
