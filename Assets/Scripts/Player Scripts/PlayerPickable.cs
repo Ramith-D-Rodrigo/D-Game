@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -73,6 +74,7 @@ public class PlayerPickable : MonoBehaviour
         Rigidbody rigidbody = pickableObj.GetComponent<Rigidbody>();
         //if doesnt have a rigidbody, can put in inventory
         if(rigidbody == null){
+            ProcessPickableSettings();  //process the settings of the pickable object (changing colliders, enabling/disabling scripts)
             if(playerInventoryComponent.CanAddMore()){
                 AddObjectToInventory();
             }
@@ -94,6 +96,30 @@ public class PlayerPickable : MonoBehaviour
         }
     }
 
+    private void ProcessPickableSettings(){
+        pickableObj.transform.SetParent(null);
+        switch(pickableObj.tag){
+            case "EnemyMask":
+                EnemyMaskSettings(pickableObj);
+                break;
+
+            case "Sword":
+                SwordSettings(pickableObj);
+                break;
+
+            case "Compass":
+                CompassSettings(pickableObj);
+                break;
+
+            case "Hammer":
+                HammerSettings(pickableObj);
+                break;
+
+            case "WallBrick":
+                break;
+        }
+    }
+
     private void AddObjectToInventory(){
         playerInventoryComponent.InsertToInventory(pickableObj);
         pickableObj = null;
@@ -109,6 +135,41 @@ public class PlayerPickable : MonoBehaviour
             hud.HideMessage();
             playerHoldObjectComponent.HoldCurrentObject();
         }    
+    }
+
+    
+    private void EnemyMaskSettings(GameObject gameObject)
+    {
+        //change to default layer
+        gameObject.layer = 0;
+        gameObject.GetComponent<SphereCollider>().enabled = false;
+    }
+
+    private void SwordSettings(GameObject gameObject)
+    {
+        gameObject.GetComponent<SphereCollider>().enabled = false;
+
+        GameObject swordMesh = gameObject.transform.GetChild(0).gameObject; //1st child is the sword mesh
+        swordMesh.GetComponent<BoxCollider>().enabled = true; //longer one
+        swordMesh.transform.GetChild(0).GetComponent<BoxCollider>().enabled = true;   //short horizontal one
+
+        PlayerSword playerSword = swordMesh.GetComponent<PlayerSword>();
+        playerSword.enabled = true;
+        playerSword.SwitchOffLight();
+    }
+
+    private void CompassSettings(GameObject gameObject)
+    {
+        gameObject.GetComponent<SphereCollider>().enabled = false;
+        Compass compass = gameObject.GetComponent<Compass>();
+        compass.SwitchOffCanvas();
+        compass.SwitchOffLight();
+    }
+
+    private void HammerSettings(GameObject gameObject){
+        //remove the sphere collider and give the mesh collider
+        gameObject.GetComponent<SphereCollider>().enabled = false;
+        gameObject.GetComponent<MeshCollider>().enabled = true;
     }
 
 }

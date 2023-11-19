@@ -102,38 +102,25 @@ public class PlayerInventory : MonoBehaviour
             gameObject.transform.parent = inventoryGameObject.transform;
             gameObject.transform.localPosition = new UnityEngine.Vector3(0, 0, 0);
 
-            if(gameObject.tag == "Hammer"){
+            if(gameObject.tag == "Hammer")
+            {
                 //0.17 , 0 , 0 center 
                 gameObject.transform.localRotation = UnityEngine.Quaternion.Euler(180, 90, inventoryObjRotation * inventoryIndex);
-                //remove the sphere collider and give the mesh collider
-                gameObject.GetComponent<SphereCollider>().enabled = false;
-                gameObject.GetComponent<MeshCollider>().enabled = true;
             }
-            else if(gameObject.tag == "Compass"){
+            else if(gameObject.tag == "Compass")
+            {
                 gameObject.transform.localRotation = UnityEngine.Quaternion.Euler(0, 0, -90);
-                gameObject.GetComponent<SphereCollider>().enabled = false;
-                Compass compass = gameObject.GetComponent<Compass>();
-                compass.SwitchOffCanvas();
-                compass.SwitchOffLight();
             }
-            else if(gameObject.tag == "Sword"){
+            else if(gameObject.tag == "Sword")
+            {
                 gameObject.transform.localPosition = new UnityEngine.Vector3(0.03f, 0.41f, 0);
                 gameObject.transform.localRotation = UnityEngine.Quaternion.Euler(0, 90, 180);
-                gameObject.GetComponent<SphereCollider>().enabled = false;
-
-                GameObject swordMesh = gameObject.transform.GetChild(0).gameObject; //1st child is the sword mesh
-                swordMesh.GetComponent<BoxCollider>().enabled = true; //longer one
-                swordMesh.transform.GetChild(0).GetComponent<BoxCollider>().enabled = true;   //short horizontal one
-
-                PlayerSword playerSword = swordMesh.GetComponent<PlayerSword>();
-                playerSword.enabled = true;
-                playerSword.SwitchOffLight();
 
             }
-            else if(gameObject.tag == "EnemyMask"){
+            else if(gameObject.tag == "EnemyMask")
+            {
                 gameObject.transform.localPosition = new UnityEngine.Vector3(0, 0, 0);
                 gameObject.transform.localRotation = UnityEngine.Quaternion.Euler(0, 90, 0);
-                gameObject.GetComponent<SphereCollider>().enabled = false;
             }
 
         }

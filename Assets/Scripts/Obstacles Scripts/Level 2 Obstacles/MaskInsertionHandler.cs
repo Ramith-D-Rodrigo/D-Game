@@ -133,7 +133,7 @@ public class MaskInsertionHandler : MonoBehaviour
     }
 
     private IEnumerator ChangeToBlue(Renderer renderer){
-        for(int i = 0; i <= 200; i++){
+        for(int i = 0; i <= 200; i+=2){
             Color tempColor = renderer.material.color;
             Color newColor = new Color(tempColor.r, tempColor.g, i/255.0f, tempColor.a);
             renderer.material.color = newColor;
@@ -142,7 +142,7 @@ public class MaskInsertionHandler : MonoBehaviour
     }
 
     private IEnumerator ChangeBackFromBlue(Renderer renderer){
-        for(int i = 200; i >= 0; i--){
+        for(int i = 200; i >= 0; i-=2){
             Color tempColor = renderer.material.color;
             Color newColor = new Color(tempColor.r, tempColor.g, i/255.0f, tempColor.a);
             renderer.material.color = newColor;

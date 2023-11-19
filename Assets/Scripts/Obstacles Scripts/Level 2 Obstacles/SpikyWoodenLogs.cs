@@ -61,19 +61,16 @@ public class SpikyWoodenLogs : MonoBehaviour
             return;
         }
 
-        //get the current position of the movable object in the x axis 
-        float currXPos = movableObjects[0].position.x;
+        float xDistance = movableObjects[0].transform.localPosition.x; //since local position is distance from the parent
 
-        //get the distance between the current position and the starting position
-        float distance = this.transform.position.x - currXPos;
+        Debug.Log("xDistance: " + xDistance);
 
+        MoveTheWoodenLogs();
 
-        if(distance < 0.0f){ //if the movable object has reached the end
-            moveSpeed = 0.0f;   //stop moving
+        if(xDistance > 0.0f){ //if the movable object has reached the end
             canMove = false;
         }
         
-        MoveTheWoodenLogs();
     }
 
     public void InsertMask(GameObject maskPrefab, int maskIndex, Material defaultMaterial){
