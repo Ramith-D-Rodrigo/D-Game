@@ -177,4 +177,9 @@ public class LevelManager : MonoBehaviour
         }
         SceneManager.LoadScene(currLevelIndex);
     }
+
+    public Vector3 GetDestination(){
+        return levelReachCheck[currLevelIndex];
+    }
+
 }
