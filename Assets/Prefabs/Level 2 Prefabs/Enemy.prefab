@@ -17,7 +17,7 @@ GameObject:
   m_TagString: EnemyArm
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 1
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &2350524673958127107
 Transform:
@@ -63,7 +63,6 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: dbfc0d4b28c32064f98b1e68add5f361, type: 2}
-  - {fileID: 2100000, guid: 272fb95b8207e8e4faa9f222ed2e846a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -596,7 +595,7 @@ GameObject:
   m_TagString: EnemyArm
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 1
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &8426374760781385980
 Transform:
@@ -642,7 +641,6 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: dbfc0d4b28c32064f98b1e68add5f361, type: 2}
-  - {fileID: 2100000, guid: 272fb95b8207e8e4faa9f222ed2e846a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -810,7 +808,7 @@ GameObject:
   m_TagString: EnemyLeg
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 1
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &7702610901386024530
 Transform:
@@ -856,7 +854,6 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: dbfc0d4b28c32064f98b1e68add5f361, type: 2}
-  - {fileID: 2100000, guid: 272fb95b8207e8e4faa9f222ed2e846a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1169,7 +1166,7 @@ GameObject:
   m_TagString: EnemyHead
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 1
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &6968845001596053142
 Transform:
@@ -1217,7 +1214,6 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: dbfc0d4b28c32064f98b1e68add5f361, type: 2}
-  - {fileID: 2100000, guid: 272fb95b8207e8e4faa9f222ed2e846a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1576,7 +1572,7 @@ GameObject:
   m_TagString: EnemyLeg
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 1
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &806395668354729693
 Transform:
@@ -1622,7 +1618,6 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: dbfc0d4b28c32064f98b1e68add5f361, type: 2}
-  - {fileID: 2100000, guid: 272fb95b8207e8e4faa9f222ed2e846a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

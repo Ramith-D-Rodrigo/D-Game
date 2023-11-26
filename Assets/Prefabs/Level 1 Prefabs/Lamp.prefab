@@ -34,7 +34,7 @@ Transform:
   - {fileID: 4562910443794106979}
   - {fileID: 9064900058565926580}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1578790545232166617
 GameObject:
@@ -81,7 +81,7 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 0.8301887, g: 0.35086343, b: 0, a: 1}
+  m_Color: {r: 1, g: 0.6079833, b: 0, a: 1}
   m_Intensity: 1.5
   m_Range: 45
   m_SpotAngle: 30
@@ -121,7 +121,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 1
+  m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
