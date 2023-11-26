@@ -111,8 +111,9 @@ public class EnemyCollision : MonoBehaviour
             GameObject bodyPart = enemyBodyParts[i];
             Renderer rend = bodyPart.GetComponent<Renderer>();
             
-            Color currColor = rend.materials[1].color;
-            rend.materials[1].color = new Color(currColor.r, currColor.g, currColor.b, Mapper.Map(maxHitPoints - hitPoints, minHitPoints, maxHitPoints, 0, 255) / 255);
+            float newColValue = Mapper.Map(hitPoints, minHitPoints, maxHitPoints, 0, 255) / 255;
+            Color tempColor = new Color(rend.materials[0].color.r, newColValue, newColValue);
+            rend.materials[0].color = tempColor;
         }
     }
 

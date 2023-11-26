@@ -240,8 +240,9 @@ public class PlayerCollision : MonoBehaviour
         for(int i = 0; i < playerBodyParts.Length; i++){
             MeshRenderer mr = playerBodyParts[i].GetComponent<MeshRenderer>();
 
-            Color tempCol = mr.materials[1].color;
-            mr.materials[1].color = new Color(tempCol.r, tempCol.g, tempCol.b, Mapper.Map(100 - playerHealth, 0, 100, 0, 255)/255);
+            float newColValue = Mapper.Map(playerHealth, 0, 100, 0, 255) / 255;
+            Color tempColor = new Color(mr.materials[0].color.r, newColValue, newColValue);
+            mr.materials[0].color = tempColor;
         }
     }
 
