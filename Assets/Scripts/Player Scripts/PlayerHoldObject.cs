@@ -45,10 +45,8 @@ public class PlayerHoldObject : MonoBehaviour
                 playerPickable.PickableObj = currHoldingObject;
                 playerPickable.ProcessPickUp();
             }
-            else{   //if there is no more space in the inventory
-                //drop the object
-                DropObject();
-            }
+            //if there is no more space in the inventory
+            //do nothing
         }
     }
 

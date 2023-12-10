@@ -8,7 +8,6 @@ public class EnemyInstantiator : MonoBehaviour
     [SerializeField] private GameObject[] maskPrefabs;
 
     //an hash map to check how much masks instantiated for a particular mask prefab
-    private Hashtable maskCount;
     private List<GameObject> enemiesWithMask;
 
     void Awake()
@@ -18,8 +17,6 @@ public class EnemyInstantiator : MonoBehaviour
 
         maskPrefabs = levelManager.EnemyMaskPrefabs;
 
-        InitializeTable();
-
         InsertMasksToEnemies();
     }
 
@@ -27,55 +24,49 @@ public class EnemyInstantiator : MonoBehaviour
     private void InsertMasksToEnemies()
     {
         int initialChildCount = this.transform.childCount;
+        Transform[] children = getDirectChildren();
 
-        enemiesWithMask = new List<GameObject>();
+        //shuffle the children for randomization
+        Shuffle(children);
 
-        for(int i = 0; i < maskPrefabs.Length; i++){
-            int randChildIndex;
+        int maskIndex = 0;
 
-            if(enemiesWithMask.Count == initialChildCount){ //if all the enemies have a mask
-                break;
-            }
+        for(int i = 0; i < children.Length; i++){
+            GameObject enemyChild = children[i].gameObject;
 
-            while((int) maskCount[i] <= Mathf.CeilToInt((float)initialChildCount / (float)maskPrefabs.Length)){
-                if(enemiesWithMask.Count == initialChildCount){ //if all the enemies have a mask
-                    break;
-                }
-                //the while loop checks if all the masks are equally distributed among the enemies (some masks may have higher count than others due to randomization)
-                randChildIndex = Random.Range(0, this.transform.childCount);
+            //find the mask placeholder in the enemy
+            Transform maskPlaceHolder = enemyChild.GetComponent<EnemyCollision>().EnemyMaskPlaceholder.transform;
 
-                GameObject enemyChild = this.transform.GetChild(randChildIndex).gameObject;
+            GameObject mask = Instantiate(maskPrefabs[maskIndex], maskPlaceHolder.position, maskPlaceHolder.rotation, maskPlaceHolder);
 
-                //find the mask placeholder in the enemy
-                Transform maskPlaceHolder = enemyChild.GetComponent<EnemyCollision>().EnemyMaskPlaceholder.transform;
+            EnemyMask enemyMask = maskPlaceHolder.gameObject.AddComponent<EnemyMask>(); //add the enemy mask script to the mask placeholder (to identify the mask prefab)
+            DroppingObject droppingObj = maskPlaceHolder.gameObject.AddComponent<DroppingObject>(); //add the dropping object script to the mask placeholder (to drop the mask when player drops it)
+            droppingObj.enabled = false;   //disable the dropping object script
 
-                GameObject mask = Instantiate(maskPrefabs[i], maskPlaceHolder.position, maskPlaceHolder.rotation, maskPlaceHolder);
+            enemyMask.MaskIndex = maskIndex;    //to identify the mask prefab
 
-                EnemyMask enemyMask = maskPlaceHolder.gameObject.AddComponent<EnemyMask>(); //add the enemy mask script to the mask placeholder (to identify the mask prefab)
-                DroppingObject droppingObj = maskPlaceHolder.gameObject.AddComponent<DroppingObject>(); //add the dropping object script to the mask placeholder (to drop the mask when player drops it)
-                droppingObj.enabled = false;   //disable the dropping object script
-
-                enemyMask.MaskIndex = i;    //to identify the mask prefab
-
-                maskCount[i] = (int)maskCount[i] + 1;
-
-                enemiesWithMask.Add(enemyChild);
-
-                //remove the child from parent
-                enemyChild.transform.SetParent(null);
-            }
-        }
-
-        //re add the enemies to the parent
-        foreach(GameObject enemy in enemiesWithMask){
-            enemy.transform.SetParent(this.transform);
+            maskIndex = (maskIndex + 1) % maskPrefabs.Length;
         }
     }
-    private void InitializeTable(){
-        maskCount = new Hashtable();
+    private void Shuffle(Transform[] children)
+    {
+        for(int i = 0; i < children.Length; i++){
+            int randIndex = UnityEngine.Random.Range(0, children.Length);
 
-        for(int i = 0; i < maskPrefabs.Length; i++){
-            maskCount.Add(i, 0);
+            Transform temp = children[randIndex];
+            children[randIndex] = children[i];
+            children[i] = temp;
         }
+    }
+
+    private Transform[] getDirectChildren()
+    {
+        Transform[] children = new Transform[this.transform.childCount];
+
+        for(int i = 0; i < this.transform.childCount; i++){
+            children[i] = this.transform.GetChild(i);
+        }
+
+        return children;
     }
 }
