@@ -4997,7 +4997,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4472700665980044955, guid: d4f0e7665cf50b340bbbbf7001c29e34, type: 3}
       propertyPath: hintMessages.Array.size
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4472700665980044955, guid: d4f0e7665cf50b340bbbbf7001c29e34, type: 3}
       propertyPath: hintMessages.Array.data[2]
@@ -5018,6 +5018,10 @@ PrefabInstance:
     - target: {fileID: 4472700665980044955, guid: d4f0e7665cf50b340bbbbf7001c29e34, type: 3}
       propertyPath: hintMessages.Array.data[6]
       value: Enemies Cannot See Their Behind
+      objectReference: {fileID: 0}
+    - target: {fileID: 4472700665980044955, guid: d4f0e7665cf50b340bbbbf7001c29e34, type: 3}
+      propertyPath: hintMessages.Array.data[7]
+      value: Matching Enemy Masks Will Open the Blocked Paths
       objectReference: {fileID: 0}
     - target: {fileID: 9034679932372725721, guid: d4f0e7665cf50b340bbbbf7001c29e34, type: 3}
       propertyPath: m_Name
@@ -9995,7 +9999,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6834013433443233579, guid: 35ce05bf2d35d1a489dbee8fd299335d, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

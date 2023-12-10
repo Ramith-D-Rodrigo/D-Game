@@ -41,8 +41,14 @@ public class PlayerHoldObject : MonoBehaviour
         }
 
         if(Input.GetKeyDown(Controls.PickUpObj) && currHoldingObject != null && !playerUseObject.GetIsUsingObject()){    //putting back to inventory check
-            playerPickable.PickableObj = currHoldingObject;
-            playerPickable.ProcessPickUp();
+            if(playerInventory.CanAddMore()){   //if there is still space in the inventory
+                playerPickable.PickableObj = currHoldingObject;
+                playerPickable.ProcessPickUp();
+            }
+            else{   //if there is no more space in the inventory
+                //drop the object
+                DropObject();
+            }
         }
     }
 
